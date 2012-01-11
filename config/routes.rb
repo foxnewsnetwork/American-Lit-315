@@ -1,13 +1,9 @@
 Adserver::Application.routes.draw do
-  get "pages/home"
-
-  get "pages/index"
-
-  get "pages/misc"
-
-  get "pages/about"
-
-  get "pages/contact"
+  
+  match "/index", :to => "pages#index"
+  match "/misc", :to => "pages#misc"
+  match "/about", :to => "pages#about"
+  match "/contact", :to => "pages#contact"
 
   resources :coupons
 
