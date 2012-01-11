@@ -26,4 +26,15 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  
+  # Relational stuff
+  has_many :coupon_stats
+  has_many :coupons, :through => :coupon_stats
+  
+  has_many :ad_stats
+  has_many :ads, :through => :ad_stats
+  
+  has_many :game_stats
+  has_many :games, :through => :game_stats
+  
 end

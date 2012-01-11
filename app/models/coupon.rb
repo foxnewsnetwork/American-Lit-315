@@ -9,4 +9,8 @@
 #
 
 class Coupon < ActiveRecord::Base
+	belongs_to :company
+	
+	has_many :coupon_stats
+	has_many :users, :through => :coupon_stats
 end

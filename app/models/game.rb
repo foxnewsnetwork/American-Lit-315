@@ -9,4 +9,8 @@
 #
 
 class Game < ActiveRecord::Base
+	belongs_to :publisher
+	
+	has_many :game_stats
+	has_many :users, :through => :game_stats
 end

@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111165002) do
+ActiveRecord::Schema.define(:version => 20120111184721) do
+
+  create_table "ad_stats", :force => true do |t|
+    t.integer  "ad_id"
+    t.integer  "user_id"
+    t.integer  "views"
+    t.integer  "clicks"
+    t.integer  "closes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ad_stats", ["ad_id", "user_id"], :name => "index_ad_stats_on_ad_id_and_user_id", :unique => true
+  add_index "ad_stats", ["ad_id"], :name => "index_ad_stats_on_ad_id"
+  add_index "ad_stats", ["user_id"], :name => "index_ad_stats_on_user_id"
 
   create_table "ads", :force => true do |t|
     t.integer  "company_id"
@@ -41,6 +55,18 @@ ActiveRecord::Schema.define(:version => 20120111165002) do
   add_index "companies", ["name"], :name => "index_companies_on_name", :unique => true
   add_index "companies", ["reset_password_token"], :name => "index_companies_on_reset_password_token", :unique => true
 
+  create_table "coupon_stats", :force => true do |t|
+    t.integer  "coupon_id"
+    t.integer  "user_id"
+    t.integer  "interactions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coupon_stats", ["coupon_id", "user_id"], :name => "index_coupon_stats_on_coupon_id_and_user_id", :unique => true
+  add_index "coupon_stats", ["coupon_id"], :name => "index_coupon_stats_on_coupon_id"
+  add_index "coupon_stats", ["user_id"], :name => "index_coupon_stats_on_user_id"
+
   create_table "coupons", :force => true do |t|
     t.integer  "company_id"
     t.datetime "created_at"
@@ -48,6 +74,19 @@ ActiveRecord::Schema.define(:version => 20120111165002) do
   end
 
   add_index "coupons", ["company_id"], :name => "index_coupons_on_company_id"
+
+  create_table "game_stats", :force => true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.integer  "plays"
+    t.decimal  "duration_average", :precision => 10, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "game_stats", ["game_id", "user_id"], :name => "index_game_stats_on_game_id_and_user_id", :unique => true
+  add_index "game_stats", ["game_id"], :name => "index_game_stats_on_game_id"
+  add_index "game_stats", ["user_id"], :name => "index_game_stats_on_user_id"
 
   create_table "games", :force => true do |t|
     t.integer  "publisher_id"

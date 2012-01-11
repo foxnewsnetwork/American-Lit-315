@@ -9,4 +9,9 @@
 #
 
 class Ad < ActiveRecord::Base
+	# relationships
+	belongs_to :company
+	
+	has_many :ad_stats
+	has_many :users, :through => :ad_stats
 end
