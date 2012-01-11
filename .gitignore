@@ -1,4 +1,16 @@
 .bundle
 db/*.sqlite3
+db/fbseed.rb
+
+db/sphinx/
+db/sphinx/development/
 log/*.log
+log/*.pid
+*.log
 tmp/
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea

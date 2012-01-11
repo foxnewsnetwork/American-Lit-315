@@ -2,6 +2,28 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.11'
 
+gem 'gravatar_image_tag', '~>1.0.0'
+gem 'will_paginate' , "~> 3.0.0"
+gem "thinking-sphinx", "~>2.0.4"
+gem "flying-sphinx" , "~>0.6.0"
+gem "jquery-rails", "~> 1.0.19"
+gem 'devise'
+# gem "activerecord-import", "~> 0.2.8"
+
+group :development do
+  gem 'rspec-rails', '2.0.1'
+  gem 'faker','~>1.0.0'
+  gem 'nifty-generators'
+  gem 'annotate', '2.4.0'
+end
+
+group :test do
+  gem 'rspec', '2.0.1'
+  gem 'webrat', '0.7.1'
+  gem 'factory_girl', '~>2.1.0'
+end
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
