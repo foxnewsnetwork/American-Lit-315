@@ -1,0 +1,13 @@
+<% if @purpose == "xml" %>
+	<company>
+		<id><%= @company.id %></id>
+		<name><%= @company.name %></name>
+	</company>
+	<ad>
+		<id><%= @ad.id %></id>
+	</ad>
+<% else %>
+	<h2><%= @company.name %></h2>
+	<h3><%= @ad.id %></h3>
+	<!-- Put other stuff in here -->
+<% end %>
