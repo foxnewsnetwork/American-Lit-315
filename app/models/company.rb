@@ -30,4 +30,5 @@ class Company < ActiveRecord::Base
   # Relational stuff
   has_many :ads
   has_many :coupons
+  has_many :products
 end

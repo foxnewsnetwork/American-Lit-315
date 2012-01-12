@@ -5,17 +5,17 @@ Adserver::Application.routes.draw do
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
 
-  resources :coupons
-
-  resources :games
-
-  resources :ads
-
   devise_for :publishers
-	resources :publishers, :only => [:new, :show, :index]
+	resources :publishers, :only => [:new, :show, :index] do
+		resources :games
+	end
 
   devise_for :companies
-  resources :coupanies, :only => [:new, :show, :index]
+  resources :coupanies, :only => [:new, :show, :index] do
+  	resources :products
+  	resources :coupons
+  	resources :ads
+  end
 
   devise_for :users
   resources :users, :only => [:new, :show, :index]

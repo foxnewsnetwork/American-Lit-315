@@ -96,6 +96,15 @@ ActiveRecord::Schema.define(:version => 20120112165443) do
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
 
+  create_table "products", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "ext_product_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "publishers", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
