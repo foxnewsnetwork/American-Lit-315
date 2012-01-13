@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112165443) do
+ActiveRecord::Schema.define(:version => 20120112224508) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120112165443) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "ads", ["company_id"], :name => "index_ads_on_company_id"
 
   create_table "companies", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -104,6 +106,12 @@ ActiveRecord::Schema.define(:version => 20120112165443) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "products", ["company_id", "ext_product_id"], :name => "index_products_on_company_id_and_ext_product_id", :unique => true
+  add_index "products", ["company_id", "name"], :name => "index_products_on_company_id_and_name"
+  add_index "products", ["company_id"], :name => "index_products_on_company_id"
+  add_index "products", ["ext_product_id"], :name => "index_products_on_ext_product_id"
+  add_index "products", ["name"], :name => "index_products_on_name"
 
   create_table "publishers", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

@@ -12,4 +12,7 @@
 
 class Ad < ActiveRecord::Base
 	belongs_to :company
+	
+	has_many :ad_stats
+	has_many :users, :through => :ad_stats
 end
