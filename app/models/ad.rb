@@ -26,4 +26,5 @@ class Ad < ActiveRecord::Base
 	
 	has_many :ad_stats
 	has_many :users, :through => :ad_stats
+        has_many :pics
 end

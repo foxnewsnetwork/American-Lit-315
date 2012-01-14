@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120114011117) do
+ActiveRecord::Schema.define(:version => 20120114221433) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(:version => 20120114011117) do
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
+
+  create_table "pics", :force => true do |t|
+    t.integer  "ad_id"
+    t.text     "content"
+    t.text     "meta_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.integer  "product"
+  end
 
   create_table "products", :force => true do |t|
     t.integer  "company_id"

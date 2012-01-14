@@ -15,8 +15,8 @@ development:
   database: adserver_development
   pool: 5
   username: root
-  password: 
-  socket: /var/run/mysqld/mysqld.sock
+  password: bitnami
+  socket: /opt/bitnami/mysql/tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: tmp_test
+  database: adserver_test
   pool: 5
   username: root
   password: bitnami
@@ -35,7 +35,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: tmp_production
+  database: adserver_production
   pool: 5
   username: root
   password: bitnami
