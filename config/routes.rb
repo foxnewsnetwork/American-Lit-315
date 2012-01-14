@@ -11,7 +11,7 @@ Adserver::Application.routes.draw do
 	end
 
   devise_for :companies
-  resources :coupanies, :only => [:new, :show, :index] do
+  resources :companies, :only => [:new, :show, :index] do
   	resources :products
   	resources :coupons
   	resources :ads

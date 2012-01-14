@@ -15,22 +15,19 @@
 			<li class="active"><%= link_to "My Dashboard", current_user %><li>
 			<li class="active"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Sign in", new_user_session_path %></li>
-			<li class="active"><%= link_to "Sign up", new_user_registration_path %></li>
+			<li class="active"><%= link_to "Gamers", users_path %></li>
 		<% end %>
 		<% if company_signed_in? %>
 			<li class="active"><%= link_to "My Dashboard", current_company %><li>
 			<li class="active"><%= link_to "Logout", destroy_company_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Sign in", new_company_session_path %></li>
-			<li class="active"><%= link_to "Sign up", new_company_registration_path %></li>
+			<li class="active"><%= link_to "Corporate Partners", companies_path %></li>
 		<% end %>
 		<% if publisher_signed_in? %>
 			<li class="active"><%= link_to "My Dashboard", current_publisher %><li>
 			<li class="active"><%= link_to "Logout", destroy_publisher_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Sign in", new_publisher_session_path %></li>
-			<li class="active"><%= link_to "Sign up", new_publisher_registration_path %></li>
+			<li class="active"><%= link_to "Game Publisher", publishers_path %></li>
 		<% end %>
 	</ul>
     </div>
