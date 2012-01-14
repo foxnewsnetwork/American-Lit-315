@@ -1,2 +1,22 @@
-<h1>Companies#show</h1>
-<p>Find me in app/views/companies/show.html.erb</p>
+<!-- Company show page -->
+<ul>
+	<li><%= company.name %></li>
+</ul>
+<div class="ads-previews">
+	<%= render "ads/previews", :ads => @ads %>
+	<% if @correct_company %>
+		<%= link_to "New ad", new_ad_path %>
+	<% end %>
+</div>
+<div class="coupons-previews">
+	<%= render "coupons/previews", :coupons => @coupons %>
+	<% if @correct_company %>
+		<%= link_to "New coupon", new_coupon_path %>
+	<% end %>
+</div>
+<div class="products-previews">
+	<%= render "products/previews", :products => @products %>
+	<% if @correct_company %>
+		<%= link_to "New product", new_product_path %>
+	<% end %>
+</div>

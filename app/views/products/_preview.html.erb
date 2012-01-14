@@ -1,0 +1,12 @@
+<!-- Show basic product preview -->
+<tr id="product-id-<%= product.id %>">
+	<td class="product-table">
+		<span class="name"><%= link_to product.name, product %></span>
+		<span class="timestamp"><%= time_ago_in_words product.created_at %></span>
+		<% if @correct_company %>
+		<span class="delete"><%= link_to "delete", product, :method => :delete %></span>
+		<% end %>
+	</td>
+</tr>
+
+

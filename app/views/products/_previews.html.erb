@@ -1,0 +1,9 @@
+<!-- products preview page -->
+<%= will_paginate products %>
+<% products.each do |product| %>
+	<div class="product-preview">
+		<table class="product-table">
+			<% render "products/preview", :product => product %>
+		</table>
+	</div>
+<% end %>

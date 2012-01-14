@@ -1,0 +1,9 @@
+<!-- coupon preview page -->
+<%= will_paginate coupons %>
+<% coupons.each do |coupon| %>
+	<div class="coupon-preview">
+		<table class="coupon-table">
+			<% render "coupons/preview", :coupon => coupon %>
+		</table>
+	</div>
+<% end %>
