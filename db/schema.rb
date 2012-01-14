@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112224508) do
+ActiveRecord::Schema.define(:version => 20120114011117) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20120112224508) do
     t.integer  "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "cost_per_impression", :precision => 10, :scale => 0
+    t.decimal  "cost_per_click",      :precision => 10, :scale => 0
+    t.decimal  "cost_per_purchase",   :precision => 10, :scale => 0
+    t.integer  "love_hate"
+    t.integer  "relief_fear"
+    t.integer  "excite_bore"
+    t.integer  "happy_sad"
+    t.integer  "funny_serious"
+    t.integer  "sexy_disgust"
   end
 
   add_index "ads", ["company_id"], :name => "index_ads_on_company_id"
@@ -73,8 +84,15 @@ ActiveRecord::Schema.define(:version => 20120112224508) do
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "cost_per_redeem", :precision => 10, :scale => 0
+    t.integer  "limit"
+    t.integer  "redeemed"
+    t.integer  "ext_coupon_id"
   end
 
+  add_index "coupons", ["company_id", "ext_coupon_id"], :name => "index_coupons_on_company_id_and_ext_coupon_id", :unique => true
   add_index "coupons", ["company_id"], :name => "index_coupons_on_company_id"
 
   create_table "game_stats", :force => true do |t|
