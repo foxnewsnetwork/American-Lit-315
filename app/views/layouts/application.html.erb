@@ -1,6 +1,8 @@
 <% if @purpose == "xml" %>
 	<?xml version="1.0" encoding="UTF-8" ?>
-	<%= yield %>
+	<root>
+		<%= yield %>
+	</root>
 <% else %>
 	<!DOCTYPE html>
 	<html>
