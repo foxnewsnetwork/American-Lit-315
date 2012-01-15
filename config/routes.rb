@@ -4,6 +4,7 @@ Adserver::Application.routes.draw do
   match "/pics/edit", :to => "pics#edit"
   match "/pics/show", :to => "pics#show"
   match "/pics/index", :to => "pics#index"
+  match "/pics/create", :to => "pics#create"
 
   match "/index", :to => "pages#index"
   match "/misc", :to => "pages#misc"
