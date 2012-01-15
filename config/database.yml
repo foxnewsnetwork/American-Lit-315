@@ -25,18 +25,18 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: tmp_test
+  database: adserver_test
   pool: 5
   username: root
-  password: bitnami
-  socket: /opt/bitnami/mysql/tmp/mysql.sock
+  password: 
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: tmp_production
+  database: adserver_production
   pool: 5
   username: root
-  password: bitnami
-  socket: /opt/bitnami/mysql/tmp/mysql.sock
+  password: 
+  socket: /var/run/mysqld/mysqld.sock

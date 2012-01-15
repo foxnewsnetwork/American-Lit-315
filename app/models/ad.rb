@@ -26,4 +26,6 @@ class Ad < ActiveRecord::Base
 	
 	has_many :ad_stats
 	has_many :users, :through => :ad_stats
+
+	has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100"}
 end

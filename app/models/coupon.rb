@@ -19,4 +19,8 @@ class Coupon < ActiveRecord::Base
 	
 	has_many :coupon_stats
 	has_many :users, :through => :coupon_stats
+
+
+	has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+
 end

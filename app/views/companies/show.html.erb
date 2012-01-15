@@ -1,22 +1,21 @@
 <!-- Company show page -->
-<ul>
-	<li><%= company.name %></li>
-</ul>
+<h1><%= current_company.name %></h1>
+
 <div class="ads-previews">
 	<%= render "ads/previews", :ads => @ads %>
 	<% if @correct_company %>
-		<%= link_to "New ad", new_ad_path %>
+		<%= link_to "New ad", company_ad_path(current_company, 'new') %>
 	<% end %>
 </div>
 <div class="coupons-previews">
 	<%= render "coupons/previews", :coupons => @coupons %>
 	<% if @correct_company %>
-		<%= link_to "New coupon", new_coupon_path %>
+		<%= link_to "New coupon", company_coupon_path(current_company, 'new') %>
 	<% end %>
 </div>
 <div class="products-previews">
 	<%= render "products/previews", :products => @products %>
 	<% if @correct_company %>
-		<%= link_to "New product", new_product_path %>
+		<%= link_to "New product", company_product_path(current_company, 'new') %>
 	<% end %>
 </div>
