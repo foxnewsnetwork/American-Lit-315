@@ -18,6 +18,6 @@
 class Pic < ActiveRecord::Base
 	belongs_to :company
 
-	has_attached_file :picture_link, :styles => {:medium => "100x100", :thumb=>"20x20"}
+	has_attached_file :picture_link, :styles => {:medium => "250x250", :thumb=>"50x50"}
 end
 

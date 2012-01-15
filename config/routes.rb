@@ -6,6 +6,14 @@ Adserver::Application.routes.draw do
   match "/pics/index", :to => "pics#index"
   match "/pics/create", :to => "pics#create"
 
+  match "/business/coupons/new", :to => "coupons#new"
+  match "/business/coupons/create", :to => "coupons#create"
+  match "/business/coupons/manage", :to => "coupons#manage"
+
+  match "/business/ads/new", :to => "ads#new"
+  match "/business/ads/create", :to => "ads#create"
+  match "/business/ads/manage", :to => "ads#manage"
+
   match "/index", :to => "pages#index"
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
