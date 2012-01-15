@@ -1,20 +1,4 @@
 Adserver::Application.routes.draw do
-  
-  match "/pics/new", :to => "pics#new"
-  match "/pics/edit", :to => "pics#edit"
-  match "/pics/show", :to => "pics#show"
-  match "/pics/index", :to => "pics#index"
-  match "/pics/create", :to => "pics#create"
-
-  match "/business/coupons/new", :to => "coupons#new"
-  match "/business/coupons/create", :to => "coupons#create"
-  match "/business/coupons/destroy", :to => "coupons#desroy"
-  match "/business/coupons/manage", :to => "coupons#manage"
-
-  match "/business/ads/new", :to => "ads#new"
-  match "/business/ads/create", :to => "ads#create"
-  match "/business/ads/manage", :to => "ads#manage"
-
   match "/index", :to => "pages#index"
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
@@ -35,7 +19,25 @@ Adserver::Application.routes.draw do
   devise_for :users
   resources :users, :only => [:new, :show, :index]
 
+  # Separated environment used for Dan Klein's TESTING
   resources :coupons
+  match "/pics/new", :to => "pics#new"
+  match "/pics/edit", :to => "pics#edit"
+  match "/pics/show", :to => "pics#show"
+  match "/pics/index", :to => "pics#index"
+  match "/pics/create", :to => "pics#create"
+
+  match "/business/coupons/new", :to => "coupons#new"
+  match "/business/coupons/create", :to => "coupons#create"
+  match "/business/coupons/destroy", :to => "coupons#desroy"
+  match "/business/coupons/manage", :to => "coupons#manage"
+
+  match "/business/ads/new", :to => "ads#new"
+  match "/business/ads/create", :to => "ads#create"
+  match "/business/ads/manage", :to => "ads#manage"
+
+  ##########################
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
