@@ -32,5 +32,15 @@ class CouponsController < ApplicationController
                 @coupons = Coupon.all
         end
 
+	def destroy
+		@coupon = Coupon.find(params[:id])
+  		@coupon.destroy
+ 
+		respond_to do |format|
+    			format.html { redirect_to '/business/coupons/manage' }
+    			format.json { head :ok }
+  		end
+	end
+
 	
 end

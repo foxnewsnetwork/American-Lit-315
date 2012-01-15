@@ -18,6 +18,10 @@
                 <td>
                 Meta Data
                 </td>
+                <td>
+                Manage
+                </td>
+        </tr>
         </tr>
         <% @coupons.each do |coupon| %>
         <tr>
@@ -41,7 +45,11 @@
         <td>
         <%= coupon.meta_data %>
         </td>
+        <td>
+	
+        <%= link_to "delete", @coupons, :method => :delete, :confirm => "You sure?", :title => "Delete #{coupon.name}" %>
+        </td>
+        </tr>
 
-        <tr>
         <% end %>
 </table>

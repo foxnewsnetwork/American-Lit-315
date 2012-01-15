@@ -8,6 +8,7 @@ Adserver::Application.routes.draw do
 
   match "/business/coupons/new", :to => "coupons#new"
   match "/business/coupons/create", :to => "coupons#create"
+  match "/business/coupons/destroy", :to => "coupons#desroy"
   match "/business/coupons/manage", :to => "coupons#manage"
 
   match "/business/ads/new", :to => "ads#new"
@@ -34,6 +35,7 @@ Adserver::Application.routes.draw do
   devise_for :users
   resources :users, :only => [:new, :show, :index]
 
+  resources :coupons
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
