@@ -1,0 +1,6 @@
+<% @pics.each do |pic| %>
+<%= image_tag pic.picture_link.url %>
+<%= image_tag pic.picture_link.url(:medium) %>
+<%= image_tag pic.picture_link.url(:thumb) %>
+<br>
+<% end %>

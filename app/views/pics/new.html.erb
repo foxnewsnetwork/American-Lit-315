@@ -1,0 +1,8 @@
+<h1>Upload Image</h1>
+<p>Find me in app/views/pics/new.html.erb</p>
+<%= form_for :pic, @pic, :html => { :multipart => true } do |form| %>
+  <%= form.file_field :picture_link %>
+  <br>
+  <%= form.submit "Submit" %>
+<% end %>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115052717) do
+ActiveRecord::Schema.define(:version => 20120115055118) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -126,6 +126,10 @@ ActiveRecord::Schema.define(:version => 20120115052717) do
     t.integer  "cost_per_redeem"
     t.integer  "limit"
     t.integer  "redeemed"
+    t.datetime "picture_link_updated_at"
+    t.integer  "picture_link_file_size"
+    t.string   "picture_link_content_type"
+    t.string   "picture_link_file_name"
   end
 
   create_table "products", :force => true do |t|
