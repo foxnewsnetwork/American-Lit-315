@@ -9,7 +9,12 @@ class CouponsController < ApplicationController
 		@company = @coupon.company
 	end
 
-
+	def api
+		offset = rand(Coupon.count)
+		rand_record = Coupon.first(:offset => offset)	
+		@output = rand_record.to_xml
+		render :layout => false	
+	end
 
         def new
                 @coupon = Coupon.new
@@ -20,7 +25,7 @@ class CouponsController < ApplicationController
 
 		if @coupon.save
 			flash[:success] = "Submit Success!"
-			redirect_to '/business/coupons/manage'
+			render 'index'
 		else 
 			render 'new'
 		end

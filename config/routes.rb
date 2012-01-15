@@ -4,6 +4,8 @@ Adserver::Application.routes.draw do
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
 
+  match "/api/coupon.xml", :to => "coupons#api"
+
   devise_for :publishers
 	resources :publishers, :only => [:new, :show, :index] do
 		resources :games
