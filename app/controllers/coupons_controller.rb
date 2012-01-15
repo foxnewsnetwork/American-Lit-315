@@ -28,7 +28,7 @@ class CouponsController < ApplicationController
 
         end
 
-        def manage
+        def index
                 @coupons = Coupon.all
         end
 
