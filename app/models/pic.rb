@@ -1,3 +1,3 @@
 class Pic < ActiveRecord::Base
-	belongs_to :ad
+	belongs_to :company
 end

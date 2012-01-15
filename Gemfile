@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.11'
+gem 'rake', '0.8.7'
 
 gem 'gravatar_image_tag', '~>1.0.0'
 gem 'will_paginate' , "~> 3.0.0"
@@ -8,6 +9,7 @@ gem "thinking-sphinx", "~>2.0.4"
 gem "flying-sphinx" , "~>0.6.0"
 gem "jquery-rails", "~> 1.0.19"
 gem 'devise'
+gem "paperclip", "~> 2.0"
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
