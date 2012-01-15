@@ -1,0 +1,8 @@
+<!-- should have the variable company -->
+<%= form_for company %>
+	<%= f.text_field :name, :placeholder => "Company Name" %>
+	<%= f.text_field :email, :placeholder => "Contact Email" %>
+	<%= f.password_field :password, :placeholder => "Password" %>
+	<%= f.password_field, :password_confirmation, :placeholder => "Password Confirmation" %>
+	<%= f.submit :submit %>
+<% end %>
