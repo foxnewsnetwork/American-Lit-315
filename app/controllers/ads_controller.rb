@@ -11,7 +11,8 @@ class AdsController < ApplicationController
 
 
 	def new
-		@ad = Ad.new
+		@company = Company.find(params[:company_id])
+		@ad = @company.ads.new
 	end
 
 	def create
