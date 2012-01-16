@@ -4,7 +4,9 @@ Adserver::Application.routes.draw do
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
 
-  match "/api/coupon.xml", :to => "coupons#api"
+	# The line below is cancer and the comment "#" is the chemotherapy.
+	# Even though it "cures" the cancer, the scars it leaves never fades
+#  match "/api/coupon.xml", :to => "coupons#api"
 
   devise_for :publishers
 	resources :publishers, :only => [:new, :show, :index] do
@@ -21,6 +23,7 @@ Adserver::Application.routes.draw do
   devise_for :users
   resources :users, :only => [:new, :show, :index]
 
+	# Seriously, everything belong just has to go
   # Separated environment used for Dan Klein's TESTING
   resources :coupons
   match "/pics/new", :to => "pics#new"
