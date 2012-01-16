@@ -2,10 +2,8 @@ class AdsController < ApplicationController
 	# GET 
 	def show
 		@purpose = params[:xml]
-		@ad = Ad.find(params[:ads][:id])
-		unless @coupon
-			flash[:error] = "ERROR CODE 0001: no such coupon exists"
-		end
+		@ad = Ad.find(params[:id])
+
 		@company = @ad.company
 	end
 
@@ -16,20 +14,29 @@ class AdsController < ApplicationController
 	end
 
 	def create
-		@ad = Ad.new(params[:ad])
-
-                if @ad.save
-                        flash[:success] = "Submit Success!"
-                        redirect_to '/business/ads/manage'
-                else
-                        render 'new'
-                end
-                
-
+		@company = Company.find( params[:company_id] )
+		@ad = @company.ads.new( params[:ads] )
+        if @ad.save
+            flash[:success] = "Submit Success!"
+            redirect_to [@company, @ad]
+        else
+            render 'new'
+        end
+	end
+	
+	# GET page for edit
+	def edit
+	
+	end
+	
+	# PUT for update
+	def update
+	
+	end
+	
+	# DELETE for killing
+	def destroy
 	
 	end
 
-	def manage
-		@ad = Ad.all
-	end
 end

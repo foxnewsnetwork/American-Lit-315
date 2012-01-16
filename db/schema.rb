@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115095459) do
+ActiveRecord::Schema.define(:version => 20120115220513) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -43,10 +44,10 @@ ActiveRecord::Schema.define(:version => 20120115095459) do
     t.integer  "happy_sad"
     t.integer  "funny_serious"
     t.integer  "sexy_disgust"
-    t.datetime "picture_updated_at"
-    t.integer  "picture_file_size"
-    t.string   "picture_content_type"
     t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
   end
 
@@ -94,10 +95,10 @@ ActiveRecord::Schema.define(:version => 20120115095459) do
     t.integer  "limit"
     t.integer  "redeemed"
     t.integer  "ext_coupon_id"
-    t.datetime "picture_updated_at"
-    t.integer  "picture_file_size"
-    t.string   "picture_content_type"
     t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
   end
 
@@ -136,10 +137,19 @@ ActiveRecord::Schema.define(:version => 20120115095459) do
     t.integer  "cost_per_redeem"
     t.integer  "limit"
     t.integer  "redeemed"
-    t.datetime "picture_link_updated_at"
-    t.integer  "picture_link_file_size"
-    t.string   "picture_link_content_type"
     t.string   "picture_link_file_name"
+    t.string   "picture_link_content_type"
+    t.integer  "picture_link_file_size"
+    t.datetime "picture_link_updated_at"
+  end
+
+  create_table "pictures", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "pic_file_name"
+    t.string   "pic_content_type"
+    t.integer  "pic_file_size"
+    t.datetime "pic_updated_at"
   end
 
   create_table "products", :force => true do |t|
@@ -149,10 +159,10 @@ ActiveRecord::Schema.define(:version => 20120115095459) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "picture_updated_at"
-    t.integer  "picture_file_size"
-    t.string   "picture_content_type"
     t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
   end
 
