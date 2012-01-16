@@ -1,10 +1,14 @@
 class AdsController < ApplicationController
 	# GET 
 	def show
-		@purpose = params[:xml]
 		@ad = Ad.find(params[:id])
 
 		@company = @ad.company
+		
+		respond_to do |format|
+			format.html
+			format.xml
+		end
 	end
 
 

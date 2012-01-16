@@ -1,10 +1,7 @@
 <!-- show page for ads -->
-<% if @purpose == "xml" %>
-	"<%= render "ads/xml" %>"
-<% else %>
-	<h2><%= @company.name %></h2>
-	<h3><%= @ad.id %></h3>
-	<%= image_tag @ad.picture.url %>
-	<!-- Put other stuff in here -->
-	<%= link_to "XML-view", company_ad_path( @ad ) + "?xml=xml"  %>
-<% end %>
+<h2><%= @company.name %></h2>
+<h3><%= @ad.id %></h3>
+<%= image_tag @ad.picture.url %>
+<!-- Put other stuff in here -->
+<%= link_to "XML-view", company_ad_path( @ad ) + "?xml=xml"  %>
+

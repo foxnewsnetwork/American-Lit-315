@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.11'
 gem 'rake', '0.9.2.2'
-# gem "builder", "~> 3.0.0"
+gem "builder"
 gem 'gravatar_image_tag', '~>1.0.0'
 gem 'will_paginate' , "~> 3.0.0"
 gem "thinking-sphinx", "~>2.0.4"

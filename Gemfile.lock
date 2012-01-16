@@ -143,6 +143,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (= 2.4.0)
+  builder
   devise
   factory_girl (~> 2.1.0)
   faker (~> 1.0.0)

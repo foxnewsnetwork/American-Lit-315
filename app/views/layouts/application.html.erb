@@ -1,26 +1,20 @@
-<% if @purpose == "xml" %>
-	<?xml version="1.0" encoding="UTF-8" ?>
-	<root>
-		<%= yield %>
-	</root>
-<% else %>
-	<!DOCTYPE html>
-	<html>
-	<head>
-	  <title>Gamertiser | Backend</title>
-	  <%= stylesheet_link_tag :all %>
-	  	<%= javascript_include_tag "jquery", "jquery.min" %>
-		<%= javascript_include_tag :all, :cache => true %>
-	  <%= csrf_meta_tag %>
-	</head>
-	<body>
-	<%= render "layouts/header" %>
-	<div class="container">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gamertiser | Backend</title>
+  <%= stylesheet_link_tag :all %>
+  	<%= javascript_include_tag "jquery", "jquery.min" %>
+	<%= javascript_include_tag :all, :cache => true %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<%= render "layouts/header" %>
+<div class="container">
 
-	<%= yield %>
-	<%= render "layouts/footer" %>
-	</div>
-	<%= debug(params) if Rails.env.development? %>
-	</body>
-	</html>
-<% end %>
+<%= yield %>
+<%= render "layouts/footer" %>
+</div>
+<%= debug(params) if Rails.env.development? %>
+</body>
+</html>
+
