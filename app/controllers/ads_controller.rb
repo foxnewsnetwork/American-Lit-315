@@ -19,8 +19,8 @@ class AdsController < ApplicationController
 
 	def create
 		@company = Company.find( params[:company_id] )
-		@ad = @company.ads.new( params[:ads] )
-        if @ad.save
+		@ad = @company.ads.create( params[:ad] )
+        if @ad.save!
             flash[:success] = "Submit Success!"
             redirect_to [@company, @ad]
         else
