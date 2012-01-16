@@ -36,5 +36,5 @@ class Ad < ActiveRecord::Base
 	
 	attr_accessible :company_id, :limit, :type, :name, :description, :cost_per_impression,
 		:cost_per_click, :cost_per_purchase, :love_hate, :relief_fear, :excite_bore,
-		:happy_sad, :funny_serious, :sexy_disgust, :meta_data
+		:happy_sad, :funny_serious, :sexy_disgust, :meta_data, :picture
 end

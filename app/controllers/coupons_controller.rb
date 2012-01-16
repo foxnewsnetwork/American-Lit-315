@@ -2,11 +2,12 @@ class CouponsController < ApplicationController
 	# GET 
 	def show
 		@purpose = params[:xml]
-		@coupon = Coupon.find(params[:coupons][:id])
+		@coupon = Coupon.find(params[:id])
+    @company = Company.find(params[:company_id])
+
 		unless @coupon
 			flash[:error] = "ERROR CODE 0001: no such coupon exists"
 		end
-		@company = @coupon.company
 	end
 
 	def api
@@ -22,7 +23,7 @@ class CouponsController < ApplicationController
 
         def create
 		@coupon = Coupon.new(params[:coupon])
-
+    @coupon.company_id = current_company.id
 		if @coupon.save
 			flash[:success] = "Submit Success!"
 			render 'index'
@@ -34,7 +35,12 @@ class CouponsController < ApplicationController
         end
 
         def index
-                @coupons = Coupon.all
+          if params[:company_id]
+            @company = Company.find(params[:company_id])
+            @coupons = @company.coupons
+          else
+            @coupons = Coupon.all
+          end
         end
 
 	def destroy
