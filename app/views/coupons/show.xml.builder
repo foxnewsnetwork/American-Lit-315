@@ -12,6 +12,7 @@ xml.response do
 		xml.name @coupon.name
 		xml.description @coupon.description
 		xml.meta_data @coupon.meta_data 
+		xml.picture_url @path + @coupon.picture_file_name
 	end
 end
 

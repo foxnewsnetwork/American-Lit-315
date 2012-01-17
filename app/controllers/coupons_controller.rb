@@ -16,10 +16,20 @@ class CouponsController < ApplicationController
 
 	# GET 
 	def show
+		@home_path = 'http://0.0.0.0:3000/'
+
+		if params[:random] == 'true'
+		  offset = rand(Coupon.count)
+		  rand_record = Coupon.first(:offset => offset)	
+		  # get the output in xml format
+		  @coupon = rand_record
+		  @path = @home_path + 'system/pictures/'+@coupon.id.to_s+'/medium/'
+		  @company = Company.find(@coupon.company_id)
+		else	
 		@purpose = params[:xml]
 		@coupon = Coupon.find(params[:id])
 		@company = Company.find(@coupon.company_id)
-
+		end
 		
 		respond_to do |format|
 			format.xml
@@ -38,7 +48,7 @@ class CouponsController < ApplicationController
 
 		if @coupon.save
 			flash[:success] = "Submit Success!"
-			render 'index'
+			render :action => 'index', :params => {:company_id => @coupon.company_id}
 		else 
 			render 'new'
 		end
@@ -46,6 +56,7 @@ class CouponsController < ApplicationController
     end
 
    def index
+    puts 'parameters:' ,params
     if params[:company_id]
       @company = Company.find(params[:company_id])
       @coupons = @company.coupons
