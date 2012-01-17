@@ -37,4 +37,6 @@ class User < ActiveRecord::Base
   has_many :game_stats
   has_many :games, :through => :game_stats
   
+  # Payment methods
+  has_many :payments
 end
