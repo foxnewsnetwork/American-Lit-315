@@ -16,8 +16,10 @@ class CouponsController < ApplicationController
 
 	# GET 
 	def show
-		@coupon = Coupon.find(params[:coupons][:id])
-		@company = @coupon.company
+		@purpose = params[:xml]
+		@coupon = Coupon.find(params[:id])
+    @company = Company.find(@coupon.company_id)
+
 		
 		respond_to do |format|
 			format.xml
@@ -39,6 +41,7 @@ class CouponsController < ApplicationController
 
     def create
 		@coupon = Coupon.new(params[:coupon])
+		@coupon.company_id = current_company.id
 
 		if @coupon.save
 			flash[:success] = "Submit Success!"
@@ -46,12 +49,17 @@ class CouponsController < ApplicationController
 		else 
 			render 'new'
 		end
-
+		
     end
 
-    def index
-            @coupons = Coupon.all
+   def index
+    if params[:company_id]
+      @company = Company.find(params[:company_id])
+      @coupons = @company.coupons
+    else
+      @coupons = Coupon.all
     end
+   end
 
 	def destroy
 		@coupon = Coupon.find(params[:id])

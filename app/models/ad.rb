@@ -35,9 +35,10 @@ class Ad < ActiveRecord::Base
 	has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100"}
 	
 	attr_accessible :company_id, :limit, :type, :name, :description, :cost_per_impression,
-		:cost_per_click, :cost_per_purchase, :love_hate, :relief_fear, :excite_bore,
-		:happy_sad, :funny_serious, :sexy_disgust, :meta_data
-		
+		:cost_per_click, :cost_per_purchase, :love_hate, :relief_fear, :excite_bore,	
+		:happy_sad, :funny_serious, :sexy_disgust, :meta_data, :picture
+
+
 	def view( user )
 		as ||= self.ad_stats.find_by_user_id( user.id )
 		as ||= self.ad_stats.create( :user_id => user.id )
