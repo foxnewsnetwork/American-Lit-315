@@ -15,4 +15,22 @@
 class AdStat < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :ad
+	
+	def view
+		self.views ||= 0
+		self.views += 1
+		self.save!
+	end
+	
+	def click
+		self.clicks ||= 0
+		self.clicks += 1
+		self.save!
+	end
+	
+	def close
+		self.closes ||= 0
+		self.closes += 1
+		self.save!
+	end
 end

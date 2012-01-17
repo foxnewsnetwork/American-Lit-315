@@ -37,4 +37,22 @@ class Ad < ActiveRecord::Base
 	attr_accessible :company_id, :limit, :type, :name, :description, :cost_per_impression,
 		:cost_per_click, :cost_per_purchase, :love_hate, :relief_fear, :excite_bore,
 		:happy_sad, :funny_serious, :sexy_disgust, :meta_data
+		
+	def view( user )
+		as ||= self.ad_stats.find_by_user_id( user.id )
+		as ||= self.ad_stats.create( :user_id => user.id )
+		as.view
+	end
+	
+	def click( user )
+		as ||= self.ad_stats.find_by_user_id( user.id )
+		as ||= self.ad_stats.create( :user_id => user.id )
+		as.click	
+	end
+	
+	def close( user )
+		as ||= self.ad_stats.find_by_user_id( user.id )
+		as ||= self.ad_stats.create( :user_id => user.id )
+		as.close
+	end
 end

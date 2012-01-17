@@ -1,4 +1,19 @@
 class CouponsController < ApplicationController
+	# PUT request, xml for the api
+	def update
+		# 2 modes of operation
+		respond_to do |format|
+			format.html do
+				# TODO: write me!
+			end
+			
+			format.xml do
+				# TODO: write me!
+			end
+		end
+		
+	end
+
 	# GET 
 	def show
 		@coupon = Coupon.find(params[:coupons][:id])
@@ -23,15 +38,14 @@ class CouponsController < ApplicationController
     end
 
     def create
-	@coupon = Coupon.new(params[:coupon])
+		@coupon = Coupon.new(params[:coupon])
 
-	if @coupon.save
-		flash[:success] = "Submit Success!"
-		render 'index'
-	else 
-		render 'new'
-	end
-	
+		if @coupon.save
+			flash[:success] = "Submit Success!"
+			render 'index'
+		else 
+			render 'new'
+		end
 
     end
 
