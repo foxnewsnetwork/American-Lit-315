@@ -18,7 +18,7 @@ class CouponsController < ApplicationController
 	def show
 		@purpose = params[:xml]
 		@coupon = Coupon.find(params[:id])
-    @company = Company.find(@coupon.company_id)
+		@company = Company.find(@coupon.company_id)
 
 		
 		respond_to do |format|
@@ -27,13 +27,6 @@ class CouponsController < ApplicationController
 		end
 	end
 
-	# WTF IS THIS SHIT?!
-	def api
-		offset = rand(Coupon.count)
-		rand_record = Coupon.first(:offset => offset)	
-		@output = rand_record.to_xml
-		render :layout => false	
-	end
 
     def new
             @coupon = Coupon.new
@@ -71,5 +64,25 @@ class CouponsController < ApplicationController
   		end
 	end
 
+	# thanks for the nice comments
+	# rapid API requests
+        # Pulls a random coupon record from the database 
+	# and displays it without filtering or authentication
+	# TODO: add filtering and authentication
+	def api
+		# get a random record number
+		offset = rand(Coupon.count)
+		# off set it
+		rand_record = Coupon.first(:offset => offset)	
+		# get the output in xml format
+		@coupon = rand_record
+		@home_path = 'http://0.0.0.0:3000/'
+		@path = @home_path + 'system/pictures/'+@coupon.id.to_s+'/medium/'
+
+		respond_to do |format|
+		  #format.html {render :xml => @coupon}
+		  format.xml 
+		end
+	end
 	
 end
