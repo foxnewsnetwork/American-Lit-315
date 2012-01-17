@@ -1,4 +1,6 @@
 Adserver::Application.routes.draw do
+  
+	resources :payments
   match "/index", :to => "pages#index"
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
@@ -17,7 +19,9 @@ Adserver::Application.routes.draw do
   end
 
   devise_for :users
-  resources :users, :only => [:new, :show, :index]
+  resources :users, :only => [:new, :show, :index] do
+  	resources :payments
+  end
 
   # Separated environment used for Dan Klein's TESTING
   # fixed the style problem that was causing cancer
