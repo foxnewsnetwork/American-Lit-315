@@ -22,7 +22,8 @@ Adserver::Application.routes.draw do
   # Separated environment used for Dan Klein's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result
-  match "/api/coupon", :to => "coupons#api"
+  match "/api/coupon", :to => "coupons#random"
+  match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
 
   ##########################

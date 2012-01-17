@@ -69,7 +69,7 @@ class CouponsController < ApplicationController
         # Pulls a random coupon record from the database 
 	# and displays it without filtering or authentication
 	# TODO: add filtering and authentication
-	def api
+	def random
 		# get a random record number
 		offset = rand(Coupon.count)
 		# off set it
