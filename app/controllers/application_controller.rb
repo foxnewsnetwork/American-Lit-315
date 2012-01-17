@@ -3,5 +3,5 @@ class ApplicationController < ActionController::Base
   
   # I run into 'module cannot be convered into string error'
   # if this is not commented out
-  #require UsersHelper
+  include UsersHelper
 end
