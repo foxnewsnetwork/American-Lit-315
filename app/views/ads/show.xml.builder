@@ -21,5 +21,6 @@ xml.response do
 		xml.happy_sad @ad.happy_sad
 		xml.funny_serious @ad.funny_serious
 		xml.sexy_disgust @ad.sexy_disgust
+		xml.image_url @ad.picture.url
 	end
 end
