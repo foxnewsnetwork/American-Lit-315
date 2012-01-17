@@ -17,20 +17,20 @@ class CouponsController < ApplicationController
 	# GET 
 	def show
 		@home_path = 'http://0.0.0.0:3000/'
-
-		if params[:random] == 'true'
-		  offset = rand(Coupon.count)
-		  rand_record = Coupon.first(:offset => offset)	
-		  # get the output in xml format
-		  @coupon = rand_record
-		  @path = @home_path + 'system/pictures/'+@coupon.id.to_s+'/medium/'
-		  @company = Company.find(@coupon.company_id)
-		else	
-		@purpose = params[:xml]
-		@coupon = Coupon.find(params[:id])
-		@company = Company.find(@coupon.company_id)
-		end
 		
+		if params[:random] == 'true'
+		  # get a random coupon through count and offset
+		  @coupon = Coupon.first(:offset => rand(Coupon.count))
+		  @company = Company.find(@coupon.company_id)
+		elsif not params[:coupon_id].nil? and is_a_number?(params[:coupon_id])
+		  # this needs a proper resuce if we can't find the right coupon
+		  @purpose = params[:xml]
+		  @coupon = Coupon.find(params[:coupon_id]) 
+		  @company = Company.find(@coupon.company_id)
+		end
+		# build the picture path, this should probably be put somewhere else		
+		@path = picture_path_builder(@home_path, @coupon)
+
 		respond_to do |format|
 			format.xml
 			format.html
@@ -56,7 +56,6 @@ class CouponsController < ApplicationController
     end
 
    def index
-    puts 'parameters:' ,params
     if params[:company_id]
       @company = Company.find(params[:company_id])
       @coupons = @company.coupons
@@ -95,5 +94,13 @@ class CouponsController < ApplicationController
 		  format.xml 
 		end
 	end
-	
+
+
+	def is_a_number?(s)
+		s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+	end
+
+	def picture_path_build(home_path, coupon)
+		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
+	end	
 end
