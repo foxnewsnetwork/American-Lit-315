@@ -3,13 +3,16 @@ class CouponsController < ApplicationController
 	def show
 		@purpose = params[:xml]
 		@coupon = Coupon.find(params[:id])
-    @company = Company.find(params[:company_id])
+    @company = Company.find(@coupon.company_id)
 
-		unless @coupon
-			flash[:error] = "ERROR CODE 0001: no such coupon exists"
+		
+		respond_to do |format|
+			format.xml
+			format.html
 		end
 	end
 
+	# WTF IS THIS SHIT?!
 	def api
 		offset = rand(Coupon.count)
 		rand_record = Coupon.first(:offset => offset)	
@@ -17,9 +20,9 @@ class CouponsController < ApplicationController
 		render :layout => false	
 	end
 
-        def new
-                @coupon = Coupon.new
-        end
+    def new
+            @coupon = Coupon.new
+    end
 
         def create
 		@coupon = Coupon.new(params[:coupon])
@@ -32,16 +35,16 @@ class CouponsController < ApplicationController
 		end
 		
 
-        end
+    end
 
-        def index
-          if params[:company_id]
-            @company = Company.find(params[:company_id])
-            @coupons = @company.coupons
-          else
-            @coupons = Coupon.all
-          end
-        end
+   def index
+    if params[:company_id]
+      @company = Company.find(params[:company_id])
+      @coupons = @company.coupons
+    else
+      @coupons = Coupon.all
+    end
+   end
 
 	def destroy
 		@coupon = Coupon.find(params[:id])

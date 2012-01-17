@@ -1,13 +1,7 @@
-<% if @purpose == "xml" %>
-	<company>
-		<id><%= @company.id %></id>
-		<name><%= @company.name %></name>
-	</company>
-	<coupon>
-		<id><%= @coupon.id %></id>
-	</coupon>
-<% else %>
-	<h2><%= @company.name %></h2>
-	<h3><%= @coupon.id %></h3>
-	<!-- Put other stuff in here -->
-<% end %>
+<!-- Put other stuff in here -->
+<h3><%= @coupon.id %></h3>
+
+<h3><%= @company.name %></h3>
+
+<%= link_to "XML-view", company_coupon_path( @coupon ) + ".xml"  %>
+

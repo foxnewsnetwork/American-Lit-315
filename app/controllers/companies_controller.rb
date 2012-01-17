@@ -5,8 +5,8 @@ class CompaniesController < ApplicationController
   	if company_signed_in?
   		@correct_company = @company.id == current_company.id
   	end
-  	@coupons = @company.coupons.paginate( :page => params[:page], :per_page => 10 )
-  	@ads = @company.ads.paginate( :page => params[:page], :per_page => 10 )
+  	@coupons = @company.coupons.paginate( :page => params[:page], :per_page => 1)
+  	@ads = @company.ads.paginate( :page => params[:page], :per_page => 1)
   	@products = @company.products.paginate( :page => params[:page], :per_page => 10 )
   end
 

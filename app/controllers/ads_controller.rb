@@ -1,6 +1,15 @@
 class AdsController < ApplicationController
 	# GET 
-	def show
+	def index
+    if params[:company_id]
+      @company = Company.find(params[:company_id])
+      @ads = @company.ads
+      @ads = Ad.all
+    else
+      @ads = Ad.all
+    end
+  end
+  def show
 		@ad = Ad.find(params[:id])
 
 		@company = @ad.company
