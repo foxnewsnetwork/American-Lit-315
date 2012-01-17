@@ -22,7 +22,7 @@ class CouponsController < ApplicationController
 		  # get a random coupon through count and offset
 		  @coupon = Coupon.first(:offset => rand(Coupon.count))
 		  @company = Company.find(@coupon.company_id)
-		elsif not params[:coupon_id].nil? and is_a_number?(params[:coupon_id])
+		elsif params[:coupon_id] and is_a_number?(params[:coupon_id])
 		  # this needs a proper resuce if we can't find the right coupon
 		  @purpose = params[:xml]
 		  @coupon = Coupon.find(params[:coupon_id]) 
@@ -48,7 +48,7 @@ class CouponsController < ApplicationController
 
 		if @coupon.save
 			flash[:success] = "Submit Success!"
-			render :action => 'index', :params => {:company_id => @coupon.company_id}
+			redirect_to :action => 'index', :params => {:company_id => @coupon.company_id}
 		else 
 			render 'new'
 		end
@@ -56,6 +56,7 @@ class CouponsController < ApplicationController
     end
 
    def index
+	puts "INDEX CALLED"
     if params[:company_id]
       @company = Company.find(params[:company_id])
       @coupons = @company.coupons
@@ -66,10 +67,12 @@ class CouponsController < ApplicationController
 
 	def destroy
 		@coupon = Coupon.find(params[:id])
+		@company_id = @coupon.company_id
   		@coupon.destroy
  
 		respond_to do |format|
-    			format.html { redirect_to '/business/coupons/manage' }
+    			format.html { redirect_to "index" }
+			#format.html { render :action => 'index', :params => {:company_id => @company_id} }
     			format.json { head :ok }
   		end
 	end
