@@ -1,5 +1,5 @@
 <!-- coupon preview page -->
-<%= will_paginate coupons %>
+<%= will_paginate coupons, :param_name => 'coupon_page' %>
 
 <% coupons.each do |coupon| %>
 	<div class="coupon-preview">

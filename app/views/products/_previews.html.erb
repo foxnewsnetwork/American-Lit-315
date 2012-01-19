@@ -1,5 +1,5 @@
 <!-- products preview page -->
-<%= will_paginate products %>
+<%= will_paginate products, :param_name => 'product_page' %>
 <% products.each do |product| %>
 	<div class="product-preview">
 		<table class="product-table">
