@@ -1,4 +1,7 @@
 class CouponsController < ApplicationController
+	def picture_path_builder(home_path, coupon)
+		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
+	end	
 	# PUT request, xml for the api
 	def update
 		# 2 modes of operation
@@ -26,6 +29,11 @@ class CouponsController < ApplicationController
 		  # this needs a proper resuce if we can't find the right coupon
 		  @purpose = params[:xml]
 		  @coupon = Coupon.find(params[:coupon_id]) 
+		  @company = Company.find(@coupon.company_id)
+		elsif params[:coupon_name]
+		  # this needs a proper resuce if we can't find the right coupon
+		  @purpose = params[:xml]
+		  @coupon = Coupon.find_by_name(params[:coupon_name]) 
 		  @company = Company.find(@coupon.company_id)
 		end
 		# build the picture path, this should probably be put somewhere else		
@@ -103,7 +111,4 @@ class CouponsController < ApplicationController
 		s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
 	end
 
-	def picture_path_build(home_path, coupon)
-		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
-	end	
 end

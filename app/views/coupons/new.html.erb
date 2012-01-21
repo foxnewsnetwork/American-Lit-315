@@ -3,31 +3,24 @@
 
 	<%= hidden_field_tag(:company_id, current_company.id) %>
 
-        <p>
-        <%= form.label :name %> <br>
+	<h3>Name</h3>
         <%= form.text_field :name %>
-        </p>
 
-        <p>
-        <%= form.label :description %> <br>
+	<h3>Description</h3>
         <%= form.text_field :description %>
-        </p>
 
-        <p>
-        <%= form.label :limit %> <br>
+	<h3>Limit (Number)</h3>
         <%= form.text_field :limit %>
-        </p>
 
 	<!--Below is if you are doing picture-based Coupons-->
-        <p>
-        <%= form.label :meta_data %> <br>
+	<h3>Meta Data</h3>
         <%= form.text_field :meta_data %>
-        </p>
-
-        <p>
+	<br>
+	<br>
+	<br>
+	<p>
         <%= form.file_field :picture %>
-        </p>
-
+	</p>
         <br>
 <!--    <%= form.submit "Submit" %>-->
 <button type="submit" class="btn primary large" id="coupon_submit" name="commit">Submit!</button>
