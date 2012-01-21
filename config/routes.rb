@@ -12,6 +12,7 @@ Adserver::Application.routes.draw do
 	end
 
   devise_for :companies
+  resources :ads, :only => [:index]
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
   	resources :coupons
@@ -23,6 +24,9 @@ Adserver::Application.routes.draw do
   	resources :payments
   end
 
+	# region API use
+	
+	# endregion
   # Separated environment used for Dan Klein's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result
