@@ -1,4 +1,5 @@
 class AdsController < ApplicationController
+	respond_to :json
 	# GET 
 	def index
 		@magic = params[:api]
@@ -14,6 +15,7 @@ class AdsController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.xml
+			format.json { respond_with @ads }
 		end
 	end
   
