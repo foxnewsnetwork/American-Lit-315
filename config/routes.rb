@@ -15,9 +15,13 @@ Adserver::Application.routes.draw do
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
   	resources :coupons
-  	resources :ads
+  	resources :ads do
+      post 'api_login', :on => :collection
+    end
   end
-
+   resources :ads, :only => [:api_login] do
+      post 'api_login', :on => :collection
+    end
   devise_for :users
   resources :users, :only => [:new, :show, :index] do
   	resources :payments

@@ -11,7 +11,7 @@ class AdsController < ApplicationController
   end
   def show
 		@ad = Ad.find(params[:id])
-		@ad.view( active_user )
+		@ad.view( active_user ) unless current_company
 		@company = @ad.company
 		
 		respond_to do |format|
@@ -77,5 +77,10 @@ class AdsController < ApplicationController
 	def destroy
 	
 	end
+  def api_login
 
+    login
+    @user = current_user
+
+  end
 end
