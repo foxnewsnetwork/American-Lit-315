@@ -1,12 +1,10 @@
 xml.instruct!
 xml.response do 
-	xml.company do
-		xml.id @company.id
-		xml.name @company.name
-	end
 	xml.ad do
+		xml.company_id @company.id
+		xml.copany_name @company.name
 		xml.id @ad.id
-		xml.name @ad.name
+		xml.title @ad.name
 		xml.description @ad.description
 		xml.created_at @ad.created_at
 		xml.updated_at @ad.updated_at
@@ -21,6 +19,6 @@ xml.response do
 		xml.happy_sad @ad.happy_sad
 		xml.funny_serious @ad.funny_serious
 		xml.sexy_disgust @ad.sexy_disgust
-		xml.image_url @ad.picture.url
+		xml.image @ad.picture.url
 	end
 end

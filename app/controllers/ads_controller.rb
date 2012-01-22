@@ -1,14 +1,24 @@
 class AdsController < ApplicationController
+	respond_to :json
 	# GET 
 	def index
-    if params[:company_id]
-      @company = Company.find(params[:company_id])
-      @ads = @company.ads
-      @ads = Ad.all
-    else
-      @ads = Ad.all
-    end
-  end
+		@magic = params[:api]
+		# @ads ||= Ad.find_by_magic( @magic ) unless @magic.nil?
+		if params[:company_id]
+		  @company = Company.find(params[:company_id])
+		  @ads = @company.ads
+		  @ads ||= Ad.all
+		else
+		  @ads ||= Ad.all
+		end
+		
+		respond_to do |format|
+			format.html
+			format.xml
+			format.json { respond_with @ads }
+		end
+	end
+  
   def show
 		@ad = Ad.find(params[:id])
 		@ad.view( active_user ) unless current_company

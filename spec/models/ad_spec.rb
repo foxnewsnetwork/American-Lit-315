@@ -24,6 +24,7 @@
 #  picture_file_size    :integer(4)
 #  picture_updated_at   :datetime
 #  meta_data            :text
+#  distance             :integer(10)     default(0)
 #
 
 require 'spec_helper'

@@ -10,6 +10,7 @@ gem "flying-sphinx" , "~>0.6.0"
 gem "jquery-rails", "~> 1.0.19"
 gem 'devise'
 gem "paperclip", "~> 2.0"
+gem "json_builder", "~> 3.0.6"
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117054951) do
+ActiveRecord::Schema.define(:version => 20120117233802) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120117054951) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "meta_data"
+    t.decimal  "distance",             :precision => 10, :scale => 0, :default => 0
   end
 
   add_index "ads", ["company_id"], :name => "index_ads_on_company_id"
