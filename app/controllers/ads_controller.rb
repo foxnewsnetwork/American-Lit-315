@@ -27,6 +27,7 @@ class AdsController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.xml
+      format.json
 		end
 	end
 	

@@ -1,6 +1,7 @@
 <!-- Company show page -->
+<% if current_company %>
 <h1><%= current_company.name %></h1>
-
+<% end %>
 <div class="ads-previews">
   <h2>Ads</h2>
 	<%= render "ads/previews", :ads => @ads %>

@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
       sign_in @user
     end
   end
+
+  def authorize_current_user
+    #fill with authentication
+  end
+  def authorize_current_company
+    #fill with authentication
+  end
 end

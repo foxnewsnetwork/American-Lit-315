@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_filter :authorize_current_company
   def show
   	@company = Company.find( params[:id] )
   	@correct_company = false

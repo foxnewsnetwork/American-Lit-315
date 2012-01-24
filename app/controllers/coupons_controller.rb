@@ -42,6 +42,7 @@ class CouponsController < ApplicationController
 		respond_to do |format|
 			format.xml
 			format.html
+      format.json
 		end
 	end
 
@@ -71,6 +72,10 @@ class CouponsController < ApplicationController
     else
       @coupons = Coupon.all
     end
+     respond_to do |format|
+			format.html
+			format.xml
+		end
    end
 
 	def destroy
@@ -102,7 +107,8 @@ class CouponsController < ApplicationController
 
 		respond_to do |format|
 		  #format.html {render :xml => @coupon}
-		  format.xml 
+		  format.xml
+      format.json
 		end
 	end
 
