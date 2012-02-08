@@ -3,31 +3,28 @@
 
 <header>
 <nav>
-<div class="topbar">
-  <div class="fill">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="/">Gamertisers Backend</a>
+      <a class="brand" href="/">Dashboard</a>
       <ul class="nav">
-		<li class="active"><%= link_to "About", "/about" %></li>
-		<li class="active"><%= link_to "Miscellanious", "/misc" %></li>
-		<li class="active"><%= link_to "Contact", "/contact" %></li>
 		<% if user_signed_in? %>
-			<li class="active"><%= link_to "My Dashboard", current_user %><li>
-			<li class="active"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+			<li class="<%= @toolbar_hash[:user] %>"><%= link_to "My Dashboard", current_user %><li>
+			<li class="<%= @toolbar_hash[:user] %>"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Gamers", users_path %></li>
+			<li class="<%= @toolbar_hash[:user] %>"><%= link_to "Gamers", users_path %></li>
 		<% end %>
 		<% if company_signed_in? %>
-			<li class="active"><%= link_to "My Dashboard", current_company %><li>
-			<li class="active"><%= link_to "Logout", destroy_company_session_path, :method => :delete %></li>
+			<li class="<%= @toolbar_hash[:company] %>"><%= link_to "My Dashboard", current_company %><li>
+			<li class="<%= @toolbar_hash[:company] %>"><%= link_to "Logout", destroy_company_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Corporate Partners", companies_path %></li>
+			<li class="<%= @toolbar_hash[:company] %><% @toolbar_hash_company1 %>"><%= link_to "Brand Partners", companies_path %></li>
 		<% end %>
 		<% if publisher_signed_in? %>
-			<li class="active"><%= link_to "My Dashboard", current_publisher %><li>
-			<li class="active"><%= link_to "Logout", destroy_publisher_session_path, :method => :delete %></li>
+			<li class="<%= @toolbar_hash[:publisher] %>"><%= link_to "My Dashboard", current_publisher %><li>
+			<li class="<%= @toolbar_hash[:publisher] %>"><%= link_to "Logout", destroy_publisher_session_path, :method => :delete %></li>
 		<% else %>
-			<li class="active"><%= link_to "Game Publisher", publishers_path %></li>
+			<li class="<%= @toolbar_hash[:publisher] %>"><%= link_to "Platform Partners", publishers_path %></li>
 		<% end %>
 	</ul>
     </div>

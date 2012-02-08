@@ -1,6 +1,7 @@
 <!-- Company show page -->
+<%= render 'header' %>
 <% if current_company %>
-<h1><%= current_company.name %></h1>
+<h2>Welcome, <%= current_company.name %>!</h2>
 <% end %>
 <div class="ads-previews">
   <h2>Ads</h2>
