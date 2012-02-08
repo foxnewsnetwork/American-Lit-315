@@ -6,12 +6,20 @@
     	</ul>
     	<div class="tab-content">
     		<div class="tab-pane active" id="1">
-    			<p>I'm in Section 1.</p><p style="width: 200px">Manage and distribute your ad inventory with us.</p>
-			<table style="width:100%; text-align:center">
+    			<p></p>
+			<table style="">
 				<tbody>
 					<tr>
-						<td><a class="btn btn-large btn-primary">Login</a></td>
-						<td><a class="btn btn-large btn-primary">Sign Up</a></td>
+						<td style="padding-left:15em; padding-right:12.5em; padding-top:5em; padding-bottom:5em; border-right:1px solid #C8C8C8">
+<%= form_for("company", :url => company_session_path) do |f| %>
+  <%= f.text_field :email %><br>
+  <%= f.password_field :password %><br>
+  <p><%= f.check_box :remember_me %> Remember me </p>
+  <%= f.submit 'Sign in', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+  <%= link_to "Forgot your password?", new_password_path('company') %>
+<% end %>
+						</td>
+						<td style="padding-left:12.5em;width:15em; text-align:center"><p><h3>Distribute your advertising and product inventory.</h3></p><a class="btn btn-large btn-primary" style="width:15em">Sign up</a></td>
 					</tr>
 				</tbody>
 			</table>

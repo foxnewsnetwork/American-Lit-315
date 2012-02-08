@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def home
 	@toolbar_hash = {}
+	
   end
 
   def index
