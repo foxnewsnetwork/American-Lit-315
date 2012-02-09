@@ -1,31 +1,42 @@
 <!-- Company show page -->
-<%= render 'header' %>
 <% if current_company %>
-<h2>Welcome, <%= current_company.name %>!</h2>
+	<h2>Welcome, <%= current_company.name %>!</h2>
+	<p> Here is a quick overview: </p>
 <% end %>
-<div class="ads-previews">
-  <h2>Ads</h2>
-	<%= render "ads/previews", :ads => @ads %>
-	<% if @correct_company %>
-      <%= link_to "Ad List", company_ads_path(current_company) %>
-		| <%= link_to "New ad", company_ad_path(current_company, 'new') %>
-	<% end %>
-</div>
- <br>
-<div class="coupons-previews">
-  <h2>Coupons</h2>
-	<%= render "coupons/previews", :coupons => @coupons %>
-	<% if @correct_company %>
-		<%= link_to "Coupon List", company_coupons_path(current_company) %>
-      | <%= link_to "New coupon", company_coupon_path(current_company, 'new') %>
-	<% end %>
-</div>
-<br>
+<table style="width:100%; text-align:center">
+	<tbody>
+		<tr>
+			<td style="width:33%">
 <div class="products-previews">
   <h2>Products</h2>
-	<%= render "products/previews", :products => @products %>
+	<h1><%= @products_count %></h1>
 	<% if @correct_company %>
       <%= link_to "Product List", company_products_path(current_company) %>
-		| <%= link_to "New product", company_product_path(current_company, 'new') %>
+		| <%= link_to "New Product", company_product_path(current_company, 'new') %>
 	<% end %>
 </div>
+			</td>
+			<td style="width:33%">
+<div class="coupons-previews">
+  <h2>Rewards</h2>
+	<h1><%= @coupons_count %></h1>
+	<% if @correct_company %>
+		<%= link_to "Reward List", company_coupons_path(current_company) %>
+      | <%= link_to "New Reward", company_coupon_path(current_company, 'new') %>
+	<% end %>
+</div>
+			</td>
+			<td style="width:33%">
+<div class="ads-previews">
+  <h2>Ads</h2>
+	<h1><%= @ads_count %></h1>
+	<% if @correct_company %>
+      <%= link_to "Ad List", company_ads_path(current_company) %>
+		| <%= link_to "New Ad", company_ad_path(current_company, 'new') %>
+	<% end %>
+</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
