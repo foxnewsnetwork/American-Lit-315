@@ -105,10 +105,25 @@ class CouponsController < ApplicationController
 		@home_path = 'http://0.0.0.0:3000/'
 		@path = @home_path + 'system/pictures/'+@coupon.id.to_s+'/medium/'
 
+		@no_token_error = {'message'=>'no token provided'}
+		@invalid_token_error = {'message' => 'invalid token provided'}
+
 		respond_to do |format|
-		  #format.html {render :xml => @coupon}
-		  format.xml
-      format.json
+			if params[:token].nil?
+				puts "NO TOKEN ERROR"
+				format.json { render :json=> @no_token_error}
+			elsif Game.find_by_token(params[:token]).nil?
+				puts "INVALID TOKEN ERROR"
+				format.json { render :json=> @invalid_token_error}
+			else
+				@game = Game.find_by_token(params[:token])
+				@game.impressions = @game.impressions + 1
+				@game.earnings = @game.earnings + 75
+				@game.save
+			#format.html {render :xml => @coupon}
+				format.xml
+				format.json
+			end
 		end
 	end
 
