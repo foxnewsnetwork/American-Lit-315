@@ -6,53 +6,14 @@
     	</ul>
     	<div class="tab-content">
     		<div class="tab-pane active" id="1">
-    			<p></p>
-			<table style="">
-				<tbody>
-					<tr>
-						<td style="padding-left:15em; padding-right:12.5em; padding-top:5em; padding-bottom:5em; border-right:1px solid #C8C8C8">
-<%= form_for("company", :url => company_session_path) do |f| %>
-  <%= f.text_field :email %><br>
-  <%= f.password_field :password %><br>
-  <p><%= f.check_box :remember_me %> Remember me </p>
-  <%= f.submit 'Sign in', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
-  <%= link_to "Forgot your password?", new_password_path('company') %>
-<% end %>
-						</td>
-						<td style="padding-left:12.5em;width:15em; text-align:center"><p><h3>Distribute your advertising and product inventory.</h3></p><a class="btn btn-large btn-primary" style="width:15em">Sign up</a></td>
-					</tr>
-				</tbody>
-			</table>
+			<%= render "companies/home" %>
     		</div>
     		<div class="tab-pane" id="2">
-    			<p>Howdy, I'm in Section 2.</p><p style="width: 200px">Monetize your traffic and increase user retention.</p>
+			<%= render "publishers/home" %>
     		</div>
     		<div class="tab-pane" id="3">
-    			<p>Howdy, I'm in Section 3.</p><p style="width: 200px">Check out your stats and the newest of our cool reward catalogue.</p>
-          <div id="myModal" class="modal hide fade">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal" >&times;</a>
-              <h3>Sign Up</h3>
-            </div>
-            <div class="modal-body">
-
-              <h4>Text in a modal</h4>
-              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
-
-              <h4>Popover in a modal</h4>
-              <p>This <a href="#" rel="popover" title="A Title" data-content="And here's some amazing content. It's very engaging. right?">button</a> should trigger a popover on hover.</p>
-
-              <h4>Tooltips in a modal</h4>
-              <p><a href="#" rel="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> should have tooltips on <a href="#" class="tooltip-test" title="Tooltip">hover</a>.</p>
-
-            </div>
-            <div class="modal-footer">
-              <a href="#" class="btn btn-primary">Save changes</a>
-
-              <a href="#" class="btn" data-dismiss="modal" >Close</a>
-            </div>
-          </div>
-          <a data-toggle="modal" href="#myModal" class="btn btn-primary">Sign Up</a>
-    		</div>
+    			<p>Coming Soon!</p>
+			<p>Check out your stats and the newest of our cool reward catalogue.</p>
+		</div>
     	</div>
 </div>

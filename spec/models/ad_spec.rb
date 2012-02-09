@@ -1,3 +1,9 @@
+require 'spec_helper'
+
+describe Ad do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
+
 # == Schema Information
 #
 # Table name: ads
@@ -24,11 +30,6 @@
 #  picture_file_size    :integer(4)
 #  picture_updated_at   :datetime
 #  meta_data            :text
-#  distance             :integer(10)     default(0)
+#  distance             :integer(4)      default(0)
 #
 
-require 'spec_helper'
-
-describe Ad do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
