@@ -34,7 +34,7 @@ Total Earnings
         <%= game.impressions %>
         </td>
         <td style="padding: 0.5em">
-        $ <%= game.earnings %>
+        <%= number_to_currency game.earnings %>
         </td>
         </tr>
 
@@ -50,7 +50,7 @@ Total Earnings
 <br>
     <div class="row">
     <div class="span4">
-<h1>Tokens</h1>
+<h1>Test Token</h1>
 </div>
     <div class="span4 offset4" style="text-align:right">
 <%= link_to "Get New Token", new_token_url(:id => current_publisher.id), :class=>"btn btn-primary" %><br><br>
@@ -58,5 +58,8 @@ Total Earnings
     </div>
 
 <hr>
-<h3><%= @token %></h3>
+<br>
+<p style="font-size:1.5em">
+<%= @token %>
+</p>
 <br>
