@@ -22,6 +22,9 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li class=''><%= link_to "My Brand's Dashboard", current_company %><li>
+			<li class=''><%= link_to "Products", company_products_path(current_company) %><li>
+			<li class=''><%= link_to "Rewards", company_coupons_path(current_company) %><li>
+			<li class=''><%= link_to "Ads", company_ads_path(current_company) %><li>
 					<li class="divider"></li>
 					<li class=""><%= link_to "Logout", destroy_company_session_path, :method => :delete %></li>
 				</ul>
@@ -33,6 +36,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li class=''><%= link_to "My Platform's Dashboard", current_publisher %><li>
+					<li class=""><%= link_to "Games", publisher_games_path(current_publisher) %><li>
 					<li class="divider"></li>
 					<li class=""><%= link_to "Logout", destroy_publisher_session_path, :method => :delete %></li>
 				</ul>
