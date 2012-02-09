@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118015408) do
+ActiveRecord::Schema.define(:version => 20120209190710) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -123,6 +123,11 @@ ActiveRecord::Schema.define(:version => 20120118015408) do
     t.integer  "publisher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "meta_data"
+    t.string   "name"
+    t.string   "token"
+    t.integer  "impressions",                                 :default => 0
+    t.decimal  "earnings",     :precision => 10, :scale => 0, :default => 0
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
@@ -195,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20120118015408) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token"
   end
 
   add_index "publishers", ["email"], :name => "index_publishers_on_email", :unique => true

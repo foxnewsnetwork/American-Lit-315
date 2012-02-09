@@ -46,7 +46,7 @@
 			<li class=""><%= link_to "Logout", destroy_company_session_path, :method => :delete %></li>
 		<% elsif publisher_signed_in? %>
 			<li class=""><%= link_to "My Platform's Dashboard", current_publisher %><li>
-			<li class=""><%= link_to "Games", current_publisher %><li>
+			<li class=""><%= link_to "Games", publisher_games_path(current_publisher) %><li>
 			<li class=""><%= link_to "Logout", destroy_publisher_session_path, :method => :delete %></li>
 		<% else %>
 			<li class=""><%= link_to "Brand Partners", companies_path %></li>

@@ -1,2 +1,62 @@
-<h1>Publishers#show</h1>
-<p>Find me in app/views/publishers/show.html.erb</p>
+    <div class="row">
+    <div class="span4">
+<h1>Platform Overviews</h1>
+</div>
+    <div class="span4 offset4" style="text-align:right">
+<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn"%>
+</div>
+    </div>
+
+
+<hr>
+<table style="width:100%; text-align:center; font-size:1.5em">
+<thead >
+<tr>
+<th style="padding: 0.5em">
+Name
+</th>
+<th style="padding: 0.5em">
+Impressions
+</th>
+<th style="padding: 0.5em">
+Total Earnings
+</th>
+</tr>
+</thead>
+   <tbody>
+    <% if not @games.nil? %>
+        <% @games.each do |game| %>
+        <tr>
+        <td style="padding: 0.5em">
+        <%= game.name %>
+        </td>
+        <td style="padding: 0.5em">
+        <%= game.impressions %>
+        </td>
+        <td style="padding: 0.5em">
+        $ <%= game.earnings %>
+        </td>
+        </tr>
+
+        <% end %>
+    <% else %>
+        You dont have any games yet!
+    <% end  %>
+    </tbody>
+
+</table>
+<hr>
+<br>
+<br>
+    <div class="row">
+    <div class="span4">
+<h1>Tokens</h1>
+</div>
+    <div class="span4 offset4" style="text-align:right">
+<%= link_to "Get New Token", new_token_url(:id => current_publisher.id), :class=>"btn btn-primary" %><br><br>
+</div>
+    </div>
+
+<hr>
+<h3><%= @token %></h3>
+<br>

@@ -7,9 +7,18 @@ Adserver::Application.routes.draw do
   match "/contact", :to => "pages#contact"
 
   devise_for :publishers
-	resources :publishers, :only => [:new, :show, :index] do
+
+  # Matches new_token url for platforms/publishers to create tokens for API calls
+  # This route can be invoked with new_token_url(:id => current_publisher.id)
+  match 'publishers/:id/new_token' => 'publishers#new_token', :as => :new_token
+
+	resources :publishers, :only => [:new, :show, :index, :new_token] do
 		resources :games
 	end
+
+  # Matches new_token url for games to create tokens for API calls
+  # This route can be invoked with new_game_token_url(:publisher_id => current_publisher.id, :game_id => game.id)
+  match 'publishers/:publisher_id/games/:game_id/new_token' => 'games#new_token', :as => :new_game_token
 
   devise_for :companies
   resources :ads, :only => [:index]
@@ -20,9 +29,11 @@ Adserver::Application.routes.draw do
       post 'api_login', :on => :collection
     end
   end
-   resources :ads, :only => [:api_login] do
+
+  resources :ads, :only => [:api_login] do
       post 'api_login', :on => :collection
-    end
+  end
+
   devise_for :users
   resources :users, :only => [:new, :show, :index] do
   	resources :payments
@@ -30,7 +41,6 @@ Adserver::Application.routes.draw do
 
 	# region API use
 	
-	# endregion
   # Separated environment used for Dan Klein's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result

@@ -13,4 +13,7 @@ class Game < ActiveRecord::Base
 	
 	has_many :game_stats
 	has_many :users, :through => :game_stats
+	
+validates_presence_of :name, :message => "needs your name"
+	attr_accessible :name, :meta_data
 end
