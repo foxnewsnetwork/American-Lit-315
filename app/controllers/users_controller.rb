@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authorize_current_user
+  before_filter :authorize_current_user, :except => [:index]
 
   def show
   	@user = User.find( params[:id] )

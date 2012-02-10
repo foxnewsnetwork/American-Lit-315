@@ -25,6 +25,9 @@ class CouponsController < ApplicationController
 		  # get a random coupon through count and offset
 		  @coupon = Coupon.first(:offset => rand(Coupon.count))
 		  @company = Company.find(@coupon.company_id)
+    elsif params[:company_id] and params[:id]
+      @coupon = Coupon.find(params[:id])
+      @company = Company.find(params[:company_id])
 		elsif params[:coupon_id] and is_a_number?(params[:coupon_id])
 		  # this needs a proper resuce if we can't find the right coupon
 		  @purpose = params[:xml]
