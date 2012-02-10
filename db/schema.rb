@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117233802) do
+ActiveRecord::Schema.define(:version => 20120209201609) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -49,10 +48,11 @@ ActiveRecord::Schema.define(:version => 20120117233802) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "meta_data"
-    t.decimal  "distance",             :precision => 10, :scale => 0, :default => 0
+    t.integer  "distance",                                            :default => 0
   end
 
   add_index "ads", ["company_id"], :name => "index_ads_on_company_id"
+  add_index "ads", ["distance"], :name => "index_ads_on_distance"
 
   create_table "companies", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -123,6 +123,11 @@ ActiveRecord::Schema.define(:version => 20120117233802) do
     t.integer  "publisher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "meta_data"
+    t.string   "name"
+    t.string   "token"
+    t.integer  "impressions",                                 :default => 0
+    t.decimal  "earnings",     :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
@@ -195,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20120117233802) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token"
   end
 
   add_index "publishers", ["email"], :name => "index_publishers_on_email", :unique => true

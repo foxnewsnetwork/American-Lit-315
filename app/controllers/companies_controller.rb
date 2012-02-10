@@ -1,7 +1,11 @@
 class CompaniesController < ApplicationController
   before_filter :authorize_current_company
   def show
+	@toolbar_hash = {:company => 'active'}
   	@company = Company.find( params[:id] )
+	@coupons_count = Coupon.all.count
+	@ads_count = Ad.all.count
+	@products_count = Product.all.count
   	@correct_company = false
   	if company_signed_in?
   		@correct_company = @company.id == current_company.id
@@ -12,10 +16,13 @@ class CompaniesController < ApplicationController
   end
 
   def new
+	@toolbar_hash = {:company => 'active'}
   	@company = Company.new
   end
 
   def index
+	@toolbar_hash = {:company => 'active'}
+	@toolbar_hash_company = 'active'
   	@companies = Company.order("name DESC")
   end
 

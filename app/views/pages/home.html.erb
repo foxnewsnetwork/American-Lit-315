@@ -1,2 +1,34 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="tabbable">
+	<ul class="nav nav-tabs">
+			<% if publisher_signed_in? %>	
+    		<li><a href="#1" data-toggle="tab" style="font-size:3em; padding:0.5em">Brands</a></li>
+    		<li class="active"><a href="#2" data-toggle="tab" style="font-size:3em; padding:0.5em">Platforms</a></li>
+    		<!--<li><a href="#3" data-toggle="tab" style="font-size:3em; padding:0.5em">Gamers</a></li>-->
+    </ul>
+    <div class="tab-content">
+    	<div class="tab-pane" id="1">
+			<%= render "companies/home" %>
+    	</div>
+    	<div class="tab-pane active" id="2">
+			<%= render "publishers/home" %>
+    	</div>
+			<!-- We don't need Gamers Part for now. Might build it into shops later on -->
+    		<!--<div class="tab-pane" id="3">
+    			<p>Coming Soon!</p>
+			<p>Check out your stats and the newest of our cool reward catalogue.</p>
+		</div>-->
+			<% else %>
+    			<li class="active"><a href="#1" data-toggle="tab" style="font-size:3em; padding:0.5em">Brands</a></li>
+    			<li><a href="#2" data-toggle="tab" style="font-size:3em; padding:0.5em">Platforms</a></li>
+    </ul>
+    <div class="tab-content">
+    	<div class="tab-pane active" id="1">
+			<%= render "companies/home" %>
+    	</div>
+    	<div class="tab-pane" id="2">
+			<%= render "publishers/home" %>
+    	</div>
+			<!-- We don't need Gamers Part for now. Might build it into shops later on -->
+			<% end %>	
+    	</div>
+</div>

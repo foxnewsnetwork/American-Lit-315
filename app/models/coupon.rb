@@ -28,7 +28,7 @@ class Coupon < ActiveRecord::Base
 
 	has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 	
-	attr_accessible :company_id, :name, :description, :cost_per_redeem, :imit, :redeemed, :ext_coupon_id, :meta_data, :picture
+	attr_accessible :company_id, :name, :description, :cost_per_redeem, :limit, :redeemed, :ext_coupon_id, :meta_data, :picture
 	
 	def redeem
 		cs ||= self.coupon_stats.find_by_user_id( user.id )
