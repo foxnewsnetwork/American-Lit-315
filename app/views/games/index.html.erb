@@ -1,3 +1,13 @@
+    <div class="row">
+    <div class="span4">
+<h1>Games</h1>
+</div>
+    <div class="span4 offset4" style="text-align:right">
+<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn"%>
+</div>
+    </div>
+<hr>
+
 <table class="table" style="width:100%; text-align:center; font-size:1.5em; ">
 	<thead>
         <tr>
@@ -47,6 +57,4 @@
 	</tbody>
 </table>
 
-<hr>
-<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn" %>
 
