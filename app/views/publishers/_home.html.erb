@@ -2,6 +2,12 @@
 			<table style="">
 				<tbody>
 					<tr>
+
+						<% if publisher_signed_in? %>
+							<%= link_to "Go To Dashboard", current_publisher, :class=>"btn btn-large btn-primary" %><br><br>
+				                        <%= link_to "Logout", destroy_publisher_session_path, :method => :delete, :class=>"btn btn-large btn-primary" %>
+	
+						<% else %>
 						<td style="padding-left:15em; padding-right:12.5em; padding-top:5em; padding-bottom:5em; border-right:1px solid #C8C8C8">
 <%= form_for("publisher", :url => publisher_session_path) do |f| %>
   <%= f.text_field :email %><br>
@@ -17,6 +23,7 @@
 						</p>
 						<%= render "publishers/sign_up" %>
 						<a data-toggle="modal" href="#myPublisherSignUpModal" class="btn btn-large btn-primary" style="width:15em">Sign up</a></td>
+					<% end %>
 					</tr>
 				</tbody>
 			</table>
