@@ -11,6 +11,7 @@ c = Company.create( :name => "coke", :email => "coke@coke.coke", :password => "c
 u = User.create( :name => "lolcat", :email => "lolcat@lolcat.lolcat", :password => "lolcat", :password_confirmation => "lolcat" )
 p = Publisher.create( :name => "blizzard", :email => "blizzard@blizzard.blizzard", :password => "blizzard", :password_confirmation => "blizzard" )
 
+
 c.ads.create
 c.ads.create
 c.ads.create

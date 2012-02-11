@@ -94,9 +94,8 @@ class CouponsController < ApplicationController
 
 	# thanks for the nice comments
 	# rapid API requests
-        # Pulls a random coupon record from the database 
-	# and displays it without filtering or authentication
-	# TODO: add filtering and authentication
+    # Pulls a random coupon record from the database 
+	# TODO: add filtering
 	def random
 		# get a random record number
 		offset = rand(Coupon.count)
@@ -119,8 +118,12 @@ class CouponsController < ApplicationController
 				format.json { render :json=> @invalid_token_error}
 			else
 				@game = Game.find_by_token(params[:token])
-				@game.impressions = @game.impressions + 1
-				@game.earnings = @game.earnings + 75
+				@game.impressions = @game.impressions + 1 #increment impressions
+				@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
+				
+				@coupon.displayed += 1 # pay the player by the cost of coupon
+			
+				@coupon.save
 				@game.save
 			#format.html {render :xml => @coupon}
 				format.xml
@@ -129,9 +132,16 @@ class CouponsController < ApplicationController
 		end
 	end
 
-
 	def is_a_number?(s)
 		s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+	end
+
+	# upon click through
+	# 1. Check if user is logged in, if not, ask for login if exists, else ask for email
+	# 2. if logged in, extract email and send the coupon to user
+	# 3. update user's click through of coupon, coupon's click through number
+	def send_coupon
+	 
 	end
 
 end

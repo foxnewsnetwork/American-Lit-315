@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210203024) do
+ActiveRecord::Schema.define(:version => 20120211225000) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -92,15 +92,17 @@ ActiveRecord::Schema.define(:version => 20120210203024) do
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
-    t.decimal  "cost_per_redeem",      :precision => 10, :scale => 0
     t.integer  "limit"
-    t.integer  "redeemed"
+    t.integer  "redeemed",                                           :default => 0
     t.integer  "ext_coupon_id"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "meta_data"
+    t.decimal  "cost_per_redeem",      :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "displayed",                                          :default => 0
+    t.integer  "click_through",                                      :default => 0
   end
 
   add_index "coupons", ["company_id", "ext_coupon_id"], :name => "index_coupons_on_company_id_and_ext_coupon_id", :unique => true
