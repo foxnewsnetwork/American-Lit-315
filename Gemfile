@@ -11,6 +11,7 @@ gem "jquery-rails", "~> 1.0.19"
 gem 'devise'
 gem "paperclip", "~> 2.0"
 gem "json_builder", "~> 3.0.6"
+gem 'mysql2', '~> 0.2.17'
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
@@ -23,8 +24,8 @@ end
 group :test do
   gem 'rspec', '2.0.1'
   gem 'webrat', '0.7.1'
- # gem 'factory_girl', '~>2.1.0'
-  gem 'factory_girl_rails'
+  #gem 'factory_girl', '~>2.1.0'
+  #gem 'factory_girl_rails'
 
 end
 
@@ -32,7 +33,6 @@ end
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 #gem 'mysql'
-gem 'mysql2', '~> 0.2.17'
 
 # Use unicorn as the web server
 # gem 'unicorn'

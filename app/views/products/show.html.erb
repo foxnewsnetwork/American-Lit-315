@@ -1,5 +1,7 @@
 <!-- Put other stuff in here -->
-<h2><%= @company.name %></h2>
-<h3><%= @product.id %></h3>
-<%= link_to "XML-view", company_product_path( @product ) + ".xml"  %>
+<h3><%= @coupon.id %></h3>
+
+<h3><%= @company.name %></h3>
+
+<%= link_to "XML-view", company_coupon_path( @coupon ) + ".xml"  %>
 

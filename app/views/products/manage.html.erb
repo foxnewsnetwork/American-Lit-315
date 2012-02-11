@@ -1,5 +1,4 @@
-<table style="width:100%">
-	<thead>
+<table>
         <tr>
                 <td>
                 Image
@@ -23,8 +22,7 @@
                 Manage
                 </td>
         </tr>
-	</thead>
-	<% if not @coupons.nil? %>
+        </tr>
         <% @coupons.each do |coupon| %>
         <tr>
         <td>
@@ -49,16 +47,9 @@
         </td>
         <td>
 	
-        <%= link_to "delete", '', :method => :delete, :confirm => "You sure?", :title => "Delete #{coupon.name}" %>
+        <%= link_to "delete", @coupons, :method => :delete, :confirm => "You sure?", :title => "Delete #{coupon.name}" %>
         </td>
         </tr>
 
         <% end %>
-	<% else %>
-	You dont have any coupons yet!
-	<% end %>
 </table>
-
-<%= link_to "New Coupon", company_coupon_path(current_company, "new") %>
-
-
