@@ -3,9 +3,9 @@ class CompaniesController < ApplicationController
   def show
 	@toolbar_hash = {:company => 'active'}
   	@company = Company.find( params[:id] )
-	@coupons_count = Coupon.all.count
-	@ads_count = Ad.all.count
-	@products_count = Product.all.count
+	@coupons_count = @company.coupons.count
+	@ads_count = @company.ads.count
+	@products_count = @company.products.count
   	@correct_company = false
   	if company_signed_in?
   		@correct_company = @company.id == current_company.id

@@ -21,5 +21,12 @@
 require 'spec_helper'
 
 describe Company do
-  pending "add some examples to (or delete) #{__FILE__}"
+ it "should create right" do
+   lambda do
+     @company = Factory(:company)
+   end.should change(Company, :count).by(1)
+   @company.id.should == 1
+
+ end
+
 end

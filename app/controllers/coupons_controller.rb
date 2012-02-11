@@ -84,13 +84,12 @@ class CouponsController < ApplicationController
 	def destroy
 		@coupon = Coupon.find(params[:id])
 		@company_id = @coupon.company_id
+    @company = Company.find(@company_id)
   		@coupon.destroy
  
-		respond_to do |format|
-    			format.html { redirect_to "index" }
-			#format.html { render :action => 'index', :params => {:company_id => @company_id} }
-    			format.json { head :ok }
-  		end
+
+    	 redirect_to company_coupons_path(@company)
+
 	end
 
 	# thanks for the nice comments

@@ -48,8 +48,8 @@
         <%= coupon.meta_data %>
         </td>
         <td>
-	
-        <%= link_to "delete", '', :method => :delete, :confirm => "You sure?", :title => "Delete #{coupon.name}" %>
+
+        <%= link_to "Delete",coupon_path(coupon.id) , :method => :delete, :confirm => "Are you sure you want ot delete?" %>
         </td>
         </tr>
 

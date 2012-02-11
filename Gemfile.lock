@@ -77,7 +77,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     multipart-post (1.1.4)
-    mysql (2.8.1)
+    mysql2 (0.2.18)
     net-ssh (2.3.0)
     nifty-generators (0.4.6)
     nokogiri (1.5.0)
@@ -155,7 +155,7 @@ DEPENDENCIES
   gravatar_image_tag (~> 1.0.0)
   jquery-rails (~> 1.0.19)
   json_builder (~> 3.0.6)
-  mysql
+  mysql2 (~> 0.2.17)
   nifty-generators
   paperclip (~> 2.0)
   rails (= 3.0.11)
