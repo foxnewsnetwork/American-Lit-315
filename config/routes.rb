@@ -7,11 +7,6 @@ Adserver::Application.routes.draw do
   match "/contact", :to => "pages#contact"
   match "/contact", :to => "pages#contact"
 
-  # Function Tests
-  match "/coupons_test", :to => "pages#coupons_test"
-  match "/ads_test", :to => "pages#ads_test"
-  match "/products_test", :to => "pages#products_test"
-
   devise_for :publishers
   resources :payments
 
