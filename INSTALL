@@ -1,0 +1,5 @@
+REQUIRED PROGRAMS:
+ImageMagick
+
+REQUIRED GEMS:
+paperclip

@@ -1,12 +1,19 @@
 Adserver::Application.routes.draw do
-  
-	resources :payments
+ 
+  # Pages  
   match "/index", :to => "pages#index"
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
+  match "/contact", :to => "pages#contact"
+
+  # Function Tests
+  match "/coupons_test", :to => "pages#coupons_test"
+  match "/ads_test", :to => "pages#ads_test"
+  match "/products_test", :to => "pages#products_test"
 
   devise_for :publishers
+  resources :payments
 
   # Matches new_token url for platforms/publishers to create tokens for API calls
   # This route can be invoked with new_token_url(:id => current_publisher.id)
@@ -39,16 +46,15 @@ Adserver::Application.routes.draw do
   	resources :payments
   end
 
-	# region API use
-	
-  # Separated environment used for Dan Klein's TESTING
+  ######## region API use #########
+  # Separated environment used for Pacman's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result
   match "/api/v1/coupon", :to => "coupons#random"
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
 
-  ##########################
+  #################################
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
