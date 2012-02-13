@@ -5,7 +5,5 @@ company_id @coupon.company.id
 	description @coupon.description
 	created_at @coupon.created_at
 	updated_at @coupon.updated_at
-	cost_per_redeemed @coupon.cost_per_redeem
-	limit @coupon.limit
-	redeemed @coupon.redeemed
+	picture_path @path + @coupon.picture_file_name
     meta_data @coupon.meta_data

@@ -1,2 +1,112 @@
-HI!
+<html>
+<head>
+</head>
+
+<body>
+<script>
+function show_image(src, width, height, alt) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+// Update click_through
+
+
+// show dialog windows to ask for email
+
+// 
+</script>
+<button onclick="show_image('http://google.com/images/logo.gif', 
+    276,110, 'Google Logo');">Add Google Logo</button> 
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
+ <script>
+
+  $(document).ready(function(){
+    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1",
+        function(data){
+		f = $("<a/>").attr("onclick", "show_image('http://google.com/images/logo.gif',276,110, 'Google Logo');").appendTo("#images");
+		f.append($("<img/>").attr("src", data.picture_path));
+        });
+  });
+
+// This needs to be the image delivery function cuz it is a wrapper
+function handleResponse(responseJson){
+//   alert(responseJson.picture_path);	
+}
+</script>
+<style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/rewardbox.css');</style>
+<script>
+var REWARDMETER;
+if(REWARDMETER == undefined) {
+  REWARDMETER = {};
+}
+
+REWARDMETER.load = function() {
+  this.barometer_id = 'test/coupons/contactbox.html';
+  this.empty_url = "http://getbarometer.s3.amazonaws.com/assets/barometer/images/transparent.gif";
+  this.feedback_url = 'http://0.0.0.0:3000/' + this.barometer_id;
+
+  this.tab_html = '<a id="barometer_tab" onclick="REWARDMETER.show();" href="#">Feedback</a>';
+  this.overlay_html = '<div id="barometer_overlay" style="display: none;">' +
+			'<div id="barometer_main" style="top: 130.95px;">' +
+			'<a id="barometer_close" onclick="document.getElementById(\'barometer_overlay\').style.display = \'none\';return false" href="#"/></a>' +
+			'<div id="overlay_header">' +
+				'</div>' +
+				'<iframe src="' + this.feedback_url + '" id="barometer_iframe" allowTransparency="true" scrolling="no" frameborder="0" class="loading"></iframe>' +
+				'</div>' +
+				'<div id="barometer_screen" onclick="document.getElementById(\'barometer_overlay\').style.display = \'none\';return false" style="height: 100%;"/>' +
+				'</div>' +
+	'</div>';
+       
+    document.write(this.tab_html);
+    document.write(this.overlay_html);    
+};
+
+REWARDMETER.show = function() {
+//  document.getElementById('barometer_iframe').setAttribute("src", this.feedback_url);
+  document.getElementById('barometer_overlay').style.display = "block";
+  return false;
+};
+</script>
+<script type="text/javascript">
+REWARDMETER.load();
+</script>
+<script>
+//SAMPLE API JSON CALL WITH LOOPING CALLBACK
+//  $(document).ready(function(){
+//    $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?",
+//        function(data){
+//          $.each(data.items, function(i,item){
+//            $("<img/>").attr("src", item.media.m).appendTo("#images");
+//            if ( i == 3 ) return false;
+//          });
+//        });
+//  });
+
+// SAMPLE SIMPLE JSON CREATION AND CALLING
+//var car = { 'make': 'Acura', 
+//            'model':'TSX', 
+//            'year':'2010', 
+//            'color':'blue'};
+//alert(car.make);
+</script>
+<script 
+type="text/javascript" 
+src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1&callback=handleResponse"
+></script>
+
+<div id="images">
+  </div>
+
+<button onclick="$('#example').popover('show')" id='title=\'food\''>Add Google Logo</button> 
+</body>
+</html>
 
