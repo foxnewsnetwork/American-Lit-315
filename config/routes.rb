@@ -45,8 +45,8 @@ Adserver::Application.routes.draw do
   # Separated environment used for Pacman's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result
-  match "/api/v1/coupon", :to => "coupons#update", :via=>:put
-  match "/api/v1/coupon", :to => "coupons#random"
+  match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
+  match "/api/v1/coupon", :to => "coupons#random_api"
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
 

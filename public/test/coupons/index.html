@@ -27,16 +27,7 @@ function show_image(src, width, height, alt) {
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
 <script>
-
-  $(document).ready(function(){
-    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1",
-        function(data){
-		f = $("<a/>").attr("onclick", "show_image('http://google.com/images/logo.gif',276,110, 'Google Logo');").appendTo("#images");
-		f.append($("<img/>").attr("src", data.picture_path));
-        });
-  });
-
-// This needs to be the image delivery function cuz it is a wrapper
+  // This needs to be the image delivery function cuz it is a wrapper
 function handleResponse(responseJson){
 //   alert(responseJson.picture_path);	
 }
@@ -105,8 +96,8 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 </div>
 
 <script>
-	function clickUp() {
-		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=be0d89855ea8b861697b01bc3a67a5a1';
+	function clickUp(coupon_id) {
+		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=be0d89855ea8b861697b01bc3a67a5a1&coupon_id=' + coupon_id;
 		$.ajax({
 		    url: my_url,
 		    type: 'POST',
@@ -119,7 +110,17 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 
 	}
 
+	$(document).ready(function(){
+	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1",
+		function(data){
+			//f = $("<a/>").attr("onclick", "show_image('http://google.com/images/logo.gif',276,110, 'Google Logo');").appendTo("#images");
+			f = $("<a/>").attr("onclick", "clickUp('" + data.id + "')").appendTo("#images");
+			f.append($("<img/>").attr("src", data.picture_path));
+		});
+	  });
+
+
 </script>
-<button onclick='clickUp()'>Add Google Logo</button> 
+Click on the picture to increment click through rate
 </body>
 </html>

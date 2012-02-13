@@ -1,23 +1,20 @@
 class CouponsController < ApplicationController
-	def picture_path_builder(home_path, coupon)
-		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
-	end	
+
+	# use this or add protect_from_forger :except=> :create
+	skip_before_filter :verify_authenticity_token, :except => [:create, :destroy, :update]
+
 	# PUT request, xml for the api
 	def update
 		# 2 modes of operation
 		respond_to do |format|
-			#format.html do
+			format.html do
 				# TODO: write me!
-			#end
+			end
 			
-			#format.xml do
+			format.xml do
 				# TODO: write me!
-			#end
-			format.js do	
-				render :json=>"OK"
 			end
 		end
-		
 	end
 
 	# GET 
@@ -99,7 +96,7 @@ class CouponsController < ApplicationController
 	# rapid API requests
     # Pulls a random coupon record from the database 
 	# TODO: add filtering
-	def random
+	def random_api
 		# get a random record number
 		offset = rand(Coupon.count)
 		# off set it
@@ -139,6 +136,18 @@ class CouponsController < ApplicationController
 		s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
 	end
 
+	def update_coupon_api
+		respond_to do |format|
+			format.js do	
+				@coupon = Coupon.find_by_id(params[:coupon_id])
+				puts @coupon.name
+				@coupon.increment!(:click_through)
+				render :json=>"{'message':'OK'";
+			end
+		end
+		
+	end
+
 	# upon click through
 	# 1. Check if user is logged in, if not, ask for login if exists, else ask for email
 	# 2. if logged in, extract email and send the coupon to user
@@ -146,5 +155,9 @@ class CouponsController < ApplicationController
 	def send_coupon
 	 
 	end
+
+	def picture_path_builder(home_path, coupon)
+		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
+	end	
 
 end
