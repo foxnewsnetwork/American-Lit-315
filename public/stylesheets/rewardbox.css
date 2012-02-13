@@ -2,7 +2,7 @@
 --------------------------------------------------------*/
 	
 a#barometer_tab {
-	background-image:url(../images/feedback_tab.png);
+	background-image:url(../images/rewardbox/feedback_tab.png);
 	background-color:#222222;
 	color:#FFFFFF;
 	cursor:pointer;
@@ -71,7 +71,7 @@ a#barometer_tab {
 	}
 
 #barometer_overlay #barometer_main a#barometer_close {
-	background-image:url(../images/barometer_close.png);
+	background-image:url(../images/rewardbox/barometer_close.png);
 	cursor:pointer;
 	height:42px;
 	outline-color:-moz-use-text-color;
@@ -87,7 +87,7 @@ a#barometer_tab {
 	}
 
 #barometer_overlay #barometer_main span {
-	background:url(../images/close.png) no-repeat scroll 33px 0 transparent;
+	background:url(../images/rewardbox/close.png) no-repeat scroll 33px 0 transparent;
 	color:#FFFFFF;
 	cursor:pointer;
 	float:right;
@@ -100,7 +100,7 @@ a#barometer_tab {
 #barometer_iframe {
     width: 550px;
     height: 100%;
-    background: transparent url(../images/barometer_loading.png) no-repeat;
+    background: transparent url(../images/rewrdbox/barometer_loading.png) no-repeat;
 }
 #barometer_iframe.loaded {
       background: transparent;
@@ -130,7 +130,7 @@ a#barometer_tab {
  	float:right; 
 	height:20px; 
 	padding-right:20px; 
-	background: transparent url(../images/close.png) no-repeat 33px 0;
+	background: transparent url(../images/rewardbox/close.png) no-repeat 33px 0;
  	text-decoration:underline; 
 	font-size:11px; 
 	cursor:pointer; 
