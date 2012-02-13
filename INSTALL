@@ -1,0 +1,2 @@
+For thin server, install the thin gem and run 'thin start'
+
