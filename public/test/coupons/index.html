@@ -21,13 +21,12 @@ function show_image(src, width, height, alt) {
 
 // 
 </script>
-<button onclick="show_image('http://google.com/images/logo.gif', 
-    276,110, 'Google Logo');">Add Google Logo</button> 
+<button onclick="show_image('http://google.com/images/logo.gif', 276,110, 'Google Logo');">Add Google Logo</button> 
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
- <script>
+<script>
 
   $(document).ready(function(){
     $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1",
@@ -98,15 +97,29 @@ REWARDMETER.load();
 //            'color':'blue'};
 //alert(car.make);
 </script>
-<script 
-type="text/javascript" 
+<script type="text/javascript" 
 src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1&callback=handleResponse"
 ></script>
 
 <div id="images">
-  </div>
+</div>
 
-<button onclick="$('#example').popover('show')" id='title=\'food\''>Add Google Logo</button> 
+<script>
+	function clickUp() {
+		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=be0d89855ea8b861697b01bc3a67a5a1';
+		$.ajax({
+		    url: my_url,
+		    type: 'POST',
+		    data: { _method:'PUT' },
+		    success: function(result) {
+			// Do something with the result
+			alert('PUT REQUEST!');
+		    }
+		});
+
+	}
+
+</script>
+<button onclick='clickUp()'>Add Google Logo</button> 
 </body>
 </html>
-

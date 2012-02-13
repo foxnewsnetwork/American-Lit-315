@@ -6,12 +6,15 @@ class CouponsController < ApplicationController
 	def update
 		# 2 modes of operation
 		respond_to do |format|
-			format.html do
+			#format.html do
 				# TODO: write me!
-			end
+			#end
 			
-			format.xml do
+			#format.xml do
 				# TODO: write me!
+			#end
+			format.js do	
+				render :json=>"OK"
 			end
 		end
 		
