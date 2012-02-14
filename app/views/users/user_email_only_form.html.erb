@@ -3,11 +3,10 @@
   <%= f.submit :submit, :class=>'btn' %>
 <% end %>
 
-<%= form_for ("user", :url=>user_registration_path) do |f| %>
-  <%= f.text_field :email %><br>
-  <%= f.password_field :password %><br>
-  <p><%= f.check_box :remember_me %> Remember me </p>
-  <%= f.submit 'Sign in', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
-  <%= link_to "Forgot your password?", new_password_path('user') %>
+<%= form_for("user", :url => user_registration_path) do |f| %>
+  <%= f.text_field :email, :placeholder=>"email" %><br>
+  <%= f.password_field :password, :placeholder=>'password' %><br>
+  <!--<%= f.password_field :password_confirmation, :placeholder=>'password confirmation' %><br>-->
+  <%= f.submit 'Sign Up', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
 <% end %>
 

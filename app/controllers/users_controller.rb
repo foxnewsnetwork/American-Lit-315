@@ -41,5 +41,4 @@ class UsersController < ApplicationController
   def user_email_only_failure
 	render :layout => false
   end
-
 end
