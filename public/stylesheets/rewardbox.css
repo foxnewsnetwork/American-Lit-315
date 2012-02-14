@@ -45,7 +45,7 @@ a#barometer_tab {
 
 #barometer_main { 
 	width: 550px; 
-	height: 100%; 
+	height: 250px; 
 	margin: 0 auto; 
 	z-index:2; 
 	position:relative; 
@@ -100,7 +100,7 @@ a#barometer_tab {
 #barometer_iframe {
     width: 550px;
     height: 100%;
-    background: transparent url(../images/rewrdbox/barometer_loading.png) no-repeat;
+    background: transparent url(../images/rewardbox/barometer_loading.png) no-repeat;
 }
 #barometer_iframe.loaded {
       background: transparent;
