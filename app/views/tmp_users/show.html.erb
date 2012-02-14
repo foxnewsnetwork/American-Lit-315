@@ -1,0 +1,9 @@
+<%= form_for("tmp_user", :url => {:action=>'create'}) do |f| %>
+  <%= f.hidden_field :token, :value => @token %>
+  <%= f.text_field :token, :value => @token %>
+  <%= f.hidden_field :coupon_id, :value => @coupon_id %>
+  <%= f.text_field :coupon_id, :value => @coupon_id %>
+  <%= f.text_field :email, :placeholder=>"email" %><br>
+  <%= f.submit 'Redeem!', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+<% end %>
+

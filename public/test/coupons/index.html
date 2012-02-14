@@ -14,12 +14,6 @@ function show_image(src, width, height, alt) {
     // This next line will just add it to the <body> tag
     document.body.appendChild(img);
 }
-// Update click_through
-
-
-// show dialog windows to ask for email
-
-// 
 </script>
 <button onclick="show_image('http://google.com/images/logo.gif', 276,110, 'Google Logo');">Add Google Logo</button> 
 
@@ -27,7 +21,7 @@ function show_image(src, width, height, alt) {
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
 <script>
-  // This can be used for the image delivery function cuz it is a wrapper
+// This can be used for the image delivery function cuz it is a wrapper
 function handleResponse(responseJson){
 //   alert(responseJson.picture_path);	
 }
@@ -41,9 +35,9 @@ if(USER_EMAIL_ONLY_FROM == undefined) {
 }
 
 USER_EMAIL_ONLY_FROM.load = function() {
-  this.barometer_id = 'api/v1/user_email_only_form';
+  this.barometer_id = 'api/v1/user_email_form';
   this.empty_url = "http://getbarometer.s3.amazonaws.com/assets/barometer/images/transparent.gif";
-  this.feedback_url = 'http://0.0.0.0:3000/' + this.barometer_id;
+  this.feedback_url = '';
 
   this.tab_html = '<a id="barometer_tab" onclickY_FROM.show();" href="#">Feedback</a>';
 
@@ -63,8 +57,10 @@ USER_EMAIL_ONLY_FROM.load = function() {
     document.write(this.overlay_html);    
 };
 
-USER_EMAIL_ONLY_FROM.show = function() {
-//  document.getElementById('barometer_iframe').setAttribute("src", this.feedback_url);
+USER_EMAIL_ONLY_FROM.show = function(token, coupon_id) {
+  feedback_url = 'http://0.0.0.0:3000/' + this.barometer_id + '?token='+ token +'&'+'coupon_id=' + coupon_id;
+  alert(feedback_url);
+  document.getElementById('barometer_iframe').setAttribute("src", feedback_url);
   document.getElementById('barometer_overlay').style.display = "block";
   return false;
 };
@@ -100,19 +96,18 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 
 <script>
 
-	function tmp() {
-		USER_EMAIL_ONLY_FROM.show();
+	var token = '2a63bed2fcf7b9229f4d69bfdf89f447';
+	function tmp(token, coupon_id) {
+		USER_EMAIL_ONLY_FROM.show(token, coupon_id);
 	}
 
 	function clickUp(coupon_id) {
-		var token = 'be0d89855ea8b861697b01bc3a67a5a1';
-		token = '3ebf2f00923d681e138217057920e39b';
 		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=' + token + '&coupon_id=' + coupon_id;
 		$.ajax({
 		    url: my_url,
 		    type: 'PUT',
 		    data: '',
-		    success: tmp()
+		    success: tmp(token, coupon_id)
 				// Do something with the result
 				//alert('PUT REQUEST!');
 				//USER_EMAIL_ONLY_FROM.show();
@@ -122,8 +117,6 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 	}
 
 	$(document).ready(function(){
-		var token = 'be0d89855ea8b861697b01bc3a67a5a1';
-		token = '3ebf2f00923d681e138217057920e39b';
 	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=" + token,
 		function(data){
 			//f = $("<a/>").attr("onclick", "show_image('http://google.com/images/logo.gif',276,110, 'Google Logo');").appendTo("#images");

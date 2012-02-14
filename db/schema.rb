@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212014241) do
+ActiveRecord::Schema.define(:version => 20120214093919) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
     t.integer  "happy_sad"
     t.integer  "funny_serious"
     t.integer  "sexy_disgust"
-    t.integer  "picture_file_size"
     t.string   "picture_file_name"
-    t.datetime "picture_updated_at"
     t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.integer  "distance",                                            :default => 0
   end
@@ -95,10 +95,10 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
     t.integer  "limit"
     t.integer  "redeemed",                                           :default => 0
     t.integer  "ext_coupon_id"
-    t.integer  "picture_file_size"
     t.string   "picture_file_name"
-    t.datetime "picture_updated_at"
     t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.decimal  "cost_per_redeem",      :precision => 8, :scale => 2, :default => 0.0
     t.integer  "displayed",                                          :default => 0
@@ -153,10 +153,10 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
     t.integer  "cost_per_redeem"
     t.integer  "limit"
     t.integer  "redeemed"
-    t.integer  "picture_link_file_size"
     t.string   "picture_link_file_name"
-    t.datetime "picture_link_updated_at"
     t.string   "picture_link_content_type"
+    t.integer  "picture_link_file_size"
+    t.datetime "picture_link_updated_at"
   end
 
   create_table "pictures", :force => true do |t|
@@ -175,10 +175,10 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "picture_file_size"
     t.string   "picture_file_name"
-    t.datetime "picture_updated_at"
     t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
     t.integer  "clicked_through",                                    :default => 0
@@ -211,6 +211,15 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
   add_index "publishers", ["email"], :name => "index_publishers_on_email", :unique => true
   add_index "publishers", ["name"], :name => "index_publishers_on_name", :unique => true
   add_index "publishers", ["reset_password_token"], :name => "index_publishers_on_reset_password_token", :unique => true
+
+  create_table "tmp_users", :force => true do |t|
+    t.string   "email"
+    t.integer  "coupon_id"
+    t.integer  "game_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
