@@ -47,6 +47,18 @@ Adserver::Application.routes.draw do
   # go to home.com/api/coupon.xml to see result
   match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
   match "/api/v1/coupon", :to => "coupons#random_api"
+
+  match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
+  match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 
+  match "/api/v1/user_email_form/success", :to => "tmp_users#success" #display submit form 
+  match "/api/v1/user_email_form/failure", :to => "tmp_users#failure" #display submit form 
+  match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
+
+  #match "/api/v1/user_email_only_form", :to => "users#user_email_only_form"
+  #match "/api/v1/user_email_only_create", :to => "users#user_email_only_create"
+  #match "/api/v1/user_email_only_failure", :to => "users#user_email_only_failure"
+  #match "/api/v1/user_email_only_success", :to => "users#user_email_only_success"
+
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212014241) do
+ActiveRecord::Schema.define(:version => 20120214093919) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -212,6 +212,15 @@ ActiveRecord::Schema.define(:version => 20120212014241) do
   add_index "publishers", ["email"], :name => "index_publishers_on_email", :unique => true
   add_index "publishers", ["name"], :name => "index_publishers_on_name", :unique => true
   add_index "publishers", ["reset_password_token"], :name => "index_publishers_on_reset_password_token", :unique => true
+
+  create_table "tmp_users", :force => true do |t|
+    t.string   "email"
+    t.integer  "coupon_id"
+    t.integer  "game_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

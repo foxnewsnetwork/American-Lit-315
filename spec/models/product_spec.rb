@@ -1,3 +1,9 @@
+require 'spec_helper'
+
+describe Product do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
+
 # == Schema Information
 #
 # Table name: products
@@ -14,10 +20,8 @@
 #  picture_file_size    :integer(4)
 #  picture_updated_at   :datetime
 #  meta_data            :text
+#  price                :decimal(8, 2)   default(0.0)
+#  clicked_through      :integer(4)      default(0)
+#  purchased            :integer(4)      default(0)
 #
 
-require 'spec_helper'
-
-describe Product do
-  pending "add some examples to (or delete) #{__FILE__}"
-end

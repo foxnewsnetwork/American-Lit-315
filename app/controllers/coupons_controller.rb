@@ -25,9 +25,9 @@ class CouponsController < ApplicationController
 		  # get a random coupon through count and offset
 		  @coupon = Coupon.first(:offset => rand(Coupon.count))
 		  @company = Company.find(@coupon.company_id)
-    elsif params[:company_id] and params[:id]
-      @coupon = Coupon.find(params[:id])
-      @company = Company.find(params[:company_id])
+    	elsif params[:company_id] and params[:id]
+	      @coupon = Coupon.find(params[:id])
+	      @company = Company.find(params[:company_id])
 		elsif params[:coupon_id] and is_a_number?(params[:coupon_id])
 		  # this needs a proper resuce if we can't find the right coupon
 		  @purpose = params[:xml]
@@ -45,7 +45,7 @@ class CouponsController < ApplicationController
 		respond_to do |format|
 			format.xml
 			format.html
-      format.json
+      		format.json
 		end
 	end
 
@@ -109,6 +109,8 @@ class CouponsController < ApplicationController
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
 
+		@user = User.new
+
 		respond_to do |format|
 			if params[:token].nil?
 				puts "NO TOKEN ERROR"
@@ -118,14 +120,12 @@ class CouponsController < ApplicationController
 				format.json { render :json=> @invalid_token_error}
 			else
 				@game = Game.find_by_token(params[:token])
-				@game.impressions = @game.impressions + 1 #increment impressions
+				@game.increment!(:impressions) #increment impressions
 				@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
-				
-				@coupon.displayed += 1 # pay the player by the cost of coupon
-			
-				@coupon.save
 				@game.save
-			#format.html {render :xml => @coupon}
+
+				@coupon.increment!(:displayed)
+				#format.html {render :xml => @coupon}
 				format.xml
 				format.json
 			end
