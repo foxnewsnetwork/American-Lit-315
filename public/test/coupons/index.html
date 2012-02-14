@@ -33,19 +33,20 @@ function handleResponse(responseJson){
 }
 </script>
 <style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/rewardbox.css');</style>
-<script src="/test/coupons/REWARDMETER.js"></script>
+<!--<script src="/test/coupons/REWARDMETER.js"></script>-->
 <script>
-var REWARDMETER;
-if(REWARDMETER == undefined) {
-  REWARDMETER = {};
+var USER_EMAIL_ONLY_FROM;
+if(USER_EMAIL_ONLY_FROM == undefined) {
+  USER_EMAIL_ONLY_FROM = {};
 }
 
-REWARDMETER.load = function() {
-  this.barometer_id = 'test/coupons/contactbox.html';
+USER_EMAIL_ONLY_FROM.load = function() {
+  this.barometer_id = 'api/v1/user_email_only_form';
   this.empty_url = "http://getbarometer.s3.amazonaws.com/assets/barometer/images/transparent.gif";
   this.feedback_url = 'http://0.0.0.0:3000/' + this.barometer_id;
 
-  this.tab_html = '<a id="barometer_tab" onclick="REWARDMETER.show();" href="#">Feedback</a>';
+  this.tab_html = '<a id="barometer_tab" onclickY_FROM.show();" href="#">Feedback</a>';
+
   this.overlay_html = '<div id="barometer_overlay" style="display: none;">' +
 			'<div id="barometer_main" style="top: 130.95px;">' +
 			'<a id="barometer_close" onclick="document.getElementById(\'barometer_overlay\').style.display = \'none\';return false" href="#"/></a>' +
@@ -57,18 +58,19 @@ REWARDMETER.load = function() {
 				'</div>' +
 	'</div>';
        
+       
     document.write(this.tab_html);
     document.write(this.overlay_html);    
 };
 
-REWARDMETER.show = function() {
+USER_EMAIL_ONLY_FROM.show = function() {
 //  document.getElementById('barometer_iframe').setAttribute("src", this.feedback_url);
   document.getElementById('barometer_overlay').style.display = "block";
   return false;
 };
 </script>
 <script type="text/javascript">
-REWARDMETER.load();
+USER_EMAIL_ONLY_FROM.load();
 </script>
 <script>
 //SAMPLE API JSON CALL WITH LOOPING CALLBACK
@@ -99,7 +101,7 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 <script>
 
 	function tmp() {
-		REWARDMETER.show();
+		USER_EMAIL_ONLY_FROM.show();
 	}
 
 	function clickUp(coupon_id) {
@@ -113,9 +115,9 @@ src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5
 		    success: tmp()
 				// Do something with the result
 				//alert('PUT REQUEST!');
-				//REWARDMETER.show();
+				//USER_EMAIL_ONLY_FROM.show();
 		});
-		//REWARDMETER.show();
+		//USER_EMAIL_ONLY_FROM.show();
 
 	}
 

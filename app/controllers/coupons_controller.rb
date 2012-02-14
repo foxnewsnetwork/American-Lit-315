@@ -109,6 +109,8 @@ class CouponsController < ApplicationController
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
 
+		@user = User.new
+
 		respond_to do |format|
 			if params[:token].nil?
 				puts "NO TOKEN ERROR"

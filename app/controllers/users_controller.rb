@@ -21,13 +21,25 @@ class UsersController < ApplicationController
 
   def user_email_only_form
 	@user = User.new
+	render :layout => false
   end
 
   def user_email_only_create
 	@user = User.new(params[:user])
-	@user.save
-	
-	# send email
+	if @user.save
+		# send email
+		redirect_to :action=> "user_email_only_success"
+	else 
+		redirect_to :action=> "user_email_only_failure"
+	end
+  end
+
+  def user_email_only_success
+	render :layout => false
+  end
+
+  def user_email_only_failure
+	render :layout => false
   end
 
 end
