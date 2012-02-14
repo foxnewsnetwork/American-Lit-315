@@ -27,12 +27,13 @@ function show_image(src, width, height, alt) {
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
 <script>
-  // This needs to be the image delivery function cuz it is a wrapper
+  // This can be used for the image delivery function cuz it is a wrapper
 function handleResponse(responseJson){
 //   alert(responseJson.picture_path);	
 }
 </script>
 <style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/rewardbox.css');</style>
+<script src="/test/coupons/REWARDMETER.js"></script>
 <script>
 var REWARDMETER;
 if(REWARDMETER == undefined) {
@@ -88,30 +89,40 @@ REWARDMETER.load();
 //            'color':'blue'};
 //alert(car.make);
 </script>
-<script type="text/javascript" 
+<!--<script type="text/javascript" 
 src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1&callback=handleResponse"
-></script>
+></script>-->
 
 <div id="images">
 </div>
 
 <script>
+
+	function tmp() {
+		REWARDMETER.show();
+	}
+
 	function clickUp(coupon_id) {
-		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=be0d89855ea8b861697b01bc3a67a5a1&coupon_id=' + coupon_id;
+		var token = 'be0d89855ea8b861697b01bc3a67a5a1';
+		token = '3ebf2f00923d681e138217057920e39b';
+		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=' + token + '&coupon_id=' + coupon_id;
 		$.ajax({
 		    url: my_url,
-		    type: 'POST',
-		    data: { _method:'PUT' },
-		    success: function(result) {
-			// Do something with the result
-			alert('PUT REQUEST!');
-		    }
+		    type: 'PUT',
+		    data: '',
+		    success: tmp()
+				// Do something with the result
+				//alert('PUT REQUEST!');
+				//REWARDMETER.show();
 		});
+		//REWARDMETER.show();
 
 	}
 
 	$(document).ready(function(){
-	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1",
+		var token = 'be0d89855ea8b861697b01bc3a67a5a1';
+		token = '3ebf2f00923d681e138217057920e39b';
+	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=" + token,
 		function(data){
 			//f = $("<a/>").attr("onclick", "show_image('http://google.com/images/logo.gif',276,110, 'Google Logo');").appendTo("#images");
 			f = $("<a/>").attr("onclick", "clickUp('" + data.id + "')").appendTo("#images");

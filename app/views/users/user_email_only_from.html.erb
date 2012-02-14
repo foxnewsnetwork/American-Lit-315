@@ -1,0 +1,6 @@
+<%= form_for @user, :url => { :action => "user_email_only_create" } do |f| %>
+  <%= f.text_field :name %>
+  <%= fields_for @user.contact_detail do |contact_details_form| %>
+    <%= contact_details_form.text_field :phone_number %>
+  <% end %>
+<% end %>
