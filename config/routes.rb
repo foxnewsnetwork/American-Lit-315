@@ -26,7 +26,7 @@ Adserver::Application.routes.draw do
   resources :ads, :only => [:index]
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
-  	resources :coupons
+  	resources :coupons  # name space to change url 
   	resources :ads do
       post 'api_login', :on => :collection
     end

@@ -181,9 +181,8 @@ ActiveRecord::Schema.define(:version => 20120214205015) do
     t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
-    t.integer  "clicked_through",                                    :default => 0
     t.integer  "purchased",                                          :default => 0
-    t.integer  "displayed"
+    t.integer  "displayed",                                          :default => 0
   end
 
   add_index "products", ["company_id", "ext_product_id"], :name => "index_products_on_company_id_and_ext_product_id", :unique => true
