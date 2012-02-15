@@ -64,15 +64,41 @@ function handleResponse(responseJson){
 src="http://0.0.0.0:3000/api/v1/coupon.json?token=be0d89855ea8b861697b01bc3a67a5a1&callback=handleResponse"
 ></script>-->
 
-<div id="gamertiser_images">
+<div id="images">
 </div>
 
 <style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/rewardbox.css');</style>
-<script src="http://0.0.0.0:3000/test/coupons/USER_EMAIL_ONLY_FORM.js"></script>
+<script src="/test/coupons/USER_EMAIL_ONLY_FORM.js"></script>
 <script type="text/javascript">
 USER_EMAIL_ONLY_FORM.load();
-var token = '686e7caffbc803f5206c28f8a03003a0';
-GAMERTISER_SHOW(token);
+</script>
+<script>
+	var token = '
+	function tmp(token, coupon_id) {
+		USER_EMAIL_ONLY_FORM.show(token, coupon_id);
+	}
+
+	function clickUp(coupon_id) {
+		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=' + token + '&coupon_id=' + coupon_id;
+		$.ajax({
+		    url: my_url,
+		    type: 'PUT',
+		    data: '',
+		    success: tmp(token, coupon_id)
+				// Do something with the result
+				//alert('PUT REQUEST!');
+				//USER_EMAIL_ONLY_FORM.show();
+		});
+		//USER_EMAIL_ONLY_FORM.show();
+	}
+
+	$(document).ready(function(){
+	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=" + token,
+		function(data){
+			f = $("<a/>").attr("onclick", "clickUp('" + data.id + "')").appendTo("#images");
+			f.append($("<img/>").attr("src", data.picture_path));
+		});
+	  });
 </script>
 Click on the picture to increment click through rate
 </div>
