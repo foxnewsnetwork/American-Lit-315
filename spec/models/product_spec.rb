@@ -4,6 +4,8 @@ describe Product do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+
+
 # == Schema Information
 #
 # Table name: products
@@ -23,5 +25,6 @@ end
 #  price                :decimal(8, 2)   default(0.0)
 #  clicked_through      :integer(4)      default(0)
 #  purchased            :integer(4)      default(0)
+#  displayed            :integer(4)      default(0)
 #
 

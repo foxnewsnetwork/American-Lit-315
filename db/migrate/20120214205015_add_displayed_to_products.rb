@@ -1,6 +1,6 @@
 class AddDisplayedToProducts < ActiveRecord::Migration
   def self.up
-    add_column :products, :displayed, :integer
+    add_column :products, :displayed, :integer, :default=>0
   end
 
   def self.down
