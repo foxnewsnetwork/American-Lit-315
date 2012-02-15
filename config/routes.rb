@@ -23,7 +23,7 @@ Adserver::Application.routes.draw do
   match 'publishers/:publisher_id/games/:game_id/new_token' => 'games#new_token', :as => :new_game_token
 
   devise_for :companies
-  resources :ads, :only => [:index]
+ # resources :ads, :only => [:index]
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
   	resources :coupons

@@ -23,7 +23,7 @@
 
         <td>
 
-        <%= link_to "delete", '', :method => :delete, :confirm => "You sure?", :title => "Delete #{ad.name}" %>
+        <%= link_to "delete", company_ad_path(current_company,ad.id), :method => :delete, :confirm => "You sure?", :title => "Delete #{ad.name}" %>
         </td>
         </tr>
 

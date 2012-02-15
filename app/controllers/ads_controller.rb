@@ -86,7 +86,13 @@ class AdsController < ApplicationController
 	
 	# DELETE for killing
 	def destroy
-	
+    @ad = Ad.find(params[:id])
+      @company_id = @ad.company_id
+      @company = Company.find(@company_id)
+        @ad.destroy
+
+       redirect_to company_ads_path(@company)
+
 	end
   def api_login
 
