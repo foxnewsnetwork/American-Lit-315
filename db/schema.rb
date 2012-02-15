@@ -183,7 +183,8 @@ ActiveRecord::Schema.define(:version => 20120215004122) do
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
     t.integer  "purchased",                                          :default => 0
-    t.integer  "displayed"
+
+    t.integer  "displayed",                                          :default => 0
     t.integer  "click_through",                                      :default => 0
   end
 
