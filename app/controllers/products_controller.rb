@@ -117,7 +117,7 @@ class ProductsController < ApplicationController
 			else
 				@game = Game.find_by_token(params[:token])
 				@game.increment!(:impressions) #increment impressions
-				@game.earnings = @game.earnings + @product.cost_per_redeem # pay the player by the cost of product
+				@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
 				@game.save
 
 				@product.increment!(:displayed)
