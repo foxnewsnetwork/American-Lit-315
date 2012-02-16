@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120214093919) do
+ActiveRecord::Schema.define(:version => 20120215004122) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -128,9 +128,9 @@ ActiveRecord::Schema.define(:version => 20120214093919) do
     t.datetime "updated_at"
     t.string   "meta_data"
     t.string   "name"
+    t.integer  "impressions",                                 :default => 0
     t.string   "token"
-    t.integer  "impressions",                                :default => 0
-    t.decimal  "earnings",     :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "earnings",     :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
@@ -182,8 +182,10 @@ ActiveRecord::Schema.define(:version => 20120214093919) do
     t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
-    t.integer  "clicked_through",                                    :default => 0
     t.integer  "purchased",                                          :default => 0
+
+    t.integer  "displayed",                                          :default => 0
+    t.integer  "click_through",                                      :default => 0
   end
 
   add_index "products", ["company_id", "ext_product_id"], :name => "index_products_on_company_id_and_ext_product_id", :unique => true

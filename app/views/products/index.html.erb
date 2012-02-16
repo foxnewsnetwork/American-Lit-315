@@ -1,64 +1,91 @@
-<table style="width:100%">
+<div class="row">
+	<div class="span4">
+		<h1>Products</h1>
+	</div>
+    <div class="span4 offset4" style="text-align:right">
+<%= link_to "New Product", company_product_path(current_company, "new"), :class=>"btn" %>
+	</div>
+</div>
+<hr>
+
+<table class="table" style="width:100%; text-align:center; font-size:1.5em; ">
 	<thead>
         <tr>
-                <td>
+                <th style="padding:0.5em">
                 Image
-                </td>
-                <td>
+                </th>
+                <th style="padding:0.5em">
                 Name
-                </td>
-                <td>
-		Text
-                </td>
-                <td>
-                Ran Amount
-                </td>
-                <td>
-                Amount Left
-                </td>
-                <td>
+                </th>
+                <th style="padding:0.5em">
+				Text
+                </th>
+                <th style="padding:0.5em">
+                Showed
+                </th>
+                <th style="padding:0.5em">
+                CT
+                </th>
+                <th style="padding:0.5em">
+                Bought
+                </th>
+                <th style="padding:0.5em">
+                Price
+                </th>
+                <th style="padding:0.5em">
+                Earnings
+                </th>
+                <th style="padding:0.5em">
                 Meta Data
-                </td>
-                <td>
+                </th>
+                <th style="padding:0.5em">
                 Manage
-                </td>
+                </th>
         </tr>
 	</thead>
-	<% if not @coupons.nil? %>
-        <% @coupons.each do |coupon| %>
+	<% if not @products.nil? %>
+        <% @products.each do |product| %>
         <tr>
-        <td>
-        <!--<%= image_tag coupon.picture.url %>-->
-        <%= image_tag coupon.picture.url(:medium) %>
-        <!--<%= image_tag coupon.picture.url(:thumb) %>-->
+        <td style="padding:0.5em">
+        <!--<%= image_tag product.picture.url %>-->
+        <!--<%= image_tag product.picture.url(:medium) %>-->
+        <%= image_tag product.picture.url(:thumb) %>
         <br>
-        <td>
-        <%= coupon.name %>
+        <td style="padding:0.5em">
+        <%= product.name %>
         </td>
-        <td>
-        <%= coupon.description %>
+        <td style="padding:0.5em">
+        <%= product.description %>
         </td>
-        <td>
-        <%= coupon.limit %>
+        <td style="padding:0.5em">
+        <%= product.displayed %>
         </td>
-        <td>
-        <%= coupon.limit %>
+        <td style="padding:0.5em">
+        <%= product.click_through %>
         </td>
-        <td>
-        <%= coupon.meta_data %>
+        <td style="padding:0.5em">
+        <%= product.purchased %>
         </td>
-        <td>
-	
-        <%= link_to "delete", '', :method => :delete, :confirm => "You sure?", :title => "Delete #{coupon.name}" %>
+        <td style="padding:0.5em">
+        <%= number_to_currency product.price %>
+		</td>
+        <td style="padding:0.5em">
+        <%= number_to_currency product.purchased * product.price %>
+		</td>
+        <td style="padding:0.5em">
+        <%= product.meta_data %>
+        </td>
+        <td style="padding:0.5em">
+
+        <%= link_to "delete", company_product_path(current_company, product.id) , :method => :delete, :confirm => "Are you sure you want to delete?" %>
         </td>
         </tr>
 
         <% end %>
 	<% else %>
-	You dont have any coupons yet!
+	You dont have any products yet!
 	<% end %>
 </table>
 
-<%= link_to "New Coupon", company_coupon_path(current_company, "new") %>
 
 

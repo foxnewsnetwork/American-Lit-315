@@ -45,7 +45,7 @@ class CouponsController < ApplicationController
 		respond_to do |format|
 			format.xml
 			format.html
-      		format.json
+      format.json
 		end
 	end
 

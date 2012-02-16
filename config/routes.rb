@@ -23,10 +23,10 @@ Adserver::Application.routes.draw do
   match 'publishers/:publisher_id/games/:game_id/new_token' => 'games#new_token', :as => :new_game_token
 
   devise_for :companies
-  resources :ads, :only => [:index]
+ # resources :ads, :only => [:index]
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
-  	resources :coupons
+  	resources :coupons  # name space to change url 
   	resources :ads do
       post 'api_login', :on => :collection
     end
@@ -47,6 +47,9 @@ Adserver::Application.routes.draw do
   # go to home.com/api/coupon.xml to see result
   match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
   match "/api/v1/coupon", :to => "coupons#random_api"
+
+  match "/api/v1/product", :to => "products#update_product_api", :via=>:put #only put method
+  match "/api/v1/product", :to => "products#random_api"
 
   match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 

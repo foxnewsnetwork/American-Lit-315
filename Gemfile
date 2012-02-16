@@ -12,6 +12,7 @@ gem 'devise'
 gem "paperclip", "~> 2.0"
 gem "json_builder", "~> 3.0.6"
 gem 'mysql2', '~> 0.2.17'
+gem 'tlsmail'
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
