@@ -7,3 +7,4 @@ company_id @product.company.id
 	updated_at @product.updated_at
 	cost_per_redeemed @product.price
     meta_data @product.meta_data
+    picture_path @path + @product.picture_file_name

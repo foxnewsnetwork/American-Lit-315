@@ -6,8 +6,8 @@ xml.response do
 		xml.name @product.name
 		xml.description @product.description
 		xml.meta_data @product.meta_data
-		xml.meta_data @product.price
-		xml.picture_link @path + @product.picture_file_name
+		xml.price @product.price
+		xml.picture_path @path + @product.picture_file_name
 	end
 end
 
