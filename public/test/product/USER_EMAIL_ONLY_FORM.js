@@ -4,12 +4,12 @@ if(USER_EMAIL_ONLY_FORM == undefined) {
   USER_EMAIL_ONLY_FORM = {};
 }
 
-USER_EMAIL_ONLY_FORM.load = function() {
+USER_EMAIL_ONLY_FORM.load = function(token) {
   this.barometer_id = 'api/v1/user_email_form';
   this.empty_url = "http://getbarometer.s3.amazonaws.com/assets/barometer/images/transparent.gif";
   this.feedback_url = '';
 
-  this.tab_html = '<a id="barometer_tab" onclickY_FROM.show();" href="#">Feedback</a>';
+  this.tab_html = '<a id="barometer_tab" onclick="GAMERTISER_DISPLAY_SHOP(\'' + token +'\');" href="#">Feedback</a>';
 
   this.overlay_html = '<div id="barometer_overlay" style="display: none;">' +
 			'<div id="barometer_main" style="top: 130.95px;">' +
@@ -70,4 +70,17 @@ function GAMERTISER_SHOW(type, token){
 			gamertiser_show_reward(data, type, token);
 		});
 	});
+}
+
+function GAMERTISER_DISPLAY_SHOP(token, count){
+	//re-get everything
+	$(document).ready(function(){
+		$.getJSON("http://0.0.0.0:3000/api/v1/product.json?token=" + token +'&count=' + token,
+		function(data){
+			gamertiser_show_reward(data, token);
+		});
+	});
+
+//for each item, can display appropriate prompt
+
 }

@@ -152,6 +152,31 @@ class ProductsController < ApplicationController
 	 
 	end
 
+	# displays a page of inventory
+	def inventory_display
+		# get 3 random ones
+		# get a random record number
+		@home_path = 'http://0.0.0.0:3000/'
+		@products = []
+
+		#offset = rand(Product.count)
+		# off set it
+		#rand_record = Product.first(:offset => offset)	
+		rand_record = Product.find_by_product_type('food')
+		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		@products << rand_record
+
+		rand_record = Product.find_by_product_type('electronic')
+		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		@products << rand_record
+
+		rand_record = Product.find_by_product_type('toy')
+		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		@products << rand_record
+
+		render :layout => false
+	end
+
 	def picture_path_builder(home_path, product)
 		@path = home_path + 'system/pictures/'+ product.id.to_s+'/medium/'
 	end	
