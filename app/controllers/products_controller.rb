@@ -161,18 +161,26 @@ class ProductsController < ApplicationController
 
 		#offset = rand(Product.count)
 		# off set it
-		#rand_record = Product.first(:offset => offset)	
-		rand_record = Product.find_by_product_type('food')
-		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
-		@products << rand_record
+		#rand_record = Product.first(:offset => offset)
+    for type in Type.all do
 
-		rand_record = Product.find_by_product_type('electronic')
+    rand_record = Product.find_by_product_type(type.name)
+    if rand_record
 		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
 		@products << rand_record
-
-		rand_record = Product.find_by_product_type('toy')
-		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
-		@products << rand_record
+    end
+    end
+		#rand_record = Product.find_by_product_type('food')
+		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#@products << rand_record
+    #
+		#rand_record = Product.find_by_product_type('electronic')
+		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#@products << rand_record
+    #
+		#rand_record = Product.find_by_product_type('toy')
+		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#@products << rand_record
 
 		render :layout => false
 	end

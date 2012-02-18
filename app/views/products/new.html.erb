@@ -10,7 +10,8 @@
         <%= form.text_field :description %>
 
 	<h3>Product Type</h3>
-        <%= form.text_field :product_type %>
+    <%= form.collection_select(:product_type, Type.all, :name,:name, {:prompt => 'Select Type'},:style => "width: 175px" ) %>
+
 	<h3>Meta Data</h3>
         <%= form.text_field :meta_data %>
 

@@ -7,6 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 # Test use
+Type.delete_all
 def inform(obj)
 	if obj.save
 		puts "Type: " + obj.to_s
@@ -26,6 +27,9 @@ c = Company.new( :name => "coke", :email => "coke@coke.coke", :password => "coke
 a = User.new( :name => "lolcat", :email => "lolcat@lolcat.lolcat", :password => "lolcat", :password_confirmation => "lolcat" )
 p = Publisher.new( :name => "blizzard", :email => "blizzard@blizzard.blizzard", :password => "blizzard", :password_confirmation => "blizzard" )
 
+Type.create(:name => "food")
+Type.create(:name => "electronic")
+Type.create(:name => "toy")
 # list of objects you want to seed
 object_list = [c, a, p]
 
