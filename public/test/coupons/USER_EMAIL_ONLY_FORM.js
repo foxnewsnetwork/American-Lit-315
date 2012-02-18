@@ -37,11 +37,12 @@ USER_EMAIL_ONLY_FORM.show = function(token, coupon_id) {
 //gamteriser show reward controllers
 function gamertiser_tmp(token, coupon_id) {
 		USER_EMAIL_ONLY_FORM.show(token, coupon_id);
+
 	}
 
 // given type:string, token:string, id:integer
 // send in the put request to increment click_through
-function gamertiser_click_through(type, id, token) {
+function gamertiser_coupon_click_through(type, id, token) {
 	var my_url = 'http://0.0.0.0:3000/api/v1/' + type + '?token=' + token + '&' + type + '_id=' + id;
 	$.ajax({
 		url: my_url,
@@ -52,22 +53,25 @@ function gamertiser_click_through(type, id, token) {
 }
 // given data:json, type:string, token:string
 // use jquery to append the type of product in the correct tags
-function gamertiser_show_reward(data, type, token) {
+function gamertiser_show_reward2(data, type, token) {
+
 	if (type == 'coupon') {
-		var func = "gamertiser_click_through('"+ type +"','" + data.id+ "' , '"+ token+"')"	
+		var func = "gamertiser_coupon_click_through('"+ type +"','" + data.id+ "' , '"+ token+"')"
 		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_images");
 		f.append($("<img/>").attr("src", data.picture_path));
 	} else if (type == 'product'){
-		var func = "gamertiser_click_through('" + type + "','" + data.id+ "' , '"+ token+"')"	
+		var func = "gamertiser_coupon_click_through('" + type + "','" + data.id+ "' , '"+ token+"')"
 		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_products");
 		f.append($("<img/>").attr("src", data.picture_path));
 	}
 }
 function GAMERTISER_SHOW(type, token){
+
 	$(document).ready(function(){
-		$.getJSON("http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token, 
+        $.getJSON("http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token,
 		function(data){
-			gamertiser_show_reward(data, type, token);
+			gamertiser_show_reward2(data, type, token);
 		});
+
 	});
 }

@@ -5,6 +5,7 @@ if(SHOP_FORM == undefined) {
 }
 
 SHOP_FORM.load = function(token) {
+
   this.gamertiser_shop_id = 'api/v1/user_email_form';
   this.empty_url = "http://getgamertiser_shop.s3.amazonaws.com/assets/gamertiser_shop/images/transparent.gif";
   this.feedback_url = '';
@@ -36,39 +37,41 @@ SHOP_FORM.show = function() {
 };
 
 //gamteriser show reward controllers
-function gamertiser_tmp(token, coupon_id) {
+function gamertiser_tmp_product(token, coupon_id) {
 		SHOP_FORM.show(token, coupon_id);
 	}
 
 // given type:string, token:string, id:integer
 // send in the put request to increment click_through
-function gamertiser_click_through(type, id, token) {
+function gamertiser_product_click_through(type, id, token) {
 	var my_url = 'http://0.0.0.0:3000/api/v1/' + type + '?token=' + token + '&' + type + '_id=' + id;
-	$.ajax({
+
+    $.ajax({
 		url: my_url,
 	    type: 'PUT',
 		    data: '',
-		    success: gamertiser_tmp(token, id)
+		    success: gamertiser_tmp_product(token, id)
 	});
 }
 // given data:json, type:string, token:string
 // use jquery to append the type of product in the correct tags
-function gamertiser_show_reward(data, type, token) {
+function gamertiser_show_reward_product(data, type, token) {
 	if (type == 'coupon') {
-		var func = "gamertiser_click_through('"+ type +"','" + data.id+ "' , '"+ token+"')"	
+		var func = "gamertiser_coupon_click_through('"+ type +"','" + data.id+ "' , '"+ token+"')"
 		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_images");
 		f.append($("<img/>").attr("src", data.picture_path));
 	} else if (type == 'product'){
-		var func = "gamertiser_click_through('" + type + "','" + data.id+ "' , '"+ token+"')"	
+		var func = "gamertiser_product_click_through('" + type + "','" + data.id+ "' , '"+ token+"')"
 		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_products");
 		f.append($("<img/>").attr("src", data.picture_path));
 	}
 }
-function GAMERTISER_SHOW(type, token){
+function GAMERTISER_SHOW_P(type, token){
+
 	$(document).ready(function(){
 		$.getJSON("http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token, 
 		function(data){
-			gamertiser_show_reward(data, type, token);
+			gamertiser_show_reward_product(data, type, token);
 		});
 	});
 }
