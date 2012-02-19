@@ -111,7 +111,9 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
   create_table "game_earnings", :force => true do |t|
     t.integer  "game_id"
     t.integer  "coupon_id"
-    t.decimal  "earnings",   :precision => 9, :scale => 2, :default => 0.0
+    t.decimal  "earnings",    :precision => 9, :scale => 2, :default => 0.0
+    t.decimal  "coupon_cost", :precision => 9, :scale => 2, :default => 0.0
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
