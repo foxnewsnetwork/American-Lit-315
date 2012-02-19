@@ -57,10 +57,7 @@ Adserver::Application.routes.draw do
   match "/api/v1/user_email_form/failure", :to => "tmp_users#failure" #display submit form 
   match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
 
-  #match "/api/v1/user_email_only_form", :to => "users#user_email_only_form"
-  #match "/api/v1/user_email_only_create", :to => "users#user_email_only_create"
-  #match "/api/v1/user_email_only_failure", :to => "users#user_email_only_failure"
-  #match "/api/v1/user_email_only_success", :to => "users#user_email_only_success"
+  match "/api/v1/product_inventory_display", :to => "products#inventory_display" #display submit form 
 
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons

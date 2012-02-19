@@ -37,27 +37,41 @@ USER_EMAIL_ONLY_FORM.show = function(token, coupon_id) {
 //gamteriser show reward controllers
 function gamertiser_tmp(token, coupon_id) {
 		USER_EMAIL_ONLY_FORM.show(token, coupon_id);
+
 	}
 
-	function gamertiser_click_up(coupon_id, token) {
-		var my_url = 'http://0.0.0.0:3000/api/v1/coupon?token=' + token + '&coupon_id=' + coupon_id;
-		$.ajax({
-		    url: my_url,
-		    type: 'PUT',
+// given type:string, token:string, id:integer
+// send in the put request to increment click_through
+function gamertiser_coupon_click_through(type, id, token) {
+	var my_url = 'http://0.0.0.0:3000/api/v1/' + type + '?token=' + token + '&' + type + '_id=' + id;
+	$.ajax({
+		url: my_url,
+	    type: 'PUT',
 		    data: '',
-		    success: gamertiser_tmp(token, coupon_id)
-		});
+		    success: gamertiser_tmp(token, id)
+	});
+}
+// given data:json, type:string, token:string
+// use jquery to append the type of product in the correct tags
+function gamertiser_show_reward2(data, type, token) {
+
+	if (type == 'coupon') {
+		var func = "gamertiser_coupon_click_through('"+ type +"','" + data.id+ "' , '"+ token+"')"
+		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_images");
+		f.append($("<img/>").attr("src", data.picture_path));
+	} else if (type == 'product'){
+		var func = "gamertiser_coupon_click_through('" + type + "','" + data.id+ "' , '"+ token+"')"
+		f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_products");
+		f.append($("<img/>").attr("src", data.picture_path));
 	}
-	function gamertiser_show_reward(data, token) {
-			var func = "gamertiser_click_up('" + data.id+ "' , '"+ token+"')"	
-			f = $("<a/>").attr("onclick", func).appendTo("#gamertiser_images");
-			f.append($("<img/>").attr("src", data.picture_path));
-	}
-	function GAMERTISER_SHOW(token){
+}
+function GAMERTISER_SHOW(type, token){
+
 	$(document).ready(function(){
-	    $.getJSON("http://0.0.0.0:3000/api/v1/coupon.json?token=" + token, 
+        $.getJSON("http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token,
 		function(data){
-			gamertiser_show_reward(data, token);
+			gamertiser_show_reward2(data, type, token);
 		});
-	  });
+
+	});
 }

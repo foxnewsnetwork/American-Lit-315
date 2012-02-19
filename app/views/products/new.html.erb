@@ -9,7 +9,9 @@
 	<h3>Description</h3>
         <%= form.text_field :description %>
 
-	<!--Below is if you are doing picture-based Coupons-->
+	<h3>Product Type</h3>
+    <%= form.collection_select(:product_type, Type.all, :name,:name, {:prompt => 'Select Type'},:style => "width: 175px" ) %>
+
 	<h3>Meta Data</h3>
         <%= form.text_field :meta_data %>
 
