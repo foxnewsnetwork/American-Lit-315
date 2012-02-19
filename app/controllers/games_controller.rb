@@ -71,7 +71,10 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find(params[:id])
+		@chart = GoogleChart.pie(10,20,40,30)
+		@chart = GoogleChart.pie(['1997',10],['1998',20],['1999',40],['2000',30])
 	end
+
 	def edit
 		@game = Game.find(params[:id])
 		@title = "Edit Game"

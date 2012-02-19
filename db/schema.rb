@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218205930) do
+ActiveRecord::Schema.define(:version => 20120219212303) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -107,6 +107,14 @@ ActiveRecord::Schema.define(:version => 20120218205930) do
 
   add_index "coupons", ["company_id", "ext_coupon_id"], :name => "index_coupons_on_company_id_and_ext_coupon_id", :unique => true
   add_index "coupons", ["company_id"], :name => "index_coupons_on_company_id"
+
+  create_table "game_earnings", :force => true do |t|
+    t.integer  "game_id"
+    t.integer  "coupon_id"
+    t.decimal  "earnings",   :precision => 9, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "game_stats", :force => true do |t|
     t.integer  "game_id"
