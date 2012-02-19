@@ -2,6 +2,7 @@ class PublishersController < ApplicationController
   def show
 	@toolbar_hash = {:publisher => 'active'}
 	@games = current_publisher.games
+	@games_count = @games.count
 	if current_publisher.token.nil?
 		@token = create_new_token
 	else

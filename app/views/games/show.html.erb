@@ -1,7 +1,55 @@
 <!-- Put other stuff in here -->
-<h3><%= @coupon.id %></h3>
+<div class="container" style="font-size:1.5em; padding-top:0.5em;">
+<h1>
+<%= @game.name %>
+</h1>
+<hr>
+<h2>
+Earnings
+</h2>
+<div>
+<%= number_to_currency @game.earnings/100 %>
+</div>
+<br>
+<h2>
+Meta Data
+</h2>
+<div>
+<%= @game.meta_data %>
+</div>
 
-<h3><%= @company.name %></h3>
+<br>
+<h2>
+Super Simple SDK
+</h2>
+<div>
+<%= @game.token %>
+</div>
+<br>
 
-<%= link_to "XML-view", company_coupon_path( @coupon ) + ".xml"  %>
 
+<h2>
+Token
+</h2>
+<div>
+<%= @game.token %>
+</div>
+<br>
+
+<div>
+WARNING: For REST API only! Update your SDK's token accordingly or things might break.
+</div>
+			<%= link_to "New Token", { :action => "new_token", :publisher_id => current_publisher.id, :game_id => @game.id }, :class=>"btn btn-danger" %>
+<br>
+
+<br>
+<h2>
+Views
+</h2>
+<div>
+<%= link_to "XML-view", publisher_game_path( @game ) + ".xml"  %>
+</div>
+<div>
+<%= link_to "JSON-view", publisher_game_path( @game ) + ".json"  %>
+</div>
+</div>
