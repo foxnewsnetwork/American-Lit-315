@@ -1,65 +1,48 @@
-    <div class="row">
-    <div class="span4">
-<h1>Platform Overviews</h1>
-</div>
+<!-- Publisher show page -->
+<div class="row">
+	<div class="span4">
+		<h1>Welcome, <%= current_publisher.name.capitalize %>!</h1>
+	</div>
     <div class="span4 offset4" style="text-align:right">
-<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn"%>
+<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn btn-primary"%>
+	</div>
 </div>
-    </div>
-
 
 <hr>
-<table style="width:100%; text-align:center; font-size:1.5em">
-<thead >
-<tr>
-<th style="padding: 0.5em">
-Name
-</th>
-<th style="padding: 0.5em">
-Impressions
-</th>
-<th style="padding: 0.5em">
-Total Earnings
-</th>
-</tr>
-</thead>
-   <tbody>
-    <% if not @games.nil? %>
-        <% @games.each do |game| %>
-        <tr>
-        <td style="padding: 0.5em">
-        <%= game.name %>
-        </td>
-        <td style="padding: 0.5em">
-        <%= game.impressions %>
-        </td>
-        <td style="padding: 0.5em">
-        <%= number_to_currency game.earnings/100 %>
-        </td>
-        </tr>
-
-        <% end %>
-    <% else %>
-        You dont have any games yet!
-    <% end  %>
-    </tbody>
-
+<table style="width:100%; text-align:center">
+	<tbody>
+		<tr>
+			<td style="width:33%">
+<div class="games-previews">
+	<h2>
+		<%= link_to "Total Games", publisher_games_path(current_publisher) %>
+	</h2>
+	<h1>
+		<%= @games_count %>
+	</h1>
+</div>
+			</td>
+			<td style="width:33%">
+<div class="impressions-previews">
+	<h2>
+		<%= link_to "Total Impressions", publisher_games_path(current_publisher) %>
+	</h2>
+	<h1>
+		<%= @games_count %>
+	</h1>
+</div>
+			</td>
+			<td style="width:33%">
+<div class="earnings-previews">
+	<h2>
+		<%= link_to "Total Earnings", publisher_games_path(current_publisher) %>
+	</h2>
+	<h1>
+		<%= @games_count %>
+	</h1>
+</div>
+			</td>
+		</tr>
+	</tbody>
 </table>
-<hr>
-<br>
-<br>
-    <div class="row">
-    <div class="span4">
-<h1>Test Token</h1>
-</div>
-    <div class="span4 offset4" style="text-align:right">
-<%= link_to "Get New Token", new_token_url(:id => current_publisher.id), :class=>"btn btn-primary" %><br><br>
-</div>
-    </div>
 
-<hr>
-<br>
-<p style="font-size:1.5em">
-<%= @token %>
-</p>
-<br>

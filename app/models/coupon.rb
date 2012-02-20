@@ -9,12 +9,31 @@ class Coupon < ActiveRecord::Base
 	
 	attr_accessible :company_id, :name, :description, :cost_per_redeem, :limit, :redeemed, :ext_coupon_id, :meta_data, :picture
 	
-	def redeem
-		cs ||= self.coupon_stats.find_by_user_id( user.id )
-		cs ||= self.coupon_stats.create( :user_id => user.id )
+	def redeem(user_id)
+		cs ||= self.coupon_stats.find_by_user_id( user_id)
+		cs ||= self.coupon_stats.create( :user_id => user_id )
 		cs.redeem
 	end
 
+  #look at this coupons stats and see if the user has recently redeemed it.
+  def recently_redeemed(user_id)
+    #get all stats with the user. There should only be one though, I'm not sure why i'm looking
+    # for multiple. For now i'll assume i had reason to and leave it like this =D
+    recent_coupon = self.coupon_stats.find_all_by_user_id(user_id,:order => "created_at DESC").first()
+    #if we found any couponstats for that user.
+    if recent_coupon
+      #Check if the current time is past the allowed time for redeeming another coupon!
+      if (Time.now >recent_coupon.updated_at + 1.days )
+         return false
+      else
+          return true
+      end
+  #user has never before redeemed this coupon. He's cool
+  else
+    return false
+  end
+
+  end
 end
 
 # == Schema Information

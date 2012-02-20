@@ -6,6 +6,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: products
@@ -23,8 +24,9 @@ end
 #  picture_updated_at   :datetime
 #  meta_data            :text
 #  price                :decimal(8, 2)   default(0.0)
-#  clicked_through      :integer(4)      default(0)
 #  purchased            :integer(4)      default(0)
 #  displayed            :integer(4)      default(0)
+#  click_through        :integer(4)      default(0)
+#  product_type         :string(255)
 #
 

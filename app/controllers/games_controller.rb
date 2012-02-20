@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	before_filter :authenticate, :only => [:edit, :update]
 
 	def create_new_token
 		(Digest::MD5.hexdigest "#{ActiveSupport::SecureRandom.hex(10)}-#{DateTime.now.to_s}")
@@ -10,7 +11,7 @@ class GamesController < ApplicationController
 		g.token = @token
 		g.save
 		
-		redirect_to :action => "index"
+		redirect_to :action => "show", :id =>g.id
 	end
 
     def new
@@ -56,8 +57,37 @@ class GamesController < ApplicationController
   		end
 	end
 
+	def update
+	    @game = Game.find(params[:id])
+	    if @game.update_attributes(params[:game])
+    		  flash[:success] = "Profile updated."
+		      redirect_to :action => 'index'
+	    else
+	      @title = "Edit Game"
+	      render :action => 'update'
+    end	
+
+	end
+
+	def show
+		@game = Game.find(params[:id])
+		@chart = GoogleChart.pie(10,20,40,30)
+		@chart = GoogleChart.pie(['1997',10],['1998',20],['1999',40],['2000',30])
+	end
+
+	def edit
+		@game = Game.find(params[:id])
+		@title = "Edit Game"
+	end
+
 	def is_a_number?(s)
 		s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
 	end
+
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
 
 end

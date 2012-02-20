@@ -1,8 +1,6 @@
 <!-- Company show page -->
-<% if current_company %>
-	<h1>Welcome, <%= current_company.name %>!</h1>
+<h1>Welcome, <%= current_company.name.capitalize %>!</h1>
 
-<% end %>
 <hr>
 <table style="width:100%; text-align:center">
 	<tbody>

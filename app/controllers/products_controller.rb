@@ -154,22 +154,20 @@ class ProductsController < ApplicationController
 
 	# displays a page of inventory
 	def inventory_display
-		# get 3 random ones
-		# get a random record number
+		# give a record number, display that may products random products
 		@home_path = 'http://0.0.0.0:3000/'
 		@products = []
 
 		#offset = rand(Product.count)
 		# off set it
 		#rand_record = Product.first(:offset => offset)
-    for type in Type.all do
-
-    rand_record = Product.find_by_product_type(type.name)
-    if rand_record
-		rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
-		@products << rand_record
-    end
-    end
+		for type in Type.all do
+			rand_record = Product.find_by_product_type(type.name)
+		    if rand_record
+				rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+				@products << rand_record
+		    end
+	    end
 		#rand_record = Product.find_by_product_type('food')
 		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
 		#@products << rand_record

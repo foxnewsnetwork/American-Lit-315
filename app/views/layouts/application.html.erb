@@ -2,12 +2,23 @@
 <html>
 <head>
   <title>Gamertiser! | Dashboard</title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "bootstrap.css","bootstrap-responsive.css" %>
 	<!--multiple jquery.js and jquery.min.js detected -->
 	<!-- protype must come before rails and after jquery. error otherwise -->
-	<%= javascript_include_tag "jquery", "jquery_ujs", "widgets", "track",  "rails", :cache => true %>
+	<%= javascript_include_tag "jquery", "jquery_ujs", "prototype","widgets", "track",  "rails", :cache => true %>
   	<%= javascript_include_tag "prettify.js", "bootstrap-transition", "bootstrap-modal", "bootstrap-tooltip", "bootstrap-tpopover", "bootstrap-button", "bootstrap-tab", "bootstrap-carousel", "bootstrap-dropdown" %>-->
 	<%= javascript_include_tag "application", :cache => true %>
+
+    <!--Load the Google Chart AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+   
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+     
+      // Set a callback to run when the Google Visualization API is loaded.
+      //google.setOnLoadCallback(drawChart);
+	</script>
 
   <%= csrf_meta_tag %>
 </head>
