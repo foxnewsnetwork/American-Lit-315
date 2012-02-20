@@ -1,6 +1,6 @@
 class GameEarnings < ActiveRecord::Base
-
-	attr_accessible :game_id, :coupon_id, :earnings, :coupon_cost, :user_id
+	# attr_accessible should only be allow once for seeding the datebase for created_at
+  attr_accessible :game_id, :coupon_id, :earnings, :coupon_cost, :user_id
 end
 
 # == Schema Information
