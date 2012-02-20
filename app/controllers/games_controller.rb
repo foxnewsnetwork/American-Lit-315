@@ -33,15 +33,11 @@ class GamesController < ApplicationController
     end
 
    def index
-    if params[:publisher_id]
-      @publisher = Publisher.find(params[:publisher_id])
-      @games = @publisher.games
-    else
-      @games = Game.all
-    end
-     respond_to do |format|
+		@publisher = Publisher.find(params[:publisher_id])
+		@games = @publisher.games
+		
+		respond_to do |format|
 			format.html
-			format.xml
 		end
    end
 
@@ -71,21 +67,18 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find(params[:id])
-		@chart = GoogleChart.pie(10,20,40,30)
-		@chart = GoogleChart.pie(['1997',10],['1998',20],['1999',40],['2000',30])
 		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").group("date(created_at)")
 		@labels = [{:id=>'date', :label=>'Date', :type=>'date'},
 					{:id=>'pencils', :label=>'Sold Pencils', :type=>'number'}]
-		@fivedays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("5").first.earning
-		@thirtydays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("30").first.earning
-		@totaldays = GameEarnings.select("sum(earnings) as earning").first.earning
+		@fivedays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5").first.earning
+		@thirtydays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("30").first.earning
+		@totaldays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").first.earning
 
 		@visible_start_date = Time.now
 		@visible_end_date = Time.now - 5.days
 
    		respond_to do |format|
 			format.html
-			format.json
 		end
 		
 
