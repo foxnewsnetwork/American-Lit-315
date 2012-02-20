@@ -155,7 +155,7 @@ class ProductsController < ApplicationController
 	# displays a page of inventory
 	def inventory_display
 		# give a record number, display that may products random products
-		@home_path = 'http://0.0.0.0:3000/'
+		@home_path = home_url
 		@products = []
 
 		#offset = rand(Product.count)
