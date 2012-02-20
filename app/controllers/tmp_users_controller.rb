@@ -17,6 +17,8 @@ class TmpUsersController < ApplicationController
 		render :layout=>false
 	end
   def redeemed_to_soon
+    #the coupon was redeemed to soon.
+    #look up the coupon_stats to find out how long the user has until he can reclaim same coupon again.
     @coupon_stat_id = params[:coupon_stat]
     @coupon_stat = CouponStat.find(@coupon_stat_id)
     render :layout=>false
@@ -44,6 +46,10 @@ class TmpUsersController < ApplicationController
 			@coupon = Coupon.find_by_id(params[:coupon_id])
 			@game = Game.find_by_token(params[:token])
 
+      #check to see if this user has existed before
+      #NOTE: coupon_id and game_id is not used for anything
+      #if this should be part of the logic changes should be made
+
       info = Hash["email" => params[:email], "coupon" => params[:coupon_id], "game" => @game.id]
       @user = temp_user_login(info)
 			#@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
@@ -51,7 +57,8 @@ class TmpUsersController < ApplicationController
       @company = Company.find_by_id(@coupon.company_id)
       @coupon_stat = @coupon.coupon_stats.find_by_user_id(@user.id)
 			@game.earnings += @coupon.cost_per_redeem
-			# redeemed!
+
+				# redeemed only if the user is alright and the coupon hasn't been recently redeemed
 			if @user.save && !@coupon.recently_redeemed(@user.id)
 				@coupon.increment!(:redeemed)
         @coupon.redeem(@user.id)
@@ -62,6 +69,9 @@ class TmpUsersController < ApplicationController
 				format.html {redirect_to :action=>'success'}
 				format.xml
 				format.json {render :json => {"message"=>"success"}}
+
+      #this coupon was recently reclaimed by this temp user.
+        #tell him so
       elsif @coupon.recently_redeemed(@user.id)
           format.html {redirect_to :action=>'redeemed_to_soon',:coupon_stat => @coupon_stat}
 				format.xml
@@ -88,6 +98,9 @@ class TmpUsersController < ApplicationController
 
   private
 
+  #Checks to see if the temp user exists.
+  #if the temp user exists then use that, otherwise we'll create a tmp account for him
+  #we store the coupon_id and game id for some reason, not sure why.
   def temp_user_login(info)
         unless TmpUser.find_by_email(info["email"]).nil?
             @user = TmpUser.find_by_email(info["email"])

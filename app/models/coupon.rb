@@ -15,14 +15,20 @@ class Coupon < ActiveRecord::Base
 		cs.redeem
 	end
 
+  #look at this coupons stats and see if the user has recently redeemed it.
   def recently_redeemed(user_id)
+    #get all stats with the user. There should only be one though, I'm not sure why i'm looking
+    # for multiple. For now i'll assume i had reason to and leave it like this =D
     recent_coupon = self.coupon_stats.find_all_by_user_id(user_id,:order => "created_at DESC").first()
-  if recent_coupon
-    if (Time.now >recent_coupon.updated_at + 1.days )
+    #if we found any couponstats for that user.
+    if recent_coupon
+      #Check if the current time is past the allowed time for redeeming another coupon!
+      if (Time.now >recent_coupon.updated_at + 1.days )
          return false
       else
           return true
       end
+  #user has never before redeemed this coupon. He's cool
   else
     return false
   end
