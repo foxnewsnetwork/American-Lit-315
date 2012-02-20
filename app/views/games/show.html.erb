@@ -32,7 +32,7 @@ Earnings
 		],
       rows: [
 <% @daily_earnings.each do |de| %>
-	<%= "{c:[{v: new Date(#{de.created_at.year}, #{de.created_at.mon}, #{de.created_at.day})}, 
+	<%= "{c:[{v: new Date(#{de.created_at.year}, #{de.created_at.mon-1}, #{de.created_at.day})}, 
 		{v: #{de.daily_earning}}]}," %>
 <% end %>
 		]};
