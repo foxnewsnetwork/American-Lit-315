@@ -76,6 +76,10 @@ class GamesController < ApplicationController
 		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").group("date(created_at)")
 		@labels = [{:id=>'date', :label=>'Date', :type=>'date'},
 					{:id=>'pencils', :label=>'Sold Pencils', :type=>'number'}]
+		@fivedays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("5").first.earning
+		@thirtydays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("30").first.earning
+		@totaldays = GameEarnings.select("sum(earnings) as earning").first.earning
+
 
    		respond_to do |format|
 			format.html
