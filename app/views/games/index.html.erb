@@ -35,7 +35,7 @@
 			<%= game.meta_data %>
 			</td>
 			<td style="padding:0.5em">
-			<%= number_to_currency game.earnings/100 %>
+			<%= number_to_currency game.earnings %>
 			</td>
 			<td style="padding:0.5em" align='right'>	
 			<%= link_to "Info", {:action => "show", :id => game.id}, :class=>"btn btn-primary" %>
