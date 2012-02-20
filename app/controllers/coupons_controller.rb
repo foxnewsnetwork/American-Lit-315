@@ -19,7 +19,6 @@ class CouponsController < ApplicationController
 
 	# GET 
 	def show
-		@home_path = 'http://0.0.0.0:3000/'
 		
 		if params[:random] == 'true'
 		  # get a random coupon through count and offset
@@ -40,7 +39,7 @@ class CouponsController < ApplicationController
 		  @company = Company.find(@coupon.company_id)
 		end
 		# build the picture path, this should probably be put somewhere else		
-		@path = picture_path_builder(@home_path, @coupon)
+		@path = picture_path_builder(root_url, @coupon)
 
 		respond_to do |format|
 			format.xml
@@ -103,8 +102,7 @@ class CouponsController < ApplicationController
 		rand_record = Coupon.first(:offset => offset)	
 		# get the output in xml format
 		@coupon = rand_record
-		@home_path = 'http://0.0.0.0:3000/'
-		@path = @home_path + 'system/pictures/'+@coupon.id.to_s+'/medium/'
+		@path = root_url + 'system/pictures/'+@coupon.id.to_s+'/medium/'
 
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
@@ -121,6 +119,7 @@ class CouponsController < ApplicationController
 			else
 				@game = Game.find_by_token(params[:token])
 				@game.increment!(:impressions) #increment impressions
+				@coupon.coupon_stats.create(:game_id=>@game.id, :impression => 1 )
 				@coupon.increment!(:displayed)
 				#@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
 				#@gameEarnings = GameEarnings.new(:game_id=>@game.id, :coupon_id=>@coupon.id, :earnings=>@game.earnings, :coupon_cost => @coupon.cost_per_redeem, :user_id=>1)
@@ -142,9 +141,12 @@ class CouponsController < ApplicationController
 		respond_to do |format|
 			format.js do	
 				@coupon = Coupon.find_by_id(params[:coupon_id])
+				@game = Game.find_by_token(params[:token])
 				puts @coupon.name
 				@coupon.increment!(:click_through)
-				render :json=>"{'message':'OK'";
+				@coupon.coupon_stats.create(:game_id=>@game.id, 
+					:click_through => 1 )
+				render :json=>"{'message':'OK'}";
 			end
 		end
 		
@@ -158,8 +160,8 @@ class CouponsController < ApplicationController
 	 
 	end
 
-	def picture_path_builder(home_path, coupon)
-		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
+	def picture_path_builder(root_url, coupon)
+		@path = root_url + 'system/pictures/'+ coupon.id.to_s+'/medium/'
 	end	
 
 end

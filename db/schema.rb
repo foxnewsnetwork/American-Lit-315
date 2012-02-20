@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219212303) do
+ActiveRecord::Schema.define(:version => 20120220120501) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -78,9 +77,11 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
   create_table "coupon_stats", :force => true do |t|
     t.integer  "coupon_id"
     t.integer  "user_id"
-    t.integer  "interactions"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "game_id"
+    t.boolean  "click_through", :default => false
+    t.boolean  "impression",    :default => false
   end
 
   add_index "coupon_stats", ["coupon_id", "user_id"], :name => "index_coupon_stats_on_coupon_id_and_user_id", :unique => true
@@ -138,9 +139,9 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
     t.datetime "updated_at"
     t.string   "meta_data"
     t.string   "name"
-    t.integer  "impressions",                                 :default => 0
     t.string   "token"
-    t.decimal  "earnings",     :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "impressions",                                :default => 0
+    t.decimal  "earnings",     :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
@@ -193,7 +194,7 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
     t.integer  "purchased",                                          :default => 0
-    t.integer  "displayed"
+    t.integer  "displayed",                                          :default => 0
     t.integer  "click_through",                                      :default => 0
     t.string   "product_type"
   end

@@ -19,7 +19,6 @@ class ProductsController < ApplicationController
 
 	# GET 
 	def show
-		@home_path = 'http://0.0.0.0:3000/'
 		
 		if params[:random] == 'true'
 		  # get a random product through count and offset
@@ -40,7 +39,7 @@ class ProductsController < ApplicationController
 		  @company = Company.find(@product.company_id)
 		end
 		# build the picture path, this should probably be put somewhere else		
-		@path = picture_path_builder(@home_path, @product)
+		@path = picture_path_builder(root_url, @product)
 
 		respond_to do |format|
 			format.xml
@@ -99,8 +98,7 @@ class ProductsController < ApplicationController
 		rand_record = Product.first(:offset => offset)	
 		# get the output in xml format
 		@product = rand_record
-		@home_path = 'http://0.0.0.0:3000/'
-		@path = @home_path + 'system/pictures/'+@product.id.to_s+'/medium/'
+		@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
 
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
@@ -155,7 +153,6 @@ class ProductsController < ApplicationController
 	# displays a page of inventory
 	def inventory_display
 		# give a record number, display that may products random products
-		@home_path = 'http://0.0.0.0:3000/'
 		@products = []
 
 		#offset = rand(Product.count)
@@ -164,27 +161,27 @@ class ProductsController < ApplicationController
 		for type in Type.all do
 			rand_record = Product.find_by_product_type(type.name)
 		    if rand_record
-				rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+				rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
 				@products << rand_record
 		    end
 	    end
 		#rand_record = Product.find_by_product_type('food')
-		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
 		#@products << rand_record
     #
 		#rand_record = Product.find_by_product_type('electronic')
-		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
 		#@products << rand_record
     #
 		#rand_record = Product.find_by_product_type('toy')
-		#rand_record['picture_path'] = picture_path_builder(@home_path, rand_record) + rand_record.picture_file_name
+		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
 		#@products << rand_record
 
 		render :layout => false
 	end
 
-	def picture_path_builder(home_path, product)
-		@path = home_path + 'system/pictures/'+ product.id.to_s+'/medium/'
+	def picture_path_builder(root_url, product)
+		@path = root_url + 'system/pictures/'+ product.id.to_s+'/medium/'
 	end	
 
 end
