@@ -69,7 +69,8 @@ function gamertiser_show_reward_product(data, type, token) {
 function GAMERTISER_SHOW_P(type, token){
 
 	$(document).ready(function(){
-		$.getJSON("http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token, 
+        var url = "http://0.0.0.0:3000/api/v1/" + type +".json?token=" + token
+        $.getJSON(url + "&callback=?", null,
 		function(data){
 			gamertiser_show_reward_product(data, type, token);
 		});

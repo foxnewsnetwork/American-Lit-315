@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -137,9 +138,9 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
     t.datetime "updated_at"
     t.string   "meta_data"
     t.string   "name"
+    t.integer  "impressions",                                 :default => 0
     t.string   "token"
-    t.integer  "impressions",                                :default => 0
-    t.decimal  "earnings",     :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "earnings",     :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "games", ["publisher_id"], :name => "index_games_on_publisher_id"
@@ -192,7 +193,7 @@ ActiveRecord::Schema.define(:version => 20120219212303) do
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
     t.integer  "purchased",                                          :default => 0
-    t.integer  "displayed",                                          :default => 0
+    t.integer  "displayed"
     t.integer  "click_through",                                      :default => 0
     t.string   "product_type"
   end

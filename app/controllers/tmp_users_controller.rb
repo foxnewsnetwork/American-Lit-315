@@ -3,7 +3,9 @@ class TmpUsersController < ApplicationController
 
   def show
     @token = params[:token]
-	@coupon_id =params[:coupon_id]
+	@coupon_id = params[:coupon_id]
+
+
 	render :layout => false
   end
 
@@ -14,7 +16,13 @@ class TmpUsersController < ApplicationController
 	def failure
 		render :layout=>false
 	end
-
+  def redeemed_to_soon
+    #the coupon was redeemed to soon.
+    #look up the coupon_stats to find out how long the user has until he can reclaim same coupon again.
+    @coupon_stat_id = params[:coupon_stat]
+    @coupon_stat = CouponStat.find(@coupon_stat_id)
+    render :layout=>false
+  end
   def create
 	respond_to do |format|
 		# Convert post requests to the right format for standardization
@@ -37,12 +45,23 @@ class TmpUsersController < ApplicationController
 		else
 			@coupon = Coupon.find_by_id(params[:coupon_id])
 			@game = Game.find_by_token(params[:token])
-			@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
-			@company = Company.find_by_id(@coupon.company_id)
 
-			# redeemed!
-			if @user.save
+      #check to see if this user has existed before
+      #NOTE: coupon_id and game_id is not used for anything
+      #if this should be part of the logic changes should be made
+
+      info = Hash["email" => params[:email], "coupon" => params[:coupon_id], "game" => @game.id]
+      @user = temp_user_login(info)
+			#@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
+
+      @company = Company.find_by_id(@coupon.company_id)
+      @coupon_stat = @coupon.coupon_stats.find_by_user_id(@user.id)
+			@game.earnings += @coupon.cost_per_redeem
+
+				# redeemed only if the user is alright and the coupon hasn't been recently redeemed
+			if @user.save && !@coupon.recently_redeemed(@user.id)
 				@coupon.increment!(:redeemed)
+        @coupon.redeem(@user.id)
 				# send email out
 				@coupon[:picture_url] = picture_path_builder(root_url, @coupon)
 				CouponMailer.welcome_email(@user).deliver
@@ -61,9 +80,19 @@ class TmpUsersController < ApplicationController
 				format.html {redirect_to :action=>'success'}
 				format.xml
 				format.json {render :json => {"message"=>"success"}}
-			else
-				puts "Can't save?"
-				failure "unknown error"
+
+      #this coupon was recently reclaimed by this temp user.
+        #tell him so
+      elsif @coupon.recently_redeemed(@user.id)
+          format.html {redirect_to :action=>'redeemed_to_soon',:coupon_stat => @coupon_stat}
+				format.xml
+				format.json {render :json => {"message"=>"failure"}}
+      else
+				#puts "Can't save?"
+				#failure "unknown error"
+        format.html {redirect_to :action=>'failure'}
+				format.xml
+				format.json {render :json => {"message"=>"failure"}}
 			end
 		end
 	  end
@@ -77,5 +106,22 @@ class TmpUsersController < ApplicationController
 	def picture_path_builder(home_path, coupon)
 		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
 	end	
-	
+
+  private
+
+  #Checks to see if the temp user exists.
+  #if the temp user exists then use that, otherwise we'll create a tmp account for him
+  #we store the coupon_id and game id for some reason, not sure why.
+  def temp_user_login(info)
+        unless TmpUser.find_by_email(info["email"]).nil?
+            @user = TmpUser.find_by_email(info["email"])
+
+            return @user
+          else
+            @user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
+            return @user
+          end
+
+
+  end
 end
