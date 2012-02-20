@@ -3,7 +3,9 @@ class TmpUsersController < ApplicationController
 
   def show
     @token = params[:token]
-	@coupon_id =params[:coupon_id]
+	@coupon_id = params[:coupon_id]
+
+
 	render :layout => false
   end
 
@@ -14,7 +16,11 @@ class TmpUsersController < ApplicationController
 	def failure
 		render :layout=>false
 	end
-
+  def redeemed_to_soon
+    @coupon_stat_id = params[:coupon_stat]
+    @coupon_stat = CouponStat.find(@coupon_stat_id)
+    render :layout=>false
+  end
   def create
 	respond_to do |format|
 		# Convert post requests to the right format for standardization
@@ -37,13 +43,18 @@ class TmpUsersController < ApplicationController
 		else
 			@coupon = Coupon.find_by_id(params[:coupon_id])
 			@game = Game.find_by_token(params[:token])
-			@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
-			@company = Company.find_by_id(@coupon.company_id)
 
+      info = Hash["email" => params[:email], "coupon" => params[:coupon_id], "game" => @game.id]
+      @user = temp_user_login(info)
+			#@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
+
+      @company = Company.find_by_id(@coupon.company_id)
+      @coupon_stat = @coupon.coupon_stats.find_by_user_id(@user.id)
 			@game.earnings += @coupon.cost_per_redeem
 			# redeemed!
-			if @user.save
+			if @user.save && !@coupon.recently_redeemed(@user.id)
 				@coupon.increment!(:redeemed)
+        @coupon.redeem(@user.id)
 				# send email out
 				@coupon[:picture_url] = picture_path_builder(root_url, @coupon)
 				CouponMailer.welcome_email(@user).deliver
@@ -51,9 +62,16 @@ class TmpUsersController < ApplicationController
 				format.html {redirect_to :action=>'success'}
 				format.xml
 				format.json {render :json => {"message"=>"success"}}
-			else
-				puts "Can't save?"
-				failure "unknown error"
+      elsif @coupon.recently_redeemed(@user.id)
+          format.html {redirect_to :action=>'redeemed_to_soon',:coupon_stat => @coupon_stat}
+				format.xml
+				format.json {render :json => {"message"=>"failure"}}
+      else
+				#puts "Can't save?"
+				#failure "unknown error"
+        format.html {redirect_to :action=>'failure'}
+				format.xml
+				format.json {render :json => {"message"=>"failure"}}
 			end
 		end
 	  end
@@ -67,5 +85,19 @@ class TmpUsersController < ApplicationController
 	def picture_path_builder(home_path, coupon)
 		@path = home_path + 'system/pictures/'+ coupon.id.to_s+'/medium/'
 	end	
-	
+
+  private
+
+  def temp_user_login(info)
+        unless TmpUser.find_by_email(info["email"]).nil?
+            @user = TmpUser.find_by_email(info["email"])
+
+            return @user
+          else
+            @user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
+            return @user
+          end
+
+
+  end
 end

@@ -9,12 +9,25 @@ class Coupon < ActiveRecord::Base
 	
 	attr_accessible :company_id, :name, :description, :cost_per_redeem, :limit, :redeemed, :ext_coupon_id, :meta_data, :picture
 	
-	def redeem
-		cs ||= self.coupon_stats.find_by_user_id( user.id )
-		cs ||= self.coupon_stats.create( :user_id => user.id )
+	def redeem(user_id)
+		cs ||= self.coupon_stats.find_by_user_id( user_id)
+		cs ||= self.coupon_stats.create( :user_id => user_id )
 		cs.redeem
 	end
 
+  def recently_redeemed(user_id)
+    recent_coupon = self.coupon_stats.find_all_by_user_id(user_id,:order => "created_at DESC").first()
+  if recent_coupon
+    if (Time.now >recent_coupon.updated_at + 1.days )
+         return false
+      else
+          return true
+      end
+  else
+    return false
+  end
+
+  end
 end
 
 # == Schema Information
