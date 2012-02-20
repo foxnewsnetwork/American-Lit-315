@@ -42,6 +42,9 @@ Earnings
   // Create and draw the visualization.
   visualization = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
   visualization.draw(data, {'allowHtml': true});
+	var today = new Date(<%= @visible_start_date.year %>, <%= @visible_start_date.mon-1 %>, <%= @visible_start_date.day %>);
+	var daysago = new Date(<%= @visible_end_date.year %>, <%= @visible_end_date.mon-1 %>, <%= @visible_end_date.day %>);
+	visualization.setVisibleChartRange(daysago,today);
 }
 
     </script>

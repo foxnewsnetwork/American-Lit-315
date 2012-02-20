@@ -80,6 +80,8 @@ class GamesController < ApplicationController
 		@thirtydays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("30").first.earning
 		@totaldays = GameEarnings.select("sum(earnings) as earning").first.earning
 
+		@visible_start_date = Time.now
+		@visible_end_date = Time.now - 5.days
 
    		respond_to do |format|
 			format.html
