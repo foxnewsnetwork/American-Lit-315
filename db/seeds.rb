@@ -77,6 +77,39 @@ while start_date < end_date
 end
 ##################################################
 
+###################################################
+# this simulates first coupon 's impressions and
+# click_throughs
+# between start of first coupon's create and today, 
+# create between 1 - 100 impressions per day
+# create between 0 - max(impressions) per day
+# NOTE: Set :attr_accessible for :created_at in 
+# app/model/coupon_stat.rb or the created at simulation
+# WOULDN'T work
+###################################################
+g = Coupon.first
+start_date = g.created_at
+end_date = DateTime.now
+
+while start_date < end_date
+	start_date = start_date + 1.days
+	r = rand(10)
+	puts "#{r} coupons/rewards impressions on #{start_date}"
+	while r > 0
+		@ge = GameEarnings.new(
+			:game_id => 1, 
+			:coupon_id => 1, 
+			:earnings => 0.75, 
+			:coupon_cost => 0.75,
+			:user_id => 1,
+			:created_at => start_date
+		)
+		@ge.save
+		r -= 1
+	end
+end
+##################################################
+
 #c.ads.create
 #c.ads.create
 #c.ads.create
