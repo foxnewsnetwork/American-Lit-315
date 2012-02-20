@@ -16,10 +16,22 @@
 <%= @game.name %>
 </h1>
 <hr>
-<h2>
-Earnings
-</h2>
-<hr>
+<div class="row">
+    <div class="span4">
+	
+	<h2>
+	Earnings
+	</h2>
+	</div>
+    <div class="span4 offset4">
+			Start:
+            <input id="popupDateFieldStart" style="width:5em" value="<%= @visible_end_date.year %>-<%= @visible_end_date.mon %>-<%= @visible_end_date.day %>">
+			End:
+            <input id="popupDateFieldEnd" style="width:5em" value="<%= @visible_start_date.year %>-<%= @visible_start_date.mon %>-<%= @visible_start_date.day %>">
+			<div class="btn btn-primary btn-large" onclick="setNewVR()">Update</div>
+</div>
+</div>
+
     <script type='text/javascript'>
       google.load('visualization', '1', {'packages':['annotatedtimeline']});
       google.setOnLoadCallback(drawVisualization);
@@ -41,14 +53,60 @@ Earnings
 
   // Create and draw the visualization.
   visualization = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-  visualization.draw(data, {'allowHtml': true});
+  visualization.draw(data, {'allowHtml': true,'allowRedraw':true, 'displayExactValues':true});
 	var today = new Date(<%= @visible_start_date.year %>, <%= @visible_start_date.mon-1 %>, <%= @visible_start_date.day %>);
 	var daysago = new Date(<%= @visible_end_date.year %>, <%= @visible_end_date.mon-1 %>, <%= @visible_end_date.day %>);
 	visualization.setVisibleChartRange(daysago,today);
 }
 
     </script>
-<div id='chart_div' style='width: 100%; height: 240px;'></div>
+<%= javascript_include_tag 'calendarview' %>
+<style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/calendarview.css');</style>
+ <script type="text/javascript">
+      window.onload = function() {
+        Calendar.setup(
+          {
+            dateField      : 'popupDateFieldStart',
+            triggerElement : 'popupDateFieldStart'
+          }
+        )
+        Calendar.setup(
+          {
+            dateField      : 'popupDateFieldEnd',
+            triggerElement : 'popupDateFieldEnd'
+          }
+        )
+		
+      }
+
+		
+		function setNewVR( ){
+			var start_str = jQuery("#popupDateFieldStart").val().split('-');
+			var end_str = jQuery("#popupDateFieldEnd").val().split('-');
+	
+			var start_date = new Date(Number(start_str[0]),Number(start_str[1])-1,Number(start_str[2]) ) ;
+			var end_date = new Date(Number(end_str[0]),Number(end_str[1])-1 ,Number(end_str[2]) ) ;
+var JSONObject = {
+	      cols: [
+			{id: 'date', label: 'Date', type: 'date'},
+          {id: 'earning', label: 'Daily Earning', type: 'number'}
+		],
+      rows: [
+<% @daily_earnings.each do |de| %>
+	<%= "{c:[{v: new Date(#{de.created_at.year}, #{de.created_at.mon-1}, #{de.created_at.day})}, 
+		{v: #{de.daily_earning}}]}," %>
+<% end %>
+		]};
+
+			var data = new google.visualization.DataTable(JSONObject, 0.5);
+			var visualization = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+			visualization.draw(data, {'allowHtml': true, 'allowRedraw':true,'displayExactValues':true});
+			visualization.setVisibleChartRange(start_date,end_date);
+			
+		}
+
+    </script>
+<div id='chart_div' style='width: 100%; height: 300px;'></div>
 <br>
 <table class="table" style="text-align:center">
 <thead>
