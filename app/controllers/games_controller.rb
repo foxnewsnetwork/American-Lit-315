@@ -73,6 +73,20 @@ class GamesController < ApplicationController
 		@game = Game.find(params[:id])
 		@chart = GoogleChart.pie(10,20,40,30)
 		@chart = GoogleChart.pie(['1997',10],['1998',20],['1999',40],['2000',30])
+		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").group("date(created_at)")
+		@labels = [{:id=>'date', :label=>'Date', :type=>'date'},
+					{:id=>'pencils', :label=>'Sold Pencils', :type=>'number'}]
+		@fivedays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("5").first.earning
+		@thirtydays = GameEarnings.select("sum(earnings) as earning").group("date(created_at)").limit("30").first.earning
+		@totaldays = GameEarnings.select("sum(earnings) as earning").first.earning
+
+
+   		respond_to do |format|
+			format.html
+			format.json
+		end
+		
+
 	end
 
 	def edit
