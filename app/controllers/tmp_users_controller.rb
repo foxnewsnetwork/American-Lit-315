@@ -40,7 +40,6 @@ class TmpUsersController < ApplicationController
 			@user = TmpUser.new(:email=>params[:email], :coupon_id => params[:coupon_id], :game_id => @game.id)
 			@company = Company.find_by_id(@coupon.company_id)
 
-			@game.earnings += @coupon.cost_per_redeem
 			# redeemed!
 			if @user.save
 				@coupon.increment!(:redeemed)
@@ -48,6 +47,17 @@ class TmpUsersController < ApplicationController
 				@coupon[:picture_url] = picture_path_builder(root_url, @coupon)
 				CouponMailer.welcome_email(@user).deliver
 				CouponMailer.coupon_email(@user, @coupon).deliver
+		
+				# create an earnings record
+				@gameEarnings = GameEarnings.new(
+					:game_id=>@game.id, 
+					:coupon_id=>@coupon.id, 
+					:earnings=>@coupon.cost_per_redeem, 
+					:coupon_cost => @coupon.cost_per_redeem, 
+					:user_id=>@user.id
+				)
+				@gameEarnings.save
+
 				format.html {redirect_to :action=>'success'}
 				format.xml
 				format.json {render :json => {"message"=>"success"}}

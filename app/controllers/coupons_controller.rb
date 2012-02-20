@@ -121,10 +121,12 @@ class CouponsController < ApplicationController
 			else
 				@game = Game.find_by_token(params[:token])
 				@game.increment!(:impressions) #increment impressions
-				@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
-				@game.save
-
 				@coupon.increment!(:displayed)
+				#@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
+				#@gameEarnings = GameEarnings.new(:game_id=>@game.id, :coupon_id=>@coupon.id, :earnings=>@game.earnings, :coupon_cost => @coupon.cost_per_redeem, :user_id=>1)
+				#@gameEarnings.save
+				#@game.save
+
 				#format.html {render :xml => @coupon}
 				format.xml
 				format.json
