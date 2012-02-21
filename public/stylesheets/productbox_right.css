@@ -15,7 +15,7 @@ a#gamertiser_shop_tab {
 	top:25%;
 	width:42px;
 	z-index:100000;	
-	}
+}
 
 /* =Barometer Overlay
 --------------------------------------------------------*/
@@ -46,7 +46,8 @@ a#gamertiser_shop_tab {
 #gamertiser_shop_main { 
 	width: 560px; 
 	height: 280px; 
-	margin: 0 auto; 
+	/*margin: 0 auto; 
+	margin-left: 1.5em; */
 	z-index:2; 
 	position:relative; 
 	background-color: transparent;
@@ -146,6 +147,4 @@ a#gamertiser_shop_tab {
 	z-index:1;
 	width: 100%; 
 	position: absolute; 
-	background-color: #000; 
-	opacity: 0.42; filter:alpha(opacity=42); -moz-opacity: 0.42;
-	}
+}

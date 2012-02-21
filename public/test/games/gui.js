@@ -1,4 +1,4 @@
-var LIFES = 5, 
+var LIFES = 1, 
     lifeTiles=[], 
     actualLifes=LIFES,
     pointsTiles=[];
