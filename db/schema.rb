@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -194,7 +193,6 @@ ActiveRecord::Schema.define(:version => 20120220120501) do
     t.datetime "picture_updated_at"
     t.text     "meta_data"
     t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0
-    t.integer  "clicked_through",                                    :default => 0
     t.integer  "purchased",                                          :default => 0
     t.integer  "displayed",                                          :default => 0
     t.integer  "click_through",                                      :default => 0
