@@ -56,7 +56,7 @@
 	visualization.setVisibleChartRange(daysago,today);
 }
 
-    </script>
+</script>
 <%= javascript_include_tag 'calendarview' %>
 <style type='text/css'>@import url('http://0.0.0.0:3000/stylesheets/calendarview.css');</style>
  <script type="text/javascript">
@@ -73,6 +73,23 @@
             triggerElement : 'popupDateFieldEnd'
           }
         )
+		//////////////////////////////////////////////////
+		// Duplicated IMCT or impression click through code
+		// Stay here or it wouldn't work
+		//////////////////////////////////////////////////
+        Calendar.setup(
+          {
+            dateField      : 'popupDateFieldStartIMCT',
+            triggerElement : 'popupDateFieldStartIMCT'
+          }
+        )
+        Calendar.setup(
+          {
+            dateField      : 'popupDateFieldEndIMCT',
+            triggerElement : 'popupDateFieldEndIMCT'
+          }
+        )
+		//////////////////////////////////////////////////
 		
       }
 
@@ -101,6 +118,38 @@ var JSONObject = {
 			visualization.setVisibleChartRange(start_date,end_date);
 			
 		}
+		
+		//////////////////////////////////////////////////
+		// Duplicated IMCT or impression click through code
+		// Stay here or it wouldn't work
+		//////////////////////////////////////////////////
+		function setNewVRIMCT( ){
+			var start_str = jQuery("#popupDateFieldStartIMCT").val().split('-');
+			var end_str = jQuery("#popupDateFieldEndIMCT").val().split('-');
+	
+			var start_date = new Date(Number(start_str[0]),Number(start_str[1])-1,Number(start_str[2]) ) ;
+			var end_date = new Date(Number(end_str[0]),Number(end_str[1])-1 ,Number(end_str[2]) ) ;
+
+			var JSONObject = {
+		      cols: [
+				{id: 'date', label: 'Date', type: 'date'},
+	          {id: 'earning', label: 'Daily Earning', type: 'number'}
+					],
+		      rows: [
+				<% @daily_imct.each do |de| %>
+					<%= "{c:[{v: new Date(#{de.created_at.year}, #{de.created_at.mon-1}, #{de.created_at.day})}, 
+						{v: #{de.impressions}}]}," %>
+				<% end %>
+					]}
+
+			var data = new google.visualization.DataTable(JSONObject, 0.5);
+			var visualization = new google.visualization.AnnotatedTimeLine(document.getElementById('imct_chart_div'));
+			visualization.draw(data, options);
+			visualization.setVisibleChartRange(start_date,end_date);
+			
+		}
+		///////////////////////////////////////////////////
+
 
     </script>
 <div id='chart_div' style='width: 100%; height: 300px;'></div>
