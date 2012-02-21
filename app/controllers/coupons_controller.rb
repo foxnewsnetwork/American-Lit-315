@@ -50,7 +50,7 @@ class CouponsController < ApplicationController
 
 
     def new
-            @coupon = Coupon.new
+		@coupon = Coupon.new
     end
 
     def create
@@ -118,15 +118,10 @@ class CouponsController < ApplicationController
 				format.json { render :json=> @invalid_token_error}
 			else
 				@game = Game.find_by_token(params[:token])
-				@game.increment!(:impressions) #increment impressions
+				
+				# increments impression
 				@coupon.coupon_stats.create(:game_id=>@game.id, :impression => 1 )
-				@coupon.increment!(:displayed)
-				#@game.earnings = @game.earnings + @coupon.cost_per_redeem # pay the player by the cost of coupon
-				#@gameEarnings = GameEarnings.new(:game_id=>@game.id, :coupon_id=>@coupon.id, :earnings=>@game.earnings, :coupon_cost => @coupon.cost_per_redeem, :user_id=>1)
-				#@gameEarnings.save
-				#@game.save
 
-				#format.html {render :xml => @coupon}
 				format.xml
 				format.json
 			end
@@ -142,22 +137,12 @@ class CouponsController < ApplicationController
 			format.js do	
 				@coupon = Coupon.find_by_id(params[:coupon_id])
 				@game = Game.find_by_token(params[:token])
-				puts @coupon.name
-				@coupon.increment!(:click_through)
 				@coupon.coupon_stats.create(:game_id=>@game.id, 
 					:click_through => 1 )
-				render :json=>"{'message':'OK'}";
+				render :json=>"{'message':'SUCCESS'}";
 			end
 		end
 		
-	end
-
-	# upon click through
-	# 1. Check if user is logged in, if not, ask for login if exists, else ask for email
-	# 2. if logged in, extract email and send the coupon to user
-	# 3. update user's click through of coupon, coupon's click through number
-	def send_coupon
-	 
 	end
 
 	def picture_path_builder(root_url, coupon)

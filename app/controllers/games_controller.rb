@@ -71,8 +71,6 @@ class GamesController < ApplicationController
 		# Earning Data Constructs
 		################################################
 		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("date(created_at)")
-		@labels = [{:id=>'date', :label=>'Date', :type=>'date'},
-					{:id=>'pencils', :label=>'Sold Pencils', :type=>'number'}]
 
 		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5"))
 		
@@ -90,6 +88,17 @@ class GamesController < ApplicationController
 			).group(
 				"date(created_at)"
 			)
+		# private method (# of days, game id, impression? or click_through?)
+		@fivedays_im = coupon_record_from_past_days(5,  @game.id, 'impression').first.cnt
+		@thirtydays_im = coupon_record_from_past_days(30,  @game.id, 'impression').first.cnt
+		@totaldays_im = coupon_record_from_past_days('all',  @game.id, 'impression').first.cnt
+		
+		@fivedays_ct = coupon_record_from_past_days(5,  @game.id, 'click_through').first.cnt
+		@thirtydays_ct = coupon_record_from_past_days(30,  @game.id, 'click_through').first.cnt
+		@totaldays_ct = coupon_record_from_past_days('all',  @game.id, 'click_through').first.cnt
+		################################################
+
+		################################################
 		################################################
 
 		@visible_start_date = Time.now
@@ -115,6 +124,25 @@ class GamesController < ApplicationController
       deny_access unless signed_in?
     end
 	
+	def coupon_record_from_past_days(n, game_id, type)
+		#SELECT count(impression) FROM coupon_stats WHERE date_sub(curdate(), INTERVAL 5 DAY) <= created_at AND NOW() >= created_at AND game_id = 1 AND impression = 1;
+		if n == 'all'
+		 	CouponStat.select("count(#{type}) as cnt"
+				).where(
+					"game_id = #{game_id}
+					AND #{type} = 1"
+				)
+		else
+		
+			CouponStat.select("count(#{type}) as cnt"
+				).where(
+					"date_sub(curdate(), INTERVAL #{n} DAY) <= created_at 
+					AND NOW() >= created_at 
+					AND game_id = #{game_id}
+					AND #{type} = 1"
+				)
+		end
+	end
 	def sumEarnings(l)
 			result = 0
 			l.each do |g|
