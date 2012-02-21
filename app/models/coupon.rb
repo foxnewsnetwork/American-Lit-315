@@ -17,8 +17,16 @@ class Coupon < ActiveRecord::Base
 
   #look at this coupons stats and see if the user has recently redeemed it.
   def recently_redeemed(user_id)
+	# We allow Han's email (or any other test emails really) through
+	
+	@user = TmpUser.find_by_id(user_id)
+	if @user.email = 'hanqijing@gmail.com'
+		return false
+	end
+
     #get all stats with the user. There should only be one though, I'm not sure why i'm looking
     # for multiple. For now i'll assume i had reason to and leave it like this =D
+	
     recent_coupon = self.coupon_stats.find_all_by_user_id(user_id,:order => "created_at DESC").first()
     #if we found any couponstats for that user.
     if recent_coupon

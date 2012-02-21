@@ -38,10 +38,10 @@
 			<%= game.meta_data %>
 			</td>
 			<td style="padding:0.5em">
-			<%= number_to_currency totaldays(game.id) %>
+			<%= number_to_currency totaldays_earning(game.id) %>
 			</td>
 			<td style="padding:0.5em">
-			<%= game.impressions %>
+			<%= number_with_precision totaldays_im(game.id), :precision=>0 %>
 			</td>
 			<td style="padding:0.5em" align='right'>	
 			<%= link_to "Info", {:action => "show", :id => game.id}, :class=>"btn btn-primary" %>
