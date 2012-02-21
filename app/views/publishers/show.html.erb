@@ -4,7 +4,7 @@
 		<h1>Welcome, <%= current_publisher.name.capitalize %>!</h1>
 	</div>
     <div class="span4 offset4" style="text-align:right">
-<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn btn-primary"%>
+<%= link_to "Add a Game", publisher_game_path(current_publisher, "new"), :class=>"btn btn-success btn-large"%>
 	</div>
 </div>
 
@@ -28,7 +28,7 @@
 		<%= link_to "Total Impressions", publisher_games_path(current_publisher) %>
 	</h2>
 	<h1>
-		<%= @games_count %>
+		<%= number_with_precision @im_count, :precision =>0 %>
 	</h1>
 </div>
 			</td>
@@ -38,7 +38,7 @@
 		<%= link_to "Total Earnings", publisher_games_path(current_publisher) %>
 	</h2>
 	<h1>
-		<%= @games_count %>
+		<%= number_to_currency @earnings_count %>
 	</h1>
 </div>
 			</td>

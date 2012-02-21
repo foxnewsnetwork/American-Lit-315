@@ -3,6 +3,27 @@ class PublishersController < ApplicationController
 	@toolbar_hash = {:publisher => 'active'}
 	@games = current_publisher.games
 	@games_count = @games.count
+	
+	@earnings_count = 0
+	@games.each do |g|
+		r = GameEarnings.select(
+				"SUM(earnings) as earnings").where(
+				"game_id = #{g.id}").first.earnings
+		if not r.nil?
+			@earnings_count += r
+		end
+	end
+	
+	@im_count = 0
+	@games.each do |g|
+		r = CouponStat.select(
+				"SUM(impression) as im").where(
+				"game_id = #{g.id}").first.im
+		if not r.nil?
+			@im_count += r
+		end
+	end
+
 	if current_publisher.token.nil?
 		@token = create_new_token
 	else
