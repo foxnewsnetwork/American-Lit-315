@@ -4,7 +4,7 @@ class CouponStat < ActiveRecord::Base
 
 	# NOTE: make sure :created_at is here if you want rake db:seed
 	# to run correctly
-	attr_accessible :click_through, :impression, :game_id, :user_id
+	attr_accessible :click_through, :impression, :game_id, :user_id, :created_at
 end
 
 
