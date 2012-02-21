@@ -67,12 +67,30 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find(params[:id])
-		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").group("date(created_at)")
+		################################################
+		# Earning Data Constructs
+		################################################
+		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("date(created_at)")
 		@labels = [{:id=>'date', :label=>'Date', :type=>'date'},
 					{:id=>'pencils', :label=>'Sold Pencils', :type=>'number'}]
-		@fivedays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5").first.earning
-		@thirtydays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("30").first.earning
-		@totaldays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").first.earning
+
+		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5"))
+		
+		@thirtydays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("30"))
+		@totaldays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").first.earning || 0
+		################################################
+
+		################################################
+		# IMCT(Impression/Click_Through Data Constructs)
+		################################################
+		@daily_imct = CouponStat.select(
+				"COUNT(impression) as impressions, created_at"
+			).where(
+				"game_id='#{@game.id}' AND impression = 1"
+			).group(
+				"date(created_at)"
+			)
+		################################################
 
 		@visible_start_date = Time.now
 		@visible_end_date = Time.now - 5.days
@@ -80,8 +98,6 @@ class GamesController < ApplicationController
    		respond_to do |format|
 			format.html
 		end
-		
-
 	end
 
 	def edit
@@ -98,5 +114,14 @@ class GamesController < ApplicationController
     def authenticate
       deny_access unless signed_in?
     end
+	
+	def sumEarnings(l)
+			result = 0
+			l.each do |g|
+				result += g.earning
+			end
+			return result
+	end
+
 
 end

@@ -54,14 +54,15 @@ object_list.each { |obj| inform(obj)}
 # app/model/game_earnings.rb or the created at simulation
 # WOULDN'T work
 ###################################################
+def seed_redemptions
 g = Game.first
-start_date = g.created_at
 end_date = DateTime.now
-
+#start_date = g.created_at
+start_date = DateTime.now - 60.days
 while start_date < end_date
 	start_date = start_date + 1.days
 	r = rand(10)
-	puts "#{r} coupons/rewards on start_date"
+	puts "#{r} coupons/rewards on #{start_date}"
 	while r > 0
 		@ge = GameEarnings.new(
 			:game_id => 1, 
@@ -75,6 +76,8 @@ while start_date < end_date
 		r -= 1
 	end
 end
+end
+seed_redemptions
 ##################################################
 
 ###################################################
@@ -87,27 +90,40 @@ end
 # app/model/coupon_stat.rb or the created at simulation
 # WOULDN'T work
 ###################################################
-g = Coupon.first
-start_date = g.created_at
-end_date = DateTime.now
+def seed_impressions(max)
+	g = Coupon.first
+	end_date = DateTime.now
+	start_date = DateTime.now - 60.days
 
-while start_date < end_date
-	start_date = start_date + 1.days
-	r = rand(10)
-	puts "#{r} coupons/rewards impressions on #{start_date}"
-	while r > 0
-		@ge = GameEarnings.new(
-			:game_id => 1, 
-			:coupon_id => 1, 
-			:earnings => 0.75, 
-			:coupon_cost => 0.75,
-			:user_id => 1,
-			:created_at => start_date
-		)
-		@ge.save
-		r -= 1
+	while start_date < end_date
+		start_date = start_date + 1.days
+		r = rand(max)
+		m = r
+		puts "#{r} coupons/rewards impressions on #{start_date}"
+		while r > 0
+			@ge = g.coupon_stats.create(
+				:game_id => 1, 
+				:impression => 1,
+				:created_at => start_date
+			)
+			@ge.save
+			r -= 1
+		end
+		x = rand(m)
+		puts "#{x} coupons/rewards click_through on #{start_date}"
+		while x > 0
+			@ge = g.coupon_stats.create(
+				:game_id => 1, 
+				:click_through => 1,
+				:created_at => start_date
+			)
+			@ge.save
+			x -= 1
+		end
 	end
 end
+
+seed_impressions(20)
 ##################################################
 
 #c.ads.create
