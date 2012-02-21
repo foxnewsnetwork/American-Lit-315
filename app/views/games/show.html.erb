@@ -118,7 +118,9 @@
 	</h2>
 <hr>
 <pre>
-	<%= @game.token %>
+
+Coming soon!
+
 </pre>
 </div>
 <br>
@@ -131,8 +133,17 @@
 	</h2>
 <hr>
 <pre>
-	Coming soon..
+
+&#60;div id="gamertiser_images"&#62;&#60;/div&#62;
+&#60;style type='text/css'&#62;@import url('http://gamertiser.com/stylesheets/rewardbox.css');&#60;/style&#62;
+&#60;script src="/test/coupons/USER_EMAIL_ONLY_FORM.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+USER_EMAIL_ONLY_FORM.load();
+GAMERTISER_SHOW('coupon', <%= @game.token %>);
+&#60;/script&#62;
+
 </pre>
+Just copy and paste the above at wherever you like in the &#60;body&#62; tags of your HTML page.
 </div>
 <br>
 <br>
