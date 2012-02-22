@@ -161,9 +161,9 @@ var actualLevel = 0,
     //MAIN BOARDS
     //UGLY AS HELL, I KNOW
     var board = document.createElement('img');
-    board.style.position = 'absolute';
-    board.style.top = '0';
-    board.style.left = '0';
+    //board.style.position = 'absolute';
+    //board.style.top = '0';
+    //board.style.left = '0';
     board.style.cursor = 'pointer';
     board.style.zIndex = Z_GUI*2;
     board.src = 'images/boards/' + LEVELS[actualLevel].board; 
