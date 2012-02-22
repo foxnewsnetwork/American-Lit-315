@@ -22,7 +22,7 @@ class Payment < ActiveRecord::Base
 		
 		@user ||= User.find(params[:user_id])
 		prev_user = User.last
-		@user ||= User.create( :username => "#{prev_user.id+1}",
+		@user ||= User.create( :name => "#{prev_user.id+1}",
 			 :email => "#{prev_user.id+1}@ingidio.com", 
 			 :password => "01j301jt01j0j1jg0n0n04ng0412t124g", 
 			 :password_confirmation => "01j301jt01j0j1jg0n0n04ng0412t124g" ) 
