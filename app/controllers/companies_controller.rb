@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   before_filter :authorize_current_company
   def show
 	@toolbar_hash = {:company => 'active'}
-  	@company = Company.find( params[:id] )
+  	@company = current_company
 	@coupons_count = @company.coupons.count
 	@ads_count = @company.ads.count
 	@products_count = @company.products.count

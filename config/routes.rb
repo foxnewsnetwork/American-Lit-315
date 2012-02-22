@@ -7,7 +7,9 @@ Adserver::Application.routes.draw do
   match "/contact", :to => "pages#contact"
   match "/contact", :to => "pages#contact"
 
-  devise_for :publishers
+  devise_for :publishers do
+    get 'publishers', :to => "publishers#show",:as => :publisher_root
+  end
   resources :payments
 
   # Matches new_token url for platforms/publishers to create tokens for API calls
@@ -22,7 +24,9 @@ Adserver::Application.routes.draw do
   # This route can be invoked with new_game_token_url(:publisher_id => current_publisher.id, :game_id => game.id)
   match 'publishers/:publisher_id/games/:game_id/new_token' => 'games#new_token', :as => :new_game_token
 
-  devise_for :companies
+  devise_for :companies do
+    get 'companies', :to => "companies#show", :as => :company_root
+  end
  # resources :ads, :only => [:index]
   resources :companies, :only => [:new, :show, :index] do
   	resources :products
