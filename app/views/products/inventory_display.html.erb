@@ -19,9 +19,13 @@ img {
 </style>
 </head>
 <body>
+<h4>
+Good Game! Here are some exclusive items as additional rewards: 
+<h4>
 <% if current_user %>
 <%= current_user.name %>
 <% end %>
+
 <table style="text-align:center" align="center">
 <tr>
 <% @products.each do |p| %>

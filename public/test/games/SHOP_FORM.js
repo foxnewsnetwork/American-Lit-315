@@ -38,7 +38,7 @@ SHOP_FORM.show = function() {
 //gamteriser show reward controllers
 function gamertiser_tmp(token, coupon_id) {
 		SHOP_FORM.show(token, coupon_id);
-	}
+}
 
 // given type:string, token:string, id:integer
 // send in the put request to increment click_through
