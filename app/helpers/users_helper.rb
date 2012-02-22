@@ -10,7 +10,7 @@ module UsersHelper
 	
 	# Function uses the stuff in the info hash to find and login the user or create one if one doesn't exist
 	# Keys that should be in the parameter hash
-	# :email, :password, :username
+	# :email, :password, :name
 	def api_find_or_create_user( info )
 		# This code refused to cooperate so it's a bit inelegant
     # Sign_ins should be done on the controller level so are not handled here
@@ -25,7 +25,7 @@ module UsersHelper
         end
         return @user
       else
-        @user = User.create(:email => info[:email], :password => info[:password], :username => info[:username])
+        @user = User.create(:email => info[:email], :password => info[:password], :name => info[:name])
         return @user
       end
 

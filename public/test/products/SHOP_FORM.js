@@ -13,7 +13,7 @@ SHOP_FORM.load = function(token) {
   this.tab_html = '<a id="gamertiser_shop_tab" onclick="GAMERTISER_DISPLAY_SHOP(\'' + token +'\');" href="#">Feedback</a>';
 
   this.overlay_html = '<div id="gamertiser_shop_overlay" style="display: none;">' +
-			'<div id="gamertiser_shop_main" style="top: 130.95px;">' +
+			'<div id="gamertiser_shop_main">' +
 			'<a id="gamertiser_shop_close" onclick="document.getElementById(\'gamertiser_shop_overlay\').style.display = \'none\';return false" href="#"/></a>' +
 			'<div id="overlay_header">' +
 				'</div>' +
@@ -32,7 +32,9 @@ SHOP_FORM.show = function() {
   //feedback_url = 'http://0.0.0.0:3000/' + this.gamertiser_shop_id + '?token='+ token +'&'+'coupon_id=' + coupon_id;
   feedback_url = 'http://0.0.0.0:3000/api/v1/product_inventory_display';
   document.getElementById('gamertiser_shop_iframe').setAttribute("src", feedback_url);
-  document.getElementById('gamertiser_shop_overlay').style.display = "block";
+  //javascript based
+  //document.getElementById('gamertiser_shop_overlay').style.display = "block";
+  $('#gamertiser_shop_overlay').show(800 );
   return false;
 };
 

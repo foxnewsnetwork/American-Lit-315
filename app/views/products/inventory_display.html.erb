@@ -19,6 +19,9 @@ img {
 </style>
 </head>
 <body>
+<% if current_user %>
+<%= current_user.name %>
+<% end %>
 <table style="text-align:center" align="center">
 <tr>
 <% @products.each do |p| %>
@@ -34,7 +37,7 @@ img {
 <% @products.each do |p| %>
 <td style="padding:10px">
 	<td style="width:150px; ">
-		<%= p.description %><br>
+		<!--<%= p.name %><br>-->
 		<font size='3em' color='#E56717' ><%= number_to_currency p.price %></font> + <font size='2em'>free shipping</font><br>
 		<a href='#' class='btn btn-primary'>Get it</a>
 	</td>

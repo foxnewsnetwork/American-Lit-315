@@ -101,6 +101,8 @@ body {
   font-size: 13px;
   color: #333333;
   background-color: #ffffff;
+  /*opacity:0.4;
+  filter:alpha(opacity=40);*/
 }
 a {
   color: #0088cc;
