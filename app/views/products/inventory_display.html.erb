@@ -20,12 +20,15 @@ img {
 </head>
 <body>
 <h4>
-Good Game! Here are some exclusive items as additional rewards: 
-<h4>
+Good Game! Your exclusive rewards.
 <% if current_user %>
 <%= current_user.name %>
+<%= link_to 'Sign in as...', destroy_user_session_path,:method=>'delete', :class=>'btn btn-success' %>
+<% else %>
+<%= link_to 'Register', new_user_path %>
 <% end %>
-
+</h4>
+<br>
 <table style="text-align:center" align="center">
 <tr>
 <% @products.each do |p| %>
@@ -39,13 +42,24 @@ Good Game! Here are some exclusive items as additional rewards:
 
 <tbody>
 <% @products.each do |p| %>
+<%= form_for :product, :url => {:action => 'confirm_purchase'}, :html => { :multipart => true } do |f| %>
+<%= hidden_field_tag 'product_id', p.id %>
+
+<% if current_user %>
+	<%= hidden_field_tag 'user_id', current_user.id  %>
+<% else %>
+	<%= hidden_field_tag 'user_id', -1  %>
+<% end %>
 <td style="padding:10px">
 	<td style="width:150px; ">
-		<!--<%= p.name %><br>-->
-		<font size='3em' color='#E56717' ><%= number_to_currency p.price %></font> + <font size='2em'>free shipping</font><br>
-		<a href='#' class='btn btn-primary'>Get it</a>
+		<%= p.name %><br>
+		<font size='3em' color='#E56717' >
+			<%= number_to_currency p.price %>
+				</font> + <font size='2em'>free shipping</font><br>
+		<%= f.submit 'Get it', :class=>'btn' %>
 	</td>
 </td>
+<% end %>
 <% end %>
 </tbody>
 </table>

@@ -165,18 +165,25 @@ class ProductsController < ApplicationController
 				@products << rand_record
 		    end
 	    end
-		#rand_record = Product.find_by_product_type('food')
-		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
-		#@products << rand_record
-    #
-		#rand_record = Product.find_by_product_type('electronic')
-		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
-		#@products << rand_record
-    #
-		#rand_record = Product.find_by_product_type('toy')
-		#rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
-		#@products << rand_record
 
+		render :layout => false
+	end
+
+	def confirm_purchase
+		# get user info (credit card and name)
+			
+		# dump into stats database
+		# api call to Stripe
+		if params[:user_id] == -1
+		end
+				
+		@user = User.find_by_id(params[:user_id])
+		@product = Product.find_by_id(params[:product_id])
+
+		render :layout => false
+	end
+
+	def success_prompt
 		render :layout => false
 	end
 

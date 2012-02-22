@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authorize_current_user, :except => [:index]
 
-
   def create_new_token
 		(Digest::MD5.hexdigest "#{ActiveSupport::SecureRandom.hex(10)}-#{DateTime.now.to_s}")
   end
