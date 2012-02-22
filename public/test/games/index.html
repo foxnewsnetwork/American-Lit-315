@@ -34,11 +34,13 @@ body  {
 <script src="core.js"></script>
 <script src="gui.js"></script>
 <script>
+var canvas_width = $("canvas").width()/2;
 $("canvas").css("outline", 0);
 $("canvas").css("margin-left", "auto");
 $("canvas").css("margin-right", "auto");
-//$("img").css("margin-left", "auto");
-//$("img").css("margin-right", "auto");
+//$("img").css("left", 0);
+$("img").css("position", "absolute");
+$("img").css("left", $(document).width()/2-canvas_width);
 //$("div").css("position", "relative");
 
 //$("div").css("margin-left", "auto");
