@@ -2,25 +2,20 @@ require 'spec_helper'
 
 describe UsersController do
 
-  describe "GET 'show'" do
-    it "should be successful" do
-      get 'show'
-      response.should be_success
-    end
-  end
+describe "it should return api login correctly" do
 
-  describe "GET 'new'" do
-    it "should be successful" do
-      get 'new'
-      response.should be_success
-    end
+  it "should return json " do
+     @expected = {
+        :successful_login  => "true",
+    }.to_json
+    @user = Factory(:user)
+    @attr = Factory.attributes_for(:user)
+    post :api_login, :email => @attr[:email],:password =>@attr[:password], :format => :json
+    assigns[:successful_login].should == "true"
+    assigns[:user_token].should_not == "123345"
+    #parsed_body = JSON.parse(response.body)
+   # parsed_body[:user_token].should == false
   end
-
-  describe "GET 'index'" do
-    it "should be successful" do
-      get 'index'
-      response.should be_success
-    end
-  end
+end
 
 end
