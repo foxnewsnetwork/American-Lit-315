@@ -12,22 +12,19 @@
 <script src="http://0.0.0.0:3000/javascripts/jquery.js"></script>
 
 <script src="http://0.0.0.0:3000/test/products/SHOP_FORM.js"></script>
+
 <script type="text/javascript">
 var token = '686e7caffbc803f5206c28f8a03003a0';
 SHOP_FORM.load(token); //loads feedback tab
 $(document).ready(function(){
-	alert('food');
-	$("#gamertiser_shop_main").css("margin-left","1.5em");
+	GAMERTISER_DISPLAY_SHOP(token);
+	//$("#gamertiser_shop_overlay").css("width", "600px");
+	//$("#gamertiser_shop_overlay").css("height", "600px");
+	//$("#gamertiser_shop_main").css("right","0em");
+	//$("#gamertiser_shop_main").css("margin-right","-7px");
 });
 
-$(document).ready(function(){
-	alert('food');
-});
-GAMERTISER_SHOW('product', token);
-
-</script>
-<script>
-$(window).load(alert('windows loaded'););
+//GAMERTISER_SHOW('product', token);
 
 </script>
 
