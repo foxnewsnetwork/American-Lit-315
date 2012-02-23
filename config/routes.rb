@@ -16,9 +16,9 @@ Adserver::Application.routes.draw do
   # This route can be invoked with new_token_url(:id => current_publisher.id)
   match 'publishers/:id/new_token' => 'publishers#new_token', :as => :new_token
 
-	resources :publishers, :only => [:new, :show, :index, :new_token] do
-		resources :games
-	end
+  resources :publishers, :only => [:new, :show, :index, :new_token] do
+    resources :games
+  end
 
   # Matches new_token url for games to create tokens for API calls
   # This route can be invoked with new_game_token_url(:publisher_id => current_publisher.id, :game_id => game.id)
@@ -40,7 +40,9 @@ Adserver::Application.routes.draw do
       post 'api_login', :on => :collection
   end
 
-  devise_for :users
+  devise_for :users do
+	get 'users', :to => "products#inventory_display", :as => :user_root
+  end
   resources :users, :only => [:new, :show, :index] do
   	resources :payments
     post 'api_login', :on => :collection
@@ -57,6 +59,7 @@ Adserver::Application.routes.draw do
   match "/api/v1/product", :to => "products#random_api"
 
   match "/api/v1/product/confirm_purchase", :to => "products#confirm_purchase"
+  match "/api/v1/product/user_sign_in" => 'users#product_user_sign_in', :as => :product_user_sign_in
 
   match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 

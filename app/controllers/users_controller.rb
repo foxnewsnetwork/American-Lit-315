@@ -46,6 +46,11 @@ class UsersController < ApplicationController
 	render :layout => false
   end
 
+  def product_user_sign_in
+	@user = User.new
+	render :layout => false
+  end
+
   def api_login
     #convert what params we want to an info hash
     info = Hash["email" => params[:email], "password" => params[:password],"username" => params[:username] ,"gametoken" => params[:gametoken]]

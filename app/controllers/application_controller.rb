@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def authorize_current_company
     #fill with authentication
   end
+
+  def after_sign_out_path_for(user)
+	api_v1_product_inventory_display_path
+  end
 end
