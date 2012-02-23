@@ -1,0 +1,12 @@
+<%= form_for("shipping_address", :url => product_user_shipping_address_create_url) do |f| %>
+<% if current_user %>
+<%= hidden_field_tag 'user_id', current_user.id %>
+<% end %>
+  <%= f.text_field :address1, :placeholder=>"address line 1" %><br>
+  <%= f.text_field :address2, :placeholder=>"address line 2" %><br>
+  <%= f.text_field :city, :placeholder=>"city" %><br>
+  <%= f.collection_select(:state, State.all, :state ,:state, {:prompt => 'Select State'},:style => "width: 125px" ) %>
+  <%= f.text_field :zip, :placeholder=>"zip code" %><br>
+  <%= f.submit 'Last Step', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+<% end %>
+

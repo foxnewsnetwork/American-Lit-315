@@ -68,11 +68,15 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
   match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
 
+  match "/api/v1/user/credit_card/create" => 'users#api_credit_card_create', :via=>:post
+  match "/api/v1/user/credit_card/get" => 'users#api_credit_card_token'
+
   match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 
   match "/api/v1/user_email_form/success", :to => "tmp_users#success" #display submit form 
   match "/api/v1/user_email_form/failure", :to => "tmp_users#failure" #display submit form
   match "/api/v1/user_email_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" #display submit form
+
 
   match "/api/vi/players", :to => "users#api_login"
 

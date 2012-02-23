@@ -1,0 +1,18 @@
+Register Your Card
+
+<%= form_for("card", :url => create_credit_card_url) do |f| %>
+	Product_id<%= @product_id %><br>
+  <%= hidden_field_tag :product_id, @product_id %>
+  <%= f.text_field :number %><br>
+  <%= f.text_field :cvc %><br>
+  Expiration (MM/YYYY) <br>
+  <%= f.text_field :exp_month %><br>
+  <%= f.text_field :exp_year %><br>
+  <% if current_user %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <% else %>
+  <%= hidden_field_tag :user_id, -1 %>
+  <% end %>
+  <%= f.submit 'Finished!', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+<% end %>
+

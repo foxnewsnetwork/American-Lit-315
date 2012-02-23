@@ -64,6 +64,7 @@ class UsersController < ApplicationController
   end
   def credit_card_create
 	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
+	@user = User.find_by_id(params[:user_id])
 	# get credit card info
 	# send to stripe and/or store it through post call
 	response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
@@ -72,7 +73,6 @@ class UsersController < ApplicationController
 	token = response.zip[7][0][1]
 	puts token
 	# store the token in the user db
-	@user = User.find_by_id(params[:user_id])
 	@user.credit_card_token = token
 	@product_id = params[:product_id]
 	if @user.save
@@ -80,6 +80,74 @@ class UsersController < ApplicationController
 	else
 		render :layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
 	end
+  end
+
+  def api_credit_card_create	
+	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
+	# token doesn't exist
+	# token is test case
+	# token is invalid
+	# token exists
+	if params[:token].nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error':'a user token is required'}"}
+		end
+	elsif params[:token] == '12345'
+		@user = User.first
+	elsif User.find_by_token(params[:token]).nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error'=>'your user token is invalid'}"}
+		end
+	else	
+		@user = User.find_by_token(params[:token])
+		# TODO: another check to see if the card number and cvc are all correct
+		response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
+		# catch token and store that
+		token = response.zip[7][0][1]
+		# store the token in the user db
+		@user.credit_card_token = token
+		if @user.save
+			respond_to do |format|
+				format.json {rener :json=>"{'card_token'=>token}"}
+			end
+		else
+			respond_to do |format|
+				format.json {render :json=>"''error':'something went wrong and your card didnt save'}"}
+			end
+		end
+	end
+  end
+
+  def api_credit_card_token
+	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
+	# token doesn't exist
+	# token is test case
+	# token is invalid
+	# token exists
+	if params[:token].nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error':'a user token is required'}"}
+		end
+	elsif params[:token] == '12345'
+		@user = User.first
+	elsif User.find_by_token(params[:token]).nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error':'your user token is invalid'}"}
+		end
+	else	
+		@user = User.find_by_token(params[:token])
+		token = @user.credit_card_token
+		if token
+			respond_to do |format|
+				format.json {render :json=>"{'card_token':token}"}
+			end
+		else
+			respond_to do |format|
+				format.json {render :json=>"{'error':'user doesnt have a credit card token'}"}
+			end
+		end
+	end
+
   end
 
   def api_login
