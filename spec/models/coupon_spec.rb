@@ -4,6 +4,7 @@ describe Coupon do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+
 # == Schema Information
 #
 # Table name: coupons
@@ -17,10 +18,10 @@ end
 #  limit                :integer(4)
 #  redeemed             :integer(4)      default(0)
 #  ext_coupon_id        :integer(4)
-#  picture_file_name    :string(255)
-#  picture_content_type :string(255)
 #  picture_file_size    :integer(4)
+#  picture_file_name    :string(255)
 #  picture_updated_at   :datetime
+#  picture_content_type :string(255)
 #  meta_data            :text
 #  cost_per_redeem      :decimal(8, 2)   default(0.0)
 #  displayed            :integer(4)      default(0)

@@ -23,10 +23,11 @@ img {
 Good Game! Your exclusive rewards.
 <% if user_signed_in? %>
 <%= current_user.name %>
-<%= link_to('Sign Out', destroy_user_session_path, :method=>'delete', :class=>'links')%>
+<%= link_to('Switch User', destroy_user_session_path, :method=>'delete', :class=>'btn btn-success')%>
 <% else %>
-<%= link_to 'Register', new_user_path %>
 <%= link_to 'Sign in', product_user_sign_in_url %>
+<%= link_to 'Register', product_user_register_url %>
+
 <% end %>
 </h4>
 <br>

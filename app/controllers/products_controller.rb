@@ -174,13 +174,26 @@ class ProductsController < ApplicationController
 			
 		# dump into stats database
 		# api call to Stripe
-		if params[:user_id] == -1
-		end
-				
-		@user = User.find_by_id(params[:user_id])
-		@product = Product.find_by_id(params[:product_id])
+		puts current_user.name
+		if params[:user_id] == '-1'
+			puts 'User ID doesnt exists, routing to make user register'
+			redirect_to :controller=>'users',:action=>'product_user_register', :layout=>false
+		elsif current_user.credit_card_token.nil?
+			puts 'User credit card doesnt exists, routing to make user log credit card'
+			@product_id = params[:product_id]	
+			redirect_to :controller=>'users',:action=>'credit_card_new', :product_id=>@product_id,:layout=>false
+		else 
+			puts params[:user_id]
+			puts 'Passed all test, lets confirm'
+			@product = Product.find_by_id(params[:product_id])
+			@user = current_user
+			puts @user
+			if current_user
+				puts 'is logged in'
+			end
 
-		render :layout => false
+			render :layout => false
+		end
 	end
 
 	def success_prompt

@@ -42,9 +42,11 @@ Adserver::Application.routes.draw do
 
   devise_for :users do
 	get 'users', :to => "products#inventory_display", :as => :user_root
+  	get 'users/sign_out'=>'devise/sessions#destroy'
   end
   resources :users, :only => [:new, :show, :index] do
   	resources :payments
+	resources :shipping_addresses
     post 'api_login', :on => :collection
   end
 
@@ -60,6 +62,11 @@ Adserver::Application.routes.draw do
 
   match "/api/v1/product/confirm_purchase", :to => "products#confirm_purchase"
   match "/api/v1/product/user_sign_in" => 'users#product_user_sign_in', :as => :product_user_sign_in
+  match "/api/v1/product/user_register" => 'users#product_user_register', :as => :product_user_register
+  match "/api/v1/product/shipping_address" => 'shipping_addresses#new', :as => :new_shipping_address
+  match "/api/v1/product/shipping_address/create" => 'shipping_addresses#create', :as => :create_shipping_address
+  match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
+  match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
 
   match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 

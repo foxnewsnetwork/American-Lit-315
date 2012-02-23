@@ -71,6 +71,7 @@ class Ad < ActiveRecord::Base
 		end
 end
 
+
 # == Schema Information
 #
 # Table name: ads
@@ -92,10 +93,10 @@ end
 #  happy_sad            :integer(4)
 #  funny_serious        :integer(4)
 #  sexy_disgust         :integer(4)
-#  picture_file_name    :string(255)
-#  picture_content_type :string(255)
 #  picture_file_size    :integer(4)
+#  picture_file_name    :string(255)
 #  picture_updated_at   :datetime
+#  picture_content_type :string(255)
 #  meta_data            :text
 #  distance             :integer(4)      default(0)
 #

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   before_filter :authorize_current_user, :except => [:index]
 
   def create_new_token
@@ -47,8 +48,38 @@ class UsersController < ApplicationController
   end
 
   def product_user_sign_in
-	@user = User.new
 	render :layout => false
+  end
+  def product_user_register
+	render :layout => false
+  end
+
+  def credit_card_new
+        @product_id = params[:product_id]
+
+	render :layout => false
+  end
+  def credit_card_edit
+	render :layout => false
+  end
+  def credit_card_create
+	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
+	# get credit card info
+	# send to stripe and/or store it through post call
+	response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
+	
+	# catch token and store that
+	token = response.zip[7][0][1]
+	puts token
+	# store the token in the user db
+	@user = User.find_by_id(params[:user_id])
+	@user.credit_card_token = token
+	@product_id = params[:product_id]
+	if @user.save
+		redirect_to :controller=>'products', :action=>'confirm_purchase', :layout => false,:user_id=>params[:user_id],:product_id=>params[:product_id]
+	else
+		render :layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
+	end
   end
 
   def api_login

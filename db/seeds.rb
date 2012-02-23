@@ -13,9 +13,19 @@
 # some based types of products
 ###############################################
 Type.delete_all
+State.delete_all
+
 Type.create(:name => "food")
 Type.create(:name => "electronic")
 Type.create(:name => "toy")
+
+state_list =['AL','MT','AK','NE','AZ','NV','AR','NH','CA','NJ','CO','NM','CT','NY','DE','NC','FL','ND','GA','OH','HI','OK','ID','OR','IL','PA','IN','RI','IA','SC','KS','SD','KY','TN','LA','TX','ME','UT','MD','VT','MA','VA','MI','WA','MN','WV','MS','WI','MO','WY']
+
+state_list.each do |s|
+	State.create(:state => s)
+end
+puts 'States created for shipping addresses'
+
 def inform(obj)
 	if obj.save
 		puts "Type: " + obj.to_s
@@ -77,7 +87,7 @@ while start_date < end_date
 	end
 end
 end
-seed_redemptions
+#seed_redemptions
 ##################################################
 
 ###################################################
@@ -123,7 +133,7 @@ def seed_impressions(max)
 	end
 end
 
-seed_impressions(20)
+#seed_impressions(20)
 ##################################################
 
 #c.ads.create

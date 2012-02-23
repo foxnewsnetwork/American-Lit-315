@@ -4,6 +4,7 @@ describe User do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+
 # == Schema Information
 #
 # Table name: users
@@ -22,5 +23,7 @@ end
 #  created_at             :datetime
 #  updated_at             :datetime
 #  name                   :string(255)
+#  token                  :string(255)
+#  credit_card_token      :string(255)
 #
 

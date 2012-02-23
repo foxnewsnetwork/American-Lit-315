@@ -22,4 +22,7 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(user)
 	api_v1_product_inventory_display_path
   end
+  def after_sign_up_path_for(user)
+	api_v1_product_user_shipping_address
+  end
 end
