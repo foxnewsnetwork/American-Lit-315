@@ -174,15 +174,20 @@ class ProductsController < ApplicationController
 			
 		# dump into stats database
 		# api call to Stripe
-		puts current_user.name
 		if params[:user_id] == '-1'
 			puts 'User ID doesnt exists, routing to make user register'
-			redirect_to :controller=>'users',:action=>'product_user_register', :layout=>false
+			redirect_to :controller=>'users',:action=>'product_user_register', :layout=>false, :product_id=>params[:product_id]
+		# check if the user has a shipping address
+		elsif current_user.shipping_addresses.count == 0
+			# no shipping address!
+			redirect_to :controller=>'shipping_addresses', :action=>'new', :layout=>false,:user_id => current_user.id, :product_id=>params[:product_id]
+		# check if the user has a credit card
 		elsif current_user.credit_card_token.nil?
 			puts 'User credit card doesnt exists, routing to make user log credit card'
 			@product_id = params[:product_id]	
 			redirect_to :controller=>'users',:action=>'credit_card_new', :product_id=>@product_id,:layout=>false
 		else 
+			puts "Credit Card #{current_user.credit_card_token}"
 			puts params[:user_id]
 			puts 'Passed all test, lets confirm'
 			@product = Product.find_by_id(params[:product_id])

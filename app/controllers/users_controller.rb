@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
   def credit_card_create
 	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
-	@user = User.find_by_id(params[:user_id])
+	@user = current_user
 	# get credit card info
 	# send to stripe and/or store it through post call
 	response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
@@ -75,10 +75,13 @@ class UsersController < ApplicationController
 	# store the token in the user db
 	@user.credit_card_token = token
 	@product_id = params[:product_id]
+	puts @user.credit_card_token
 	if @user.save
+		puts 'we saved the token'
 		redirect_to :controller=>'products', :action=>'confirm_purchase', :layout => false,:user_id=>params[:user_id],:product_id=>params[:product_id]
 	else
-		render :layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
+		puts 'we did not save the token'
+		redirect_to :action=>'new',:layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
 	end
   end
 

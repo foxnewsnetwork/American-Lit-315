@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223113822) do
+ActiveRecord::Schema.define(:version => 20120223204703) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(:version => 20120223113822) do
     t.string   "city"
     t.integer  "state"
     t.integer  "zip"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
