@@ -1,13 +1,12 @@
-Register Your Card
-
+<%= render 'products/shop_header' %>
+<h2>Register Your Card</h2>
 <%= form_for("card", :url => create_credit_card_url) do |f| %>
-	Product_id<%= @product_id %><br>
   <%= hidden_field_tag :product_id, @product_id %>
-  <%= f.text_field :number %><br>
-  <%= f.text_field :cvc %><br>
-  Expiration (MM/YYYY) <br>
-  <%= f.text_field :exp_month %><br>
-  <%= f.text_field :exp_year %><br>
+  <%= f.text_field :number, :placeholder=>'Number' %><br>
+  <%= f.text_field :cvc,:placeholder=>'CVC on the back of your card'%><br>
+  Expiration Date(MM/YYYY) 
+  <%= f.text_field :exp_month, :style=>'width:2em'%> / 
+  <%= f.text_field :exp_year, :style=>'width:4em'%><br>
   <% if current_user %>
   <%= hidden_field_tag :user_id, current_user.id %>
   <% else %>

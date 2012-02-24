@@ -1,9 +1,11 @@
+<%= render 'products/shop_header' %>
+Register to buy the item!
 <%= form_for("user", :url => user_registration_path) do |f| %>
   <%= f.text_field :name, :placeholder=>"user name" %><br>
   <%= f.text_field :email, :placeholder=>"email" %><br>
   <%= f.password_field :password, :placeholder=>'password' %><br>
   <%= f.password_field :password_confirmation, :placeholder=>'password confirmation' %><br>
-  <%= f.submit 'Sign Up', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+  <%= f.submit 'Sign Up', :class=>'btn btn-large btn-primary' %><br>
 <% end %>
 
 

@@ -194,6 +194,8 @@ class ProductsController < ApplicationController
 				
 
 			@product = Product.find_by_id(params[:product_id])
+			@product['picture_path'] = picture_path_builder(root_url, @product) + @product.picture_file_name
+			@default_address = current_user.shipping_addresses.find_by_default(true)
 			@user = current_user
 			puts @user
 			if current_user

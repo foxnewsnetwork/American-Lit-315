@@ -14,11 +14,22 @@ class ShippingAddressesController < ApplicationController
 	@user = User.find_by_id(params[:user_id])
 	@product_id = params[:product_id]
 	@user.shipping_addresses.new(params[:shipping_address])
+	params[:shipping_addresses][:user_id] = params[:user_id]
+	s = ShippingAddress.new(params[:shipping_addresses])
 
-	if @user.shipping_addresses.create(params[:shipping_address])
-		redirect_to :controller=>'users',:action=>'credit_card_new', :product_id=>@product_id,:layout=>false
+	if s.save
+		# this is teh user's new default address
+		p = @user.shipping_addresses.find_by_default(true)
+		if p
+			p.default = false
+			p.save
+		end
+		s.default = true
+		s.save
+
+		redirect_to :controller=>'products',:action=>'confirm_purchase', :product_id=>@product_id,:layout=>false
 	else
-		redirect_to :action=>'new'
+		redirect_to :action=>'new', :product_id=>@product_id
 	end
   end
 
