@@ -1,7 +1,8 @@
 <%= render 'products/shop_header' %>
 <table class='table'>
+<tbody>
 <tr>
-<td style="text-align:center">
+<td style="text-align:center;border-top:0px solid #C0C0C0">
 <img src='<%= @product.picture_path %>'>
 <br>
 <%= @product.name %>
@@ -10,7 +11,7 @@
 <%= number_to_currency @product.price %>
 </font>
 </td>
-<td style="text-align:center">
+<td style="text-align:center;border-left:1px solid #C0C0C0;border-top:0px solid #C0C0C0">
 <%= form_for("invoice", :url => purchase_create_url) do |f| %>
   Ship to: <%= current_user.name %> <br>
   <%= hidden_field_tag :product_id, @product.id %>
@@ -42,6 +43,7 @@
 <% end %>
 </td>
 </tr>
+</tbody>
 </table>
 <%= link_to 'Change Credit Card', "#{new_credit_card_path}?product_id=#{@product.id}"%>
 |

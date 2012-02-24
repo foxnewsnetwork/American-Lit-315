@@ -1,3 +1,6 @@
+<h4>
+Where should we ship your reward to?
+</h4>
 <%= render 'products/shop_header' %>
 <%= form_for :shipping_addresses, :url=> create_shipping_address_url do |f| %>
 	<% if current_user %>
@@ -6,7 +9,6 @@
 		<%= hidden_field_tag 'user_id', -1 %>
 	<% end %>
 <% if @product_id %>
-<%= @product_id %>
 <%= hidden_field_tag :product_id, @product_id %>
 <% else %>
 <% end %>
