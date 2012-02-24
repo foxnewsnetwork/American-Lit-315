@@ -61,6 +61,8 @@ Adserver::Application.routes.draw do
   match "/api/v1/product", :to => "products#random_api"
 
   match "/api/v1/product/confirm_purchase", :to => "products#confirm_purchase"
+  match "/api/v1/product/purchase/create", :to => "products#confirm_purchase_create", :as=>:purchase_create
+  match "/api/v1/product/purchase/success", :to => "products#purchase_success"
   match "/api/v1/product/user_sign_in" => 'users#product_user_sign_in', :as => :product_user_sign_in
   match "/api/v1/product/user_register" => 'users#product_user_register', :as => :product_user_register
   match "/api/v1/product/shipping_address" => 'shipping_addresses#new', :as => :new_shipping_address

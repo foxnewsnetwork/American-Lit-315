@@ -1,2 +1,18 @@
 <%= @user.name %> wants to order 
 <%= @product.name %>
+at
+<%= number_to_currency @product.price %>
+
+<%= form_for("invoice", :url => purchase_create_url) do |f| %>
+  <%= hidden_field_tag :product_id, @product.id %>
+  <%= hidden_field_tag :user_id, @user_id %>
+  <%= hidden_field_tag :credit_card_token, @user.credit_card_token %>
+  <%= hidden_field_tag :price, @product.price %>
+
+    <%= f.collection_select(:shipping_address_id, @user.shipping_addresses, 
+	:address1,
+	:id, 
+	{:prompt => 'Select Shipping Address'},:style => "width: 175px" ) %>
+  <%= f.submit 'Purchase', :class=>'btn btn-large btn-primary', :style=>"width:15em" %><br>
+<% end %>
+

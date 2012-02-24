@@ -187,9 +187,12 @@ class ProductsController < ApplicationController
 			@product_id = params[:product_id]	
 			redirect_to :controller=>'users',:action=>'credit_card_new', :product_id=>@product_id,:layout=>false
 		else 
+
 			puts "Credit Card #{current_user.credit_card_token}"
 			puts params[:user_id]
 			puts 'Passed all test, lets confirm'
+				
+
 			@product = Product.find_by_id(params[:product_id])
 			@user = current_user
 			puts @user
@@ -199,6 +202,20 @@ class ProductsController < ApplicationController
 
 			render :layout => false
 		end
+	end
+
+	def confirm_purchase_create
+		@i = Invoice.new(params[:invoice])
+		if @i.save
+			# TODO: send receipt email
+			redirect_to :action=>'purchase_success', :layout=>false
+		else
+			render :layout=>false
+		end
+	end
+
+	def purchase_success
+		render :layout=>false
 	end
 
 	def success_prompt
