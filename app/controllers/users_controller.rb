@@ -155,46 +155,117 @@ class UsersController < ApplicationController
 
   def api_login
     #convert what params we want to an info hash
-    info = Hash["email" => params[:email], "password" => params[:password],"username" => params[:username] ,"gametoken" => params[:gametoken]]
+    info = Hash["email" => params[:email], "password" => params[:password],"name" => params[:username] ,"game_token" => params[:game_token]]
 
     #check if the user is legit
-    @user = user_check(info)
+	@user = user_check(info)
+	# TODO: increment the appropriate info such as sign_in_counts and stuff
+	if info["game_token"].nil? or Game.find_by_token(info["game_token"]).nil?
+		@message = 'no or invalid game token'
+		@success = "false"
+		@user_token = ""
+		respond_to do |format|
+		  format.json
+		end
+	else
+		if @user
+			if @user.token.nil?
+				# user no token, we make one for him/her
+				@user_token = create_new_token
+				@user_tmp = User.find_by_email(params[:email])
+				@user_tmp.token = @user_token
+				if @user_tmp.save
+					@message = 'successfully logged in'
+					@success = "true"
+					@user_token = @user.token
+					respond_to do |format|
+					  format.json
+					end
+				else
+					# token didn't save? something went wrong
+					puts 'cant save token'
+					@success = "false"
+					@user_token = ""
+					@message = @user_tmp.errors
+					respond_to do |format|
+					  format.json
+					end
+				end
+			else
+				# successfully logg in
+				@success = "true"
+				puts 'succcess!'
+				@user_token = @user.token
+				@message = 'successfully logged in'
+				respond_to do |format|
+				  format.json
+				end
+			end
+		else
+			# user provided the wrong email or password and can't log in
+			@message = 'wrong username or password provided'
+			@success = "false"
+			@user_token = ""
+			respond_to do |format|
+			  format.json
+			end
+		end
+	end
+  end
 
-    #if no user we'll give token of nothing!'
-    @user_token = ""
-
-    #the user did not give a correct password, so, successful login is false.
-    if @user.nil?
-      @successful_login = "false"
-    else
-      #user is legit so give him a token as well as set successful login as true
-      @user_token = create_new_token
-      @user.token = @user_token
-      @successful_login = "true"
-    end
-
-    #give as a json...
-    respond_to do |format|
-      format.json
-    end
+  def api_user_create
+		if User.find_by_email(params["email"])
+			@message = "user already exists"
+			@success = "false"
+			@user_token = ""
+			respond_to do |format|
+			  format.json
+			end
+		else 
+			@user = User.new(:email => params["email"],:password => params["password"],:name=>["name"] )
+			
+			if @user.save
+				@user.token = create_new_token
+				@user.save
+				@message = "user created"
+				@success = "true"
+				@user_token = @user.token
+				respond_to do |format|
+				  format.json
+				end
+			else
+				@message = @user.errors
+				@success = "false"
+				@user_token = ""
+				respond_to do |format|
+				  format.json 
+				end
+			end
+		end
   end
 
   private
 
   #check if the user is legit. 3 cases
   #1. If the email exists but the password is wrong. Return nil
-  #2. if the password is correct, return the user
-  #3. if the user does not exist be nice and create it for him.
+  #2. if the user does not exist return nil
+  #3. if the password is correct, return user
   def user_check(info)
-          unless User.find_by_email(info["email"]).nil?
-            @user = User.find_by_email(info["email"])
-            unless @user.valid_password?(info["password"])
-              return nil
-            end
-            return @user
-          else
-            @user = User.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
-            return @user
-          end
+		# no game token no log in (security reasons)
+		if User.find_by_email(info["email"]).nil?
+			puts 'no user by email'
+			return nil
+		end
+        @user = User.find_by_email(info["email"])
+		puts @user.email
+		puts @user.password
+
+		puts info["email"]
+		puts info["password"]
+		if @user.valid_password?(info["password"])
+			puts 'password is correct!'
+			return @user
+		end
+		return nil
   end
 end

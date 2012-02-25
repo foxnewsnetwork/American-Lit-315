@@ -87,7 +87,8 @@ Adserver::Application.routes.draw do
   resources :coupons
 
   # REST API Stuff
-  match "/api/vi/players", :to => "users#api_login"
+  match "/api/v1/users", :to => "users#api_login"
+  match "/api/v1/users/create", :to => "users#api_user_create"
 
   match "/api/v1/shipping_address" => 'shipping_addresses#api_shipping_address_token'
   match "/api/v1/shipping_address/create" => 'shipping_addresses#api_shipping_address_create', :via=>:post
