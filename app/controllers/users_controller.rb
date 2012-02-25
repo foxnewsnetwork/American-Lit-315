@@ -170,10 +170,9 @@ class UsersController < ApplicationController
 	else
 		if @user
 			if @user.token.nil?
-				# user no token, we make one for him/her
-				@user_token = create_new_token
+				# user has no token, we make one for him/her
 				@user_tmp = User.find_by_email(params[:email])
-				@user_tmp.token = @user_token
+				@user_tmp.token = create_new_token
 				if @user_tmp.save
 					@message = 'successfully logged in'
 					@success = "true"
@@ -214,6 +213,14 @@ class UsersController < ApplicationController
   end
 
   def api_user_create
+	if params["game_token"].nil? or Game.find_by_token(params["game_token"]).nil?
+		@message = 'no or invalid game token'
+		@success = "false"
+		@user_token = ""
+		respond_to do |format|
+		  format.json
+		end
+	else
 		if User.find_by_email(params["email"])
 			@message = "user already exists"
 			@success = "false"
@@ -242,6 +249,7 @@ class UsersController < ApplicationController
 				end
 			end
 		end
+	end
   end
 
   private
