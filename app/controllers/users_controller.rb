@@ -99,7 +99,7 @@ class UsersController < ApplicationController
 		@user = User.first
 	elsif User.find_by_token(params[:token]).nil?
 		respond_to do |format|
-			format.json {render :json=>"{'error'=>'your user token is invalid'}"}
+			format.json {render :json=>"{'error':'your user token is invalid'}"}
 		end
 	else	
 		@user = User.find_by_token(params[:token])
@@ -111,11 +111,11 @@ class UsersController < ApplicationController
 		@user.credit_card_token = token
 		if @user.save
 			respond_to do |format|
-				format.json {rener :json=>"{'card_token'=>token}"}
+				format.json {render :json=>"{'card_token': #{token}}"}
 			end
 		else
 			respond_to do |format|
-				format.json {render :json=>"''error':'something went wrong and your card didnt save'}"}
+				format.json {render :json=>"{'error':'something went wrong and your card didnt save'}"}
 			end
 		end
 	end

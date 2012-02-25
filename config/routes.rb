@@ -63,15 +63,15 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/confirm_purchase", :to => "products#confirm_purchase"
   match "/api/v1/product/purchase/create", :to => "products#confirm_purchase_create", :as=>:purchase_create
   match "/api/v1/product/purchase/success", :to => "products#purchase_success"
+
   match "/api/v1/product/user_sign_in" => 'users#product_user_sign_in', :as => :product_user_sign_in
   match "/api/v1/product/user_register" => 'users#product_user_register', :as => :product_user_register
+
   match "/api/v1/product/shipping_address" => 'shipping_addresses#new', :as => :new_shipping_address
   match "/api/v1/product/shipping_address/create" => 'shipping_addresses#create', :as => :create_shipping_address
+
   match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
   match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
-
-  match "/api/v1/user/credit_card/create" => 'users#api_credit_card_create', :via=>:post
-  match "/api/v1/user/credit_card/get" => 'users#api_credit_card_token'
 
   match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 
@@ -79,15 +79,25 @@ Adserver::Application.routes.draw do
   match "/api/v1/user_email_form/failure", :to => "tmp_users#failure" #display submit form
   match "/api/v1/user_email_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" #display submit form
 
-
-  match "/api/vi/players", :to => "users#api_login"
-
   match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
 
   match "/api/v1/product_inventory_display", :to => "products#inventory_display" #display submit form 
 
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
+
+  # REST API Stuff
+  match "/api/vi/players", :to => "users#api_login"
+
+  match "/api/v1/shipping_address" => 'shipping_addresses#api_shipping_address_token'
+  match "/api/v1/shipping_address/create" => 'shipping_addresses#api_shipping_address_create', :via=>:post
+
+  match "/api/v1/user/credit_card" => 'users#api_credit_card_token'
+  match "/api/v1/user/credit_card/create" => 'users#api_credit_card_create', :via=>:post
+
+  match "/api/v1/shop/last_buy" => 'products#api_invoice_token'
+  match "/api/v1/shop/buy" => 'products#api_purchase_create', :via=>:post
+
 
   #################################
 
