@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @company = Company.new
   end
 
   def index

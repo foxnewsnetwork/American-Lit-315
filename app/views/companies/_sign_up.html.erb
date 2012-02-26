@@ -3,8 +3,10 @@
 					<a class="close" data-dismiss="modal" >&times;</a>
 					<h3>New Brand Sign Up</h3>
 				</div>
+              <div id ="company_error"></div>
 				<div class="modal-body">
-<%= form_for("company", :url => company_registration_path) do |f| %>
+ <%= form_for "company", :url => company_registration_path,:remote => true do |f| %>
+
   <%= f.text_field :name, :placeholder=>"company name" %><br>
   <%= f.text_field :email, :placeholder=>"email" %><br>
   <%= f.password_field :password, :placeholder=>'password' %><br>
