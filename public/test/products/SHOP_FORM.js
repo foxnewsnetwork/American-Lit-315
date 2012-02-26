@@ -6,7 +6,7 @@ if(SHOP_FORM == undefined) {
 
 SHOP_FORM.load = function(token) {
 
-  this.gamertiser_shop_id = 'api/v1/user_email_form';
+  this.gamertiser_shop_id = 'api/v1/coupon_form';
   this.empty_url = "http://getgamertiser_shop.s3.amazonaws.com/assets/gamertiser_shop/images/transparent.gif";
   this.feedback_url = '';
 

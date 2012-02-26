@@ -216,6 +216,101 @@ class ProductsController < ApplicationController
 		end
 	end
 
+	def api_purchase_create
+		# user token doesn't exist
+		# token is test case
+		# token is invalid
+		# token exists
+		if params[:token].nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'a user token is required'}"}
+			end
+		end
+		if params[:credit_card_token].nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'a credit card token is required'}"}
+			end
+		end
+		if params[:product_id].nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'no product id'}"}
+			end
+		end
+		@user = User.find_by_token(params[:token])
+		@product = Product.find_by_id(params[:product_id])
+		if @user.nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'your user token is invalid'}"}
+			end
+		end
+		if @product.nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'product doesn't exist'}"}
+			end
+		end
+		if @user.credit_card_token != params[:credit_card_token]
+			respond_to do |format|
+				format.json {render :json=>"{'error':'wrong credit card'}"}
+			end
+		end
+		@s = @user.shipping_addresses.find_by_default(true)
+		if @s.nil?
+			respond_to do |format|
+				format.json {render :json=>"{'error':'user doesn't have a shipping address'}"}
+			end
+		end
+		@invoice = Invoice.new(
+				:user_id =>@user.id,
+				:product_id => @product.id,
+				:shipping_address_id=> @s.id,
+				:credit_card_token =>@user.credit_card_token,
+				:price => @product.price
+		)
+		if @invoice.save
+			# TODO: send receipt email
+			respond_to do |format|
+				format.json
+			end
+		else
+			respond_to do |format|
+				format.json {render :json=>"{'error':'failed to save invoice, please try again'}"}
+			end
+		end
+	end
+
+  # returns the most recent purchase
+  def api_invoice_token
+	# token doesn't exist
+	# token is test case
+	# token is invalid
+	# token exists
+	if params[:token].nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error':'a user token is required'}"}
+		end
+	elsif params[:token] == '12345'
+		@user = User.first
+	elsif User.find_by_token(params[:token]).nil?
+		respond_to do |format|
+			format.json {render :json=>"{'error':'your user token is invalid'}"}
+		end
+	else	
+		@user = User.find_by_token(params[:token])
+		@invoice = Invoice.find_by_user(@user.id).last
+		@product = @invoice.product_id
+
+		if @invoice
+			respond_to do |format|
+				format.json
+			end
+		else
+			respond_to do |format|
+				format.json {render :json=>"{'error':'no invoice found'}"}
+			end
+		end
+	end
+
+  end
 	def purchase_success
 		render :layout=>false
 	end

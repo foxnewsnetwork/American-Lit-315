@@ -5,7 +5,7 @@ if(USER_EMAIL_ONLY_FORM == undefined) {
 }
 
 USER_EMAIL_ONLY_FORM.load = function() {
-  this.barometer_id = 'api/v1/user_email_form';
+  this.barometer_id = 'api/v1/coupon_form';
   this.empty_url = "http://getbarometer.s3.amazonaws.com/assets/barometer/images/transparent.gif";
   this.feedback_url = '';
 

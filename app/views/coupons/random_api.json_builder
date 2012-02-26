@@ -7,3 +7,5 @@ company_id @coupon.company.id
 	updated_at @coupon.updated_at
 	picture_path @path + @coupon.picture_file_name
     meta_data @coupon.meta_data
+message @message
+success @success
