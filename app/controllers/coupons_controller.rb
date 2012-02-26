@@ -96,31 +96,33 @@ class CouponsController < ApplicationController
     # Pulls a random coupon record from the database 
 	# TODO: add filtering
 	def random_api
-		# get a random record number
-		offset = rand(Coupon.count)
-		# off set it
-		rand_record = Coupon.first(:offset => offset)	
-		# get the output in xml format
-		@coupon = rand_record
-		@path = root_url + 'system/pictures/'+@coupon.id.to_s+'/medium/'
-
-		@no_token_error = {'message'=>'no token provided'}
-		@invalid_token_error = {'message' => 'invalid token provided'}
-
-		@user = User.new
 
 		respond_to do |format|
 			if params[:token].nil?
 				puts "NO TOKEN ERROR"
-				format.json { render :json=> @no_token_error}
+				@success = false
+				@message = 'no token provided'
+				format.json {render :json=>"{'message':#{@message}, 'success':#{@success}}"}
 			elsif Game.find_by_token(params[:token]).nil?
 				puts "INVALID TOKEN ERROR"
-				format.json { render :json=> @invalid_token_error}
+				@success = false
+				@message = 'invalid token provided'
+				format.json {render :json=>"{'message':#{@message}, 'success':#{@success}}"}
 			else
+				# get a random record number
+				offset = rand(Coupon.count)
+				# off set it
+				rand_record = Coupon.first(:offset => offset)	
+				# get the output in xml format
+				@coupon = rand_record
+				@path = root_url + 'system/pictures/'+@coupon.id.to_s+'/medium/'
+				@user = User.new
 				@game = Game.find_by_token(params[:token])
 				
 				# increments impression
 				@coupon.coupon_stats.create(:game_id=>@game.id, :impression => 1 )
+				@success = true
+				@message = 'coupon shown'
 
 				format.xml
 				format.json
@@ -133,13 +135,38 @@ class CouponsController < ApplicationController
 	end
 
 	def update_coupon_api
-		respond_to do |format|
-			format.js do	
-				@coupon = Coupon.find_by_id(params[:coupon_id])
-				@game = Game.find_by_token(params[:token])
-				@coupon.coupon_stats.create(:game_id=>@game.id, 
-					:click_through => 1 )
-				render :json=>"{'message':'SUCCESS'}";
+		if params[:coupon_id].nil? or params[:token].nil?
+			@success = false
+			@message = 'missing game token or coupon id'
+			respond_to do |format|
+				format.js
+				format.json
+				return 
+			end
+		end
+		
+		@coupon = Coupon.find_by_id(params[:coupon_id])
+		@game = Game.find_by_token(params[:token])
+		if @coupon and @game
+			respond_to do |format|
+				@success = true
+				@message = 'success'
+			
+				format.js do	
+					@coupon.coupon_stats.create(:game_id=>@game.id, 
+						:click_through => 1 )
+					render :json=>"{'success': 'true', 'message':'SUCCESS'}";
+				end
+				format.json
+			end
+		else
+			@success = false
+			@message = 'wrong game token or coupon id'
+			
+			respond_to do |format|
+				format.js
+				format.json
+				return 
 			end
 		end
 		

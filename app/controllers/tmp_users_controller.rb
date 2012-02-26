@@ -38,10 +38,13 @@ class TmpUsersController < ApplicationController
 
 			if params[:email].nil? or params[:coupon_id].nil? or params[:token].nil?
 				puts 'One of the arguments is missing'
-				custom_response 'failure', "arguments missing or invalid"
+				custom_response format, 'failure', "arguments missing or invalid"
 			elsif Coupon.find_by_id(params[:coupon_id]).nil? or Game.find_by_token(params[:token]).nil?
 				puts 'Wrong token or coupon_id'
-				custom_response 'failure', "arguments missing or invalid"
+				custom_response format, 'failure', "arguments missing or invalid"
+			elsif not is_valid_email(params[:email])
+				puts 'Wrong token or coupon_id'
+				custom_response format, 'failure', "email is not valid"
 			else
 				@coupon = Coupon.find_by_id(params[:coupon_id])
 				@game = Game.find_by_token(params[:token])
@@ -101,18 +104,27 @@ class TmpUsersController < ApplicationController
   #Checks to see if the temp user exists.
   #if the temp user exists then use that, otherwise we'll create a tmp account for him
   #we store the coupon_id and game id for some reason, not sure why.
-  def temp_user_login(info)
-		unless TmpUser.find_by_email(info["email"]).nil?
-			@user = TmpUser.find_by_email(info["email"])
-			return @user
-		else
-			@user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
-			return @user
-		end
-  end
-			def custom_response(format, action, msg)
-					format.html {redirect_to :action=>action}
-					format.xml
-					format.json {render :json => {"message"=>msg}}
+		def temp_user_login(info)
+			unless TmpUser.find_by_email(info["email"]).nil?
+				@user = TmpUser.find_by_email(info["email"])
+				return @user
+			else
+				@user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
+				return @user
 			end
+		end
+
+		def custom_response(format, action, msg)
+			@success = true
+			if action == 'failure'
+				@success = false
+			end
+				format.html {redirect_to :action=>action}
+				format.xml
+				format.json {render :json => {"success"=>@success, "message"=>msg}}
+		end
+
+		def is_valid_email(email)
+			return email =~ /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/
+		end
 end
