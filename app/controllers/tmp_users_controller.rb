@@ -23,6 +23,7 @@ class TmpUsersController < ApplicationController
     @coupon_stat = CouponStat.find(@coupon_stat_id)
     render :layout=>false
   end
+
   def create
 	respond_to do |format|
 		# Convert post requests to the right format for standardization
@@ -61,7 +62,7 @@ class TmpUsersController < ApplicationController
 				# redeemed only if the user is alright and the coupon hasn't been recently redeemed
 			if @user.save && !@coupon.recently_redeemed(@user.id)
 				@coupon.increment!(:redeemed)
-        @coupon.redeem(@user.id)
+     		#@coupon.redeem(@user.id)
 				# send email out
 				@coupon[:picture_url] = picture_path_builder(root_url, @coupon)
 				CouponMailer.welcome_email(@user).deliver
@@ -113,15 +114,12 @@ class TmpUsersController < ApplicationController
   #if the temp user exists then use that, otherwise we'll create a tmp account for him
   #we store the coupon_id and game id for some reason, not sure why.
   def temp_user_login(info)
-        unless TmpUser.find_by_email(info["email"]).nil?
-            @user = TmpUser.find_by_email(info["email"])
-
-            return @user
-          else
-            @user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
-            return @user
-          end
-
-
+		unless TmpUser.find_by_email(info["email"]).nil?
+			@user = TmpUser.find_by_email(info["email"])
+			return @user
+		else
+			@user = TmpUser.create(:email => info["email"],:coupon_id => info["coupon"], :game_id => info["game"] )
+			return @user
+		end
   end
 end

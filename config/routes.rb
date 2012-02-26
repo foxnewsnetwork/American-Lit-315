@@ -57,6 +57,9 @@ Adserver::Application.routes.draw do
   match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
   match "/api/v1/coupon", :to => "coupons#random_api"
 
+  # given a game token and an email, redeem the coupon
+  match "/api/v1/coupon", :to => "coupons#redeem_api"
+
   match "/api/v1/product", :to => "products#update_product_api", :via=>:put #only put method
   match "/api/v1/product", :to => "products#random_api"
 
@@ -73,11 +76,11 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
   match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
 
-  match "/api/v1/user_email_form", :to => "tmp_users#show" #display submit form 
-  match "/api/v1/user_email_form/create", :to => "tmp_users#create" #display submit form 
-  match "/api/v1/user_email_form/success", :to => "tmp_users#success" #display submit form 
-  match "/api/v1/user_email_form/failure", :to => "tmp_users#failure" #display submit form
-  match "/api/v1/user_email_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" #display submit form
+  match "/api/v1/coupon_form", :to => "tmp_users#show" #display submit form 
+  match "/api/v1/coupon_form/create", :to => "tmp_users#create" 
+  match "/api/v1/coupon_form/success", :to => "tmp_users#success" #display submit form 
+  match "/api/v1/coupon_form/failure", :to => "tmp_users#failure" #display submit form
+  match "/api/v1/coupon_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" #display submit form
 
   match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
 
