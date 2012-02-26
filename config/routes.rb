@@ -54,11 +54,18 @@ Adserver::Application.routes.draw do
   # Separated environment used for Pacman's TESTING
   # fixed the style problem that was causing cancer
   # go to home.com/api/coupon.xml to see result
-  match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
-  match "/api/v1/coupon", :to => "coupons#random_api"
 
+  match "/api/v1/coupon_form", :to => "tmp_users#show" #display submit form 
+  match "/api/v1/coupon_form/create", :to => "tmp_users#create" 
+  match "/api/v1/coupon_form/success", :to => "tmp_users#success" 
+  match "/api/v1/coupon_form/failure", :to => "tmp_users#failure" 
+  match "/api/v1/coupon_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" 
+
+  # RESTful API for coupons
+  match "/api/v1/coupon", :to => "coupons#random_api"
+  match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
   # given a game token and an email, redeem the coupon
-  match "/api/v1/coupon", :to => "coupons#redeem_api"
+  match "/api/v1/coupon/redeem", :to => "tmp_users#create" 
 
   match "/api/v1/product", :to => "products#update_product_api", :via=>:put #only put method
   match "/api/v1/product", :to => "products#random_api"
@@ -76,12 +83,6 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
   match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
 
-  match "/api/v1/coupon_form", :to => "tmp_users#show" #display submit form 
-  match "/api/v1/coupon_form/create", :to => "tmp_users#create" 
-  match "/api/v1/coupon_form/success", :to => "tmp_users#success" #display submit form 
-  match "/api/v1/coupon_form/failure", :to => "tmp_users#failure" #display submit form
-  match "/api/v1/coupon_form/redeemed_to_soon", :to => "tmp_users#redeemed_to_soon" #display submit form
-
   match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
 
   match "/api/v1/product_inventory_display", :to => "products#inventory_display" #display submit form 
@@ -89,7 +90,7 @@ Adserver::Application.routes.draw do
   match "/api/coupon/show", :to => "coupons#show"
   resources :coupons
 
-  # REST API Stuff
+  # REST API Product Stuff
   match "/api/v1/users", :to => "users#api_login"
   match "/api/v1/users/create", :to => "users#api_user_create"
 
