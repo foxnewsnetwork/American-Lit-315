@@ -1,4 +1,4 @@
-/* =Barometer feedback tab
+/* =Gamertiser feedback tab
 --------------------------------------------------------*/
 	
 a#gamertiser_shop_tab {
@@ -15,9 +15,9 @@ a#gamertiser_shop_tab {
 	top:25%;
 	width:42px;
 	z-index:100000;	
-	}
+}
 
-/* =Barometer Overlay
+/* =Gamertiser Overlay
 --------------------------------------------------------*/
 
 #gamertiser_shop_overlay { 
@@ -27,7 +27,7 @@ a#gamertiser_shop_tab {
 	height: 100%; 
 	position: fixed; 
 	_position: absolute; 
-	z-index: 1000000; 
+	z-index: 100000; 
 	}
 
 #gamertiser_shop_overlay * { 
@@ -40,17 +40,17 @@ a#gamertiser_shop_tab {
 	color:#333;
 	}
 
-/* =Barometer Overlay -> Main
+/* =Gamertiser Overlay -> Main Shop Box
 --------------------------------------------------------*/
 
 #gamertiser_shop_main { 
 	width: 560px; 
 	height: 280px; 
 	margin: 0 auto; 
-	z-index:2; 
+	z-index:100002; 
 	position:relative; 
 	background-color: transparent;
-	}
+}
 
 #gamertiser_shop_main div { 
 	padding: 5px 20px 0 20px; 
@@ -59,7 +59,7 @@ a#gamertiser_shop_tab {
 	overflow:none; 
 	border-right: solid 2px #000; 
 	border-left: solid 2px #000; 
-	}
+}
 
 #gamertiser_shop_overlay #gamertiser_shop_main #overlay_loading h2 {
 	padding: 10px 0; 
@@ -82,7 +82,7 @@ a#gamertiser_shop_tab {
 	top:-23px;
 	right:-22px;
 	width:42px;
-	z-index:4;
+	z-index:100004;
 	border: none;
 	}
 
@@ -107,7 +107,7 @@ a#gamertiser_shop_tab {
 }
 
 
-/* =Barometer Overlay -> Main -> Overlay header
+/* =Gamertiser Overlay -> Main -> Overlay header
 --------------------------------------------------------*/
 	
 #gamertiser_shop_overlay #gamertiser_shop_main #overlay_header {
@@ -137,7 +137,7 @@ a#gamertiser_shop_tab {
 	color: #fff;
 	}
 	
-/* =Barometer screen id - used to close gamertiser_shop 
+/* =Gamertiser screen id - used to close gamertiser_shop 
 --------------------------------------------------------*/
 	
 #gamertiser_shop_screen { 
