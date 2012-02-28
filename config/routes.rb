@@ -5,7 +5,7 @@ Adserver::Application.routes.draw do
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
-  match "/contact", :to => "pages#contact"
+  match "/documentation", :to => "pages#documentation"
 
   devise_for :publishers do
     get 'publishers', :to => "publishers#show",:as => :publisher_root

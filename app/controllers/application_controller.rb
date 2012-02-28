@@ -19,10 +19,12 @@ class ApplicationController < ActionController::Base
     #fill with authentication
   end
 
-  def after_sign_out_path_for(user)
-	api_v1_product_inventory_display_path
-  end
+	# TODO:This breaks redirects for publisher and companies also
+	# delete or find new solution
+  #def after_sign_out_path_for(user)
+	#	api_v1_product_inventory_display_path
+  #end
   def after_sign_up_path_for(user)
-	api_v1_product_user_shipping_address
+		api_v1_product_user_shipping_address
   end
 end
