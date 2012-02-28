@@ -19,6 +19,17 @@ class CompaniesController < ApplicationController
 	@toolbar_hash = {:company => 'active'}
   	@company = Company.new
   end
+  def create
+
+      @company = Company.new(params[:company])
+
+      if @company.save
+        redirect_to companys_path
+      else
+        render 'companies/new'
+      end
+
+  end
 
   def index
 	@toolbar_hash = {:company => 'active'}
