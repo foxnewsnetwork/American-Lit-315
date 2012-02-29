@@ -24,15 +24,16 @@ class ApplicationController < ActionController::Base
 	
   def after_sign_out_path_for(user)
 		if current_user
-			api_v1_product_inventory_display_path
+			return api_v1_product_inventory_display_path
 		end
 		if current_company
-		root_path
+			return root_path
 		end
 
 		if current_publisher
-		root_path
+			return root_path
 		end
+		# this should actually be a 404 path or something
 		root_path
   end
 
