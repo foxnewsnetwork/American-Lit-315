@@ -51,7 +51,9 @@ a#gamertiser_shop_tab {
 	/*left:1em;*/
 	z-index:2; 
 	position:relative; 
-	background-color: transparent;
+	/*background-color: transparent;*/
+	background-color: #c0c0c0;
+	/*border: 1px solid #c0c0c0;*/
 }
 
 #gamertiser_shop_main div { 

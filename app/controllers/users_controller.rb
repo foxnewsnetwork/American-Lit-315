@@ -289,6 +289,11 @@ class UsersController < ApplicationController
 		end
 	end
   end
+#  def after_sign_out_path_for(user)
+#    api_v1_product_inventory_display_path
+    #root_path
+#  end
+
 
   private
 

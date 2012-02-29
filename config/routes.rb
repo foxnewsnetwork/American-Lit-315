@@ -41,12 +41,14 @@ Adserver::Application.routes.draw do
   end
 
   devise_for :users do
-	get 'users', :to => "products#inventory_display", :as => :user_root
+		get 'users', :to => "products#inventory_display", :as => :user_root
   	get 'users/sign_out'=>'devise/sessions#destroy'
+		
   end
+
   resources :users, :only => [:new, :show, :index] do
   	resources :payments
-	resources :shipping_addresses
+		resources :shipping_addresses
     post 'api_login', :on => :collection
   end
 

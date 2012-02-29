@@ -1,9 +1,10 @@
 <%= render 'products/shop_header' %>
-<table class='table'>
+<!--<table class='table'>-->
+<table style='text-align:center' align='center'>
 <tbody>
 <tr>
 <td style="text-align:center;border-top:0px solid #C0C0C0">
-<img src='<%= @product.picture_path %>'>
+<img src='<%= @product.picture_path %>' width='90%' height='90%'>
 <br>
 <%= @product.name %>
 <br>  
@@ -11,7 +12,9 @@
 <%= number_to_currency @product.price %>
 </font>
 </td>
-<td style="text-align:center;border-left:1px solid #C0C0C0;border-top:0px solid #C0C0C0">
+<td style="width:2em">
+</td>
+<td style="text-align:center;border-top:0px solid #C0C0C0;">
 <%= form_for("invoice", :url => purchase_create_url) do |f| %>
   Ship to: <%= current_user.name %> <br>
   <%= hidden_field_tag :product_id, @product.id %>
@@ -38,14 +41,15 @@
   <%= @default_address.zip %><br>
 </h3>
 <br>
-  <%= f.submit 'Purchase', :class=>'btn btn-large btn-success',:style=>'width:15em' %>
+  <%= f.submit 'Purchase', :class=>'btn btn-large btn-success',:style=>'font-size:1.75em' %>
 	
 <% end %>
 </td>
 </tr>
 </tbody>
 </table>
-<%= link_to 'Change Credit Card', "#{new_credit_card_path}?product_id=#{@product.id}"%>
+<br>
+<%= link_to 'Update Card', "#{new_credit_card_path}?product_id=#{@product.id}"%>
 |
-<%= link_to 'Change Shipping Address',"#{new_shipping_address_path}?product_id=#{@product.id}" %> | 
+<%= link_to 'Update Address',"#{new_shipping_address_path}?product_id=#{@product.id}" %> | 
 <%= link_to 'Back to Shop',api_v1_product_inventory_display_url %>

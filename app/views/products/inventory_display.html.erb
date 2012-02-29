@@ -4,7 +4,9 @@
 Good Game! Your exclusive rewards.
 <% if user_signed_in? %>
 <%= current_user.name %>
-<%= link_to('Switch User', destroy_user_session_path, :method=>'delete')%>
+
+<%= link_to('Switch User', destroy_user_session_path, :method=>'delete', params[:flash]=>'user_logout')%>
+
 <% else %>
 <%= link_to 'Sign in', product_user_sign_in_url %> | 
 <%= link_to 'Register', product_user_register_url %>
@@ -33,13 +35,14 @@ Good Game! Your exclusive rewards.
 <% else %>
 	<%= hidden_field_tag 'user_id', -1  %>
 <% end %>
-<td style="padding:10px">
+<!--<td style="padding-left:10px;padding-right:10px;padding-bottom:0px">-->
+<td>
 	<td style="width:150px; ">
 		<!--<%= p.name %><br>-->
 		<font size='3em' color='#E56717' >
 			<%= number_to_currency p.price %>
-				</font>
-		<%= f.submit 'Get it', :class=>'btn' %>
+		</font>
+		<%= f.submit 'Redeem It!', :class=>'btn btn-primary' %>
 	</td>
 </td>
 <% end %>
