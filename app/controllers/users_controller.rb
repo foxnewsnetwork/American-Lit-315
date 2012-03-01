@@ -79,8 +79,16 @@ class UsersController < ApplicationController
 		@user = current_user
 		# get credit card info
 		# send to stripe and/or store it through post call
-		response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
-	
+		begin
+			response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
+		rescue StandardError => err
+			# catch the errors that stripe throws
+			flash[:error] = 'Credit card info errors. Please check your entry again.'
+			puts err
+			redirect_to :action=>'credit_card_new',:layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
+			return
+		end
+
 		# catch token and store that
 		token = response.zip[7][0][1]
 		puts token
@@ -93,7 +101,7 @@ class UsersController < ApplicationController
 			redirect_to :controller=>'products', :action=>'confirm_purchase', :layout => false,:user_id=>params[:user_id],:product_id=>params[:product_id]
 		else
 			puts 'we did not save the token'
-			redirect_to :action=>'new',:layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
+			redirect_to :action=>'credit_card_new',:layout=>false, :product_id=>params[:product_id],:user_id=>params[:user_id]
 		end
   end
 
@@ -109,22 +117,22 @@ class UsersController < ApplicationController
 		@success = false
 		@message = ''
 		@credit_card_token = ''
-		if params[:token].nil?
+		if params[:user_token].nil?
 			@message = 'a user token is required'
 			respond_to do |format|
 				format.json
 			end
-		elsif params[:token] == '12345'
+		elsif params[:user_token] == '12345'
 			@user = User.first
-		elsif User.find_by_token(params[:token]).nil?
+		elsif User.find_by_token(params[:user_token]).nil?
 			@message = 'your user token is invalid'
 			respond_to do |format|
 				format.json
 			end
 		else	
-			@user = User.find_by_token(params[:token])
+			@user = User.find_by_token(params[:user_token])
 			# TODO: another check to see if the card number and cvc are all correct
-			response = Stripe::Token.create(:card=>params[:card],:currency=>"usd")
+			response = Stripe::Token.create(:card=>params[:credit_card],:currency=>"usd")
 			# catch token and store that
 			token = response.zip[7][0][1]
 			# store the token in the user db

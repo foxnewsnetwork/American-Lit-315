@@ -1,6 +1,12 @@
 <h4>
 Where should we ship your reward to?
 </h4>
+   <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 <%= render 'products/shop_header' %>
 <%= form_for :shipping_addresses, :url=> create_shipping_address_url do |f| %>
 	<% if current_user %>

@@ -1,5 +1,11 @@
 <%= render 'products/shop_header' %>
 <h2>Register Your Card</h2>
+   <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 <%= form_for("card", :url => create_credit_card_url) do |f| %>
   <%= hidden_field_tag :product_id, @product_id %>
   <%= f.text_field :number, :placeholder=>'Number' %><br>
