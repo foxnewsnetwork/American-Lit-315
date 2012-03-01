@@ -46,13 +46,19 @@ class UsersController < ApplicationController
   def user_email_only_failure
 		render :layout => false
   end
+	
+	def product_user_prompt
+		@product_id = params[:product_id]
+		render :layout => false,:product_id => params[:product_id]
+	end
 
   def product_user_sign_in
 		render :layout => false
   end
 
   def product_user_register
-		render :layout => false
+		@product_id = params[:product_id]
+		render :layout => false,:product_id => params[:product_id]
   end
 
 	####################################################

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 	# TODO:This breaks redirects for publisher and companies also
 	# delete or find new solution
 	
-  def after_sign_out_path_for(user)
+  def after_sign_out_path_for(resources)
 		if current_user
 			return api_v1_product_inventory_display_path
 		end
@@ -36,14 +36,15 @@ class ApplicationController < ActionController::Base
 		# this should actually be a 404 path or something
 		root_path
   end
-
-  #def after_sign_up_path_for(users)
-	#	api_v1_product_user_shipping_address
-  #end
+	
+	#def after_sign_in_path_for(resources)
+	#	if current_user
+	#		puts "params #{params}"
+	#		return api_v1_product_confirm_purchase_path
+	#	end
+	#	root_path
+	#end	
+	
   private
 
-  # Overwriting the sign_out redirect path method
-  #def after_sign_out_path_for(resource_or_scope)
-  #  root_path
-  #end
 end

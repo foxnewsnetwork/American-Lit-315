@@ -174,9 +174,9 @@ class ProductsController < ApplicationController
 			
 		# dump into stats database
 		# api call to Stripe
-		if params[:user_id] == '-1'
+		if current_user.nil? and params[:user_id] == '-1'
 			puts 'User ID doesnt exists, routing to make user register'
-			redirect_to :controller=>'users',:action=>'product_user_register', :layout=>false, :product_id=>params[:product_id]
+			redirect_to :controller=>'users',:action=>'product_user_prompt', :layout=>false, :product_id=>params[:product_id]
 		# check if the user has a shipping address
 		elsif current_user.shipping_addresses.count == 0
 			# no shipping address!

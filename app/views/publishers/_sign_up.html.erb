@@ -4,6 +4,12 @@
 					<h3>New Platform Sign Up</h3>
 				</div>
               <div id="publisher_error"></div>
+<% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 				<div class="modal-body">
 <%= form_for("publisher", :url => publisher_registration_path,:remote => true) do |f| %>
 <%= f.text_field :name, :placeholder=>"company name" %><br>

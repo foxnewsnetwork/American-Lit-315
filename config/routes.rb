@@ -40,10 +40,9 @@ Adserver::Application.routes.draw do
       post 'api_login', :on => :collection
   end
 
-  devise_for :users do
+  devise_for :users, :controllers => {:registrations => "registrations"} do
 		get 'users', :to => "products#inventory_display", :as => :user_root
   	get 'users/sign_out'=>'devise/sessions#destroy'
-		
   end
 
   resources :users, :only => [:new, :show, :index] do
@@ -75,6 +74,8 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/confirm_purchase", :to => "products#confirm_purchase"
   match "/api/v1/product/purchase/create", :to => "products#confirm_purchase_create", :as=>:purchase_create
   match "/api/v1/product/purchase/success", :to => "products#purchase_success"
+
+  match "/api/v1/product/user_prompt" => 'users#product_user_prompt', :as => :product_user_prompt
 
   match "/api/v1/product/user_sign_in" => 'users#product_user_sign_in', :as => :product_user_sign_in
   match "/api/v1/product/user_register" => 'users#product_user_register', :as => :product_user_register

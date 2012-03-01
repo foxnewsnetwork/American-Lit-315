@@ -4,6 +4,12 @@
 					<h3>New Brand Sign Up</h3>
 				</div>
               <div id ="company_error"></div>
+<% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 				<div class="modal-body">
  <%= form_for "company", :url => company_registration_path,:remote => true do |f| %>
 
