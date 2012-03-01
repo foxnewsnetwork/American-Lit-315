@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
 			else
 				flash[:error] = 'Registration failed. Please try again.'
 				respond_to do |format|
-					format.html { redirect_to product_user_register_path, :product_id=>params[:product_id]}
+					format.html { redirect_to product_user_prompt_path, :product_id=>params[:product_id]}
 					format.js
 				end
 			end

@@ -40,8 +40,8 @@ Adserver::Application.routes.draw do
       post 'api_login', :on => :collection
   end
 
-  devise_for :users, :controllers => {:registrations => "registrations"} do
-		get 'users', :to => "products#inventory_display", :as => :user_root
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions=>"sessions"} do
+		#get 'users', :to => "products#inventory_display", :as => :user_root
   	get 'users/sign_out'=>'devise/sessions#destroy'
   end
 
