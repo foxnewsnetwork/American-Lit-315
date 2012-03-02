@@ -1,10 +1,10 @@
 # app/controllers/registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
-
   def create
 		if(params[:company])
 			@company = Company.new(params[:company])
 			puts "Enter RegistrationController" 
+
 			if @company.save
 				sign_in @company
 				respond_to do |format|

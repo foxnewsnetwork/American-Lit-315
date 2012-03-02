@@ -41,7 +41,7 @@ Adserver::Application.routes.draw do
   end
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions=>"sessions"} do
-		#get 'users', :to => "products#inventory_display", :as => :user_root
+		get 'users', :to => "products#inventory_display", :as => :user_root
   	get 'users/sign_out'=>'devise/sessions#destroy'
   end
 
