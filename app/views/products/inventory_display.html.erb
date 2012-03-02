@@ -1,7 +1,13 @@
 <%= render 'shop_header' %>
 <body>
-<h4>
+
+<div class='alert alert-success'>
+<table>
+<tr>
+<td text-align="left">
 Good Game! Your exclusive rewards.
+</td>
+<td text-align="right">
 <% if user_signed_in? %>
 <%= current_user.name %>
 
@@ -12,8 +18,10 @@ Good Game! Your exclusive rewards.
 <%= link_to 'Register', product_user_register_url %>
 
 <% end %>
-</h4>
-<br>
+</td>
+</tr>
+</table>
+</div>
 <table style="text-align:center" align="center">
 <tr>
 <% @products.each do |p| %>
