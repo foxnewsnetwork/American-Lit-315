@@ -35,7 +35,7 @@ ActionMailer::Base.smtp_settings = {
   :tls                  => true,
   :domain             => 'gmail.com', #you can also use google.com         
   :authentication     => :plain,
-  :user_name          => 'ingidio.tv@gmail.com',                           
+  :user_name          => 'gamertisers@gmail.com',                           
   :password           => 'wtfisthisbullshit11'                             
 } 
 end

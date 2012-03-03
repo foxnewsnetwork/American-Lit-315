@@ -5,7 +5,7 @@
 #curl http://0.0.0.0:3000/api/v1/users -d email=lolcat@lolcat.lolcat -d password=lolcat -d game_token=12345
 
 # user create
-curl http://0.0.0.0:3000/api/v1/users/create -d email=jack@gmail.com.com -d password=jack12 -d game_token=12345
+#curl http://0.0.0.0:3000/api/v1/users/create -d email=jack@gmail.com.com -d password=jack12 -d game_token=12345
 
 #curl http://0.0.0.0:3000/api/v1/users/create -d email=lolcat@lolcat.lolcat -d password=lolcat -d game_token=12345
 #curl http://0.0.0.0:3000/api/v1/users/create -d email=lolcat@lolcat.lolcat -d password=lolcat
@@ -13,7 +13,7 @@ curl http://0.0.0.0:3000/api/v1/users/create -d email=jack@gmail.com.com -d pass
 #curl http://0.0.0.0:3000/api/v1/users/create -d password=lolcat -d game_token=12345
 
 # Coupon Show (Get)
-curl http://0.0.0.0:3000/api/v1/coupon.json -d token=12345
+#curl http://0.0.0.0:3000/api/v1/coupon.json -d token=12345
 
 #curl http://0.0.0.0:3000/api/v1/coupon.json -d token=skladjfklajf
 #curl http://0.0.0.0:3000/api/v1/coupon.json
