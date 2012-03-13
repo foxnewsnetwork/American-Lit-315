@@ -7,4 +7,6 @@ created_at @product.created_at
 updated_at @product.updated_at
 cost @product.price
 meta_data @product.meta_data
+picture_path_small @small_path + @product.picture_file_name
+picture_path_thumb @thumb_path + @product.picture_file_name
 picture_path @path + @product.picture_file_name

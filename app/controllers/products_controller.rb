@@ -39,7 +39,10 @@ class ProductsController < ApplicationController
 		  @company = Company.find(@product.company_id)
 		end
 		# build the picture path, this should probably be put somewhere else		
-		@path = picture_path_builder(root_url, @product)
+		@small_path = picture_path_builder(root_url, @product, "small")
+		@thumb_path = picture_path_builder(root_url, @product, "thumb")
+		puts @small_path
+		puts @thumb_path
 
 		respond_to do |format|
 			format.xml
@@ -99,6 +102,11 @@ class ProductsController < ApplicationController
 		# get the output in xml format
 		@product = rand_record
 		@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
+
+		@small_path = picture_path_builder(root_url, @product, "small")
+		@thumb_path = picture_path_builder(root_url, @product, "thumb")
+		puts @small_path
+		puts @thumb_path
 
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
@@ -319,8 +327,8 @@ class ProductsController < ApplicationController
 		render :layout => false
 	end
 
-	def picture_path_builder(root_url, product)
-		@path = root_url + 'system/pictures/'+ product.id.to_s+'/medium/'
+	def picture_path_builder(root_url, product, type)
+		@path = root_url + 'system/pictures/'+ product.id.to_s+'/'+type+'/'
 	end	
 
 end
