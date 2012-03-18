@@ -3,10 +3,24 @@
 <head>
   <title>Gamertiser! | Dashboard</title>
   <%= stylesheet_link_tag "bootstrap.css","bootstrap-responsive.css" %>
-	<!--multiple jquery.js and jquery.min.js detected -->
-	<!-- protype must come before rails and after jquery. error otherwise -->
-	<%= javascript_include_tag "jquery", "jquery_ujs", "prototype","widgets", "track",  "rails"%>
-  	<%= javascript_include_tag "prettify.js", "bootstrap-transition", "bootstrap-modal", "bootstrap-tooltip", "bootstrap-tpopover", "bootstrap-button", "bootstrap-tab", "bootstrap-carousel", "bootstrap-dropdown" %>
+
+	<%= javascript_include_tag :all %>
+
+  <script src="/javascripts/bootstrap/bootstrap-transition.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-alert.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-modal.js"></script>
+
+  <script src="/javascripts/bootstrap/bootstrap-dropdown.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-scrollspy.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-tab.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-tooltip.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-popover.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-button.js"></script>
+
+  <script src="/javascripts/bootstrap/bootstrap-collapse.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-carousel.js"></script>
+  <script src="/javascripts/bootstrap/bootstrap-typeahead.js"></script>
+
 	<%= javascript_include_tag "application", :cache => true %>
 
   <%= csrf_meta_tag %>
