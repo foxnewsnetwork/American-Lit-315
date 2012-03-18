@@ -15,6 +15,7 @@ gem "json_builder", "~> 3.0.6"
 gem 'mysql2', '~> 0.2.17'
 gem 'tlsmail'
 gem 'stripe'
+gem 'pg'
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
