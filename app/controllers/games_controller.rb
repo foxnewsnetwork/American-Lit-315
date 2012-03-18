@@ -82,7 +82,7 @@ class GamesController < ApplicationController
 		# IMCT(Impression/Click_Through Data Constructs)
 		################################################
 		@daily_imct = CouponStat.select(
-				"sum(cast(impression as int)) as impressions, sum(cast(click_through) as int) as cts, created_at"
+				"sum(cast(impression as int)) as impressions, sum(cast(click_through as int)) as cts, created_at"
 			).where(
 				"game_id='#{@game.id}'"
 			).group(
