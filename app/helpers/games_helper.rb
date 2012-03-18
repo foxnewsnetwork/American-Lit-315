@@ -5,6 +5,6 @@ module GamesHelper
 		GameEarnings.select("sum(earnings) as earning").where("game_id='#{id}'").first.earning || 0
 	end
 	def totaldays_im(id)
-		CouponStat.select("sum(impression) as im").where("game_id='#{id}'").first.im || 0
+		CouponStat.select("sum(cast(impression as int)) as im").where("game_id='#{id}'").first.im || 0
 	end
 end
