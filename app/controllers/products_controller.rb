@@ -95,12 +95,23 @@ class ProductsController < ApplicationController
     # Pulls a random product record from the database 
 	# TODO: add filtering
 	def random_api
-		# get a random record number
-		offset = rand(Product.count)
-		# off set it
-		rand_record = Product.first(:offset => offset)	
-		# get the output in xml format
-		@product = rand_record
+
+		if params[:productid]
+			if params[:productid].class == Array
+				params[:productid].each do |e|
+					@product = Product.find(e)
+				end
+			else
+				@product = Product.find(params[:productid])	
+			end
+		else
+			# get a random record number
+			offset = rand(Product.count)
+			# off set it
+			rand_record = Product.first(:offset => offset)	
+			# get the output in xml format
+			@product = rand_record
+		end
 		@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
 
 		@small_path = picture_path_builder(root_url, @product, "small")
