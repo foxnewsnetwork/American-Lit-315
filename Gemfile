@@ -5,6 +5,7 @@ gem 'rake', '0.9.2.2'
 gem "builder"
 gem 'gravatar_image_tag', '~>1.0.0'
 gem 'will_paginate' , "~> 3.0.0"
+# commenting these out so i dont get charged on heroku
 #gem "thinking-sphinx", "~>2.0.4"
 #gem "flying-sphinx" , "~>0.6.0"
 gem "jquery-rails", "~> 1.0.19"
