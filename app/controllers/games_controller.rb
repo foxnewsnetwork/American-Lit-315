@@ -136,7 +136,7 @@ class GamesController < ApplicationController
 		
 			CouponStat.select("count(#{type}) as cnt"
 				).where(
-					"date_sub(curdate(), INTERVAL #{n} DAY) <= created_at 
+					"date_sub(curdate(), INTERVAL '#{n} days') <= created_at 
 					AND NOW() >= created_at 
 					AND game_id = #{game_id}
 					AND #{type} = 1"
