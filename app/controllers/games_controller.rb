@@ -72,9 +72,9 @@ class GamesController < ApplicationController
 		################################################
 		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("created_at")
 
-		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5"))
+		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("created_at").limit("5"))
 		
-		@thirtydays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("30"))
+		@thirtydays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("created_at").limit("30"))
 		@totaldays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").first.earning || 0
 		################################################
 
@@ -86,7 +86,7 @@ class GamesController < ApplicationController
 			).where(
 				"game_id='#{@game.id}'"
 			).group(
-				"date(created_at)"
+				"created_at"
 			)
 		# private method (# of days, game id, impression? or click_through?)
 		@fivedays_im = coupon_record_from_past_days(5,  @game.id, 'impression').first.cnt
