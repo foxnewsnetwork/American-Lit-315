@@ -17,7 +17,7 @@ class PublishersController < ApplicationController
 	@im_count = 0
 	@games.each do |g|
 		r = CouponStat.select(
-				"SUM(impression) as im").where(
+				"SUM(cast (impression as int)) as im").where(
 				"game_id = #{g.id}").first.im
 		if not r.nil?
 			@im_count += r

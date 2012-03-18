@@ -70,11 +70,11 @@ class GamesController < ApplicationController
 		################################################
 		# Earning Data Constructs
 		################################################
-		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("date(created_at)")
+		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("created_at")
 
-		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5"))
+		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("created_at").limit("5"))
 		
-		@thirtydays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("30"))
+		@thirtydays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("created_at").limit("30"))
 		@totaldays = GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").first.earning || 0
 		################################################
 
@@ -82,11 +82,11 @@ class GamesController < ApplicationController
 		# IMCT(Impression/Click_Through Data Constructs)
 		################################################
 		@daily_imct = CouponStat.select(
-				"sum(impression) as impressions, sum(click_through) as cts, created_at"
+				"sum(cast(impression as int)) as impressions, sum(cast(click_through as int)) as cts, created_at"
 			).where(
 				"game_id='#{@game.id}'"
 			).group(
-				"date(created_at)"
+				"created_at"
 			)
 		# private method (# of days, game id, impression? or click_through?)
 		@fivedays_im = coupon_record_from_past_days(5,  @game.id, 'impression').first.cnt
@@ -130,16 +130,16 @@ class GamesController < ApplicationController
 		 	CouponStat.select("count(#{type}) as cnt"
 				).where(
 					"game_id = #{game_id}
-					AND #{type} = 1"
+					AND #{type} = true"
 				)
 		else
 		
 			CouponStat.select("count(#{type}) as cnt"
 				).where(
-					"date_sub(curdate(), INTERVAL #{n} DAY) <= created_at 
+					"CURRENT_DATE - INTERVAL '#{n} days' <= created_at 
 					AND NOW() >= created_at 
 					AND game_id = #{game_id}
-					AND #{type} = 1"
+					AND #{type} = true"
 				)
 		end
 	end
