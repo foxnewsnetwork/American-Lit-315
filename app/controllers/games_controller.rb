@@ -130,7 +130,7 @@ class GamesController < ApplicationController
 		 	CouponStat.select("count(#{type}) as cnt"
 				).where(
 					"game_id = #{game_id}
-					AND #{type} = 1"
+					AND #{type} = true"
 				)
 		else
 		
@@ -139,7 +139,7 @@ class GamesController < ApplicationController
 					"CURRENT_DATE - INTERVAL '#{n} days' <= created_at 
 					AND NOW() >= created_at 
 					AND game_id = #{game_id}
-					AND #{type} = 1"
+					AND #{type} = true"
 				)
 		end
 	end
