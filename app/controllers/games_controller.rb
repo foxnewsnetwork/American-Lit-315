@@ -70,7 +70,7 @@ class GamesController < ApplicationController
 		################################################
 		# Earning Data Constructs
 		################################################
-		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("date(created_at)")
+		@daily_earnings = GameEarnings.select("sum(earnings) as daily_earning, created_at").where("game_id='#{@game.id}'").group("created_at")
 
 		@fivedays = sumEarnings(GameEarnings.select("sum(earnings) as earning").where("game_id='#{@game.id}'").group("date(created_at)").limit("5"))
 		
