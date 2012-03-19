@@ -95,14 +95,16 @@ class ProductsController < ApplicationController
     # Pulls a random product record from the database 
 	# TODO: add filtering
 	def random_api
-
+		@results =[]
 		if params[:productid]
 			if params[:productid].class == Array
 				params[:productid].each do |e|
 					@product = Product.find(e)
+					@results << @product
 				end
 			else
 				@product = Product.find(params[:productid])	
+				@results << @product
 			end
 		else
 			# get a random record number
@@ -111,13 +113,15 @@ class ProductsController < ApplicationController
 			rand_record = Product.first(:offset => offset)	
 			# get the output in xml format
 			@product = rand_record
+			@results << @product
+			
 		end
-		@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
+		#@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
 
-		@small_path = picture_path_builder(root_url, @product, "small")
-		@thumb_path = picture_path_builder(root_url, @product, "thumb")
-		puts @small_path
-		puts @thumb_path
+		#@small_path = picture_path_builder(root_url, @product, "small")
+		#@thumb_path = picture_path_builder(root_url, @product, "thumb")
+		#puts @small_path
+		#puts @thumb_path
 
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}

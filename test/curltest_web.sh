@@ -23,9 +23,12 @@
 #curl http://gamertiser.com/api/v1/coupon.json --request PUT --data "token=12345"
 
 # Coupon Redeem (POST)
-curl http://gamertiser.com/api/v1/coupon/redeem.json -d token=12345 -d email=hanqijing@gmail.com -d coupon_id=1
+#curl http://gamertiser.com/api/v1/coupon/redeem.json -d token=12345 -d email=hanqijing@gmail.com -d coupon_id=1
 
 #curl http://gamertiser.com/api/v1/coupon/redeem.json -d token=aefe2fwaf -d email=hanqijing@gmail.com -d coupon_id=0123
 #curl http://gamertiser.com/api/v1/coupon/redeem.json -d token=12345 -d email=hanqaefef -d coupon_id=1
 #curl http://gamertiser.com/api/v1/coupon/redeem.json
 
+# Product Show (Get)
+curl http://gamertiser.com/api/v1/product.json -d token=12345 -d productid=1
+curl http://gamertiser.com/api/v1/product.json -d token=12345

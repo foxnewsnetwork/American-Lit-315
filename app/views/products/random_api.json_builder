@@ -1,12 +1,14 @@
-company_id @product.company.id
-company_name @product.company.name
-id @product.id
-title @product.name
-description @product.description
-created_at @product.created_at
-updated_at @product.updated_at
-cost @product.price
-meta_data @product.meta_data
-picture_path_small @small_path + @product.picture_file_name
-picture_path_thumb @thumb_path + @product.picture_file_name
-picture_path @path + @product.picture_file_name
+results.each do |product| 
+	company_id product.company.id
+	company_name product.company.name
+	id product.id
+	title product.name
+	description product.description
+	created_at product.created_at
+	updated_at product.updated_at
+	cost product.price
+	meta_data product.meta_data
+	picture_path_small product.picture.url(:small)
+	picture_path_thumb product.picture.url(:thumb)
+	picture_path product.picture.url(:original)
+end
