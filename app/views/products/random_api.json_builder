@@ -1,4 +1,4 @@
-food do
+results do
 @results.each do |product| 
 	company_id product.company.id
 	company_name product.company.name
