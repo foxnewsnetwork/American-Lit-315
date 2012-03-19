@@ -1,4 +1,4 @@
-results @results.each do |product| 
+@results.each do |product| 
 	company_id product.company.id
 	company_name product.company.name
 	id product.id
