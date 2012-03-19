@@ -1,3 +1,4 @@
+food do
 @results.each do |product| 
 	company_id product.company.id
 	company_name product.company.name
@@ -11,4 +12,5 @@
 	picture_path_small product.picture.url(:small)
 	picture_path_thumb product.picture.url(:thumb)
 	picture_path product.picture.url(:original)
+end
 end
