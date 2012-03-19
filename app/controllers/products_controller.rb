@@ -99,8 +99,10 @@ class ProductsController < ApplicationController
 		if params[:productid]
 			if params[:productid].class == Array
 				params[:productid].each do |e|
-					@product = Product.find(e)
-					@results << @product
+					@product = Product.find_by_id(e)
+					if @product
+						@results << @product
+					end
 				end
 			else
 				@product = Product.find(params[:productid])	
