@@ -55,6 +55,27 @@ object_list = [c, a, p]
 object_list.each { |obj| inform(obj)}
 ###################################################
 
+###################################################
+# This generates 3 test accounts for sample/testing
+###################################################
+p = Publisher.new( :name => "blizzard", :email => "blizzard@blizzard.blizzard", :password => "blizzard", :password_confirmation => "blizzard" )
+p.game.create!(:name=>'chicken cross', :meta_data=>'food, chicken')
+g = Game.find_by_name('chicken cross')
+g.token='1'
+g.save
+
+p.game.create!(:name=>'future fighter', :meta_data=>'fight, food')
+g = Game.find_by_name('future fighter')
+g.token='12345'
+g.save
+
+# list of objects you want to seed
+object_list = [c, a, p]
+
+# seed and inform
+object_list.each { |obj| inform(obj)}
+###################################################
+
 
 ###################################################
 # this simulates first game 's redemptions
