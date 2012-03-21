@@ -11,7 +11,7 @@ gem 'will_paginate' , "~> 3.0.0"
 gem "jquery-rails", "~> 1.0.19"
 gem 'devise'
 gem "paperclip", "~> 2.0"
-gem "json_builder", "~> 3.0.6"
+gem "json_builder"
 gem 'mysql2', '~> 0.2.17'
 gem 'tlsmail'
 gem 'stripe'
