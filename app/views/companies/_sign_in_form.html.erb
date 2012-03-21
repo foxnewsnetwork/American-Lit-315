@@ -1,4 +1,4 @@
-<%= form_for "company", :url => company_session_path,:remote=>true do |f| %>
+<%= form_for "company", :url => company_session_path do |f| %>
 	<%= render "shared/error_messages",:object => @company %>
   <%= f.text_field :email,:placeholder=>"email" %><br>
   <%= f.password_field :password,:placeholder=>"password" %><br>

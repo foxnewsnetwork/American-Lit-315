@@ -23,7 +23,6 @@ class SessionsController < Devise::SessionsController
 				flash[:error] = 'Sign in failed. Please try again.'
 				respond_to do |format|
 					format.html {redirect_to product_user_prompt}
-					format.js
 				end
 			end	
 	end
