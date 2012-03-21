@@ -85,6 +85,9 @@ class ProductsController < ApplicationController
 
 	def destroy
 		@product = Product.find(params[:id])
+		@product.picture = nil
+		@product.save
+
 		@company_id = @product.company_id
 	    @company = Company.find(@company_id)
   		@product.destroy
