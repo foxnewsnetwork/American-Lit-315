@@ -137,7 +137,7 @@ class ProductsController < ApplicationController
 			if params[:token].nil?
 				# this is now turned off at Tom's request
 				puts "NO TOKEN ERROR"
-				#return format.json { render :json=> @no_token_error}
+				return format.json { render :json=> @no_token_error}
 			end
 
 			if Game.find_by_token(params[:token]).nil?
