@@ -106,28 +106,6 @@ class ProductsController < ApplicationController
     # Pulls a random product record from the database 
 	# TODO: add filtering
 	def random_api
-		@results =[]
-		if params[:productid]
-			if params[:productid].class == Array
-				params[:productid].each do |e|
-					@product = Product.find_by_id(e)
-					if @product
-						@results << @product
-					end
-				end
-			else
-				@product = Product.find(params[:productid])	
-				@results << @product
-			end
-		else
-			# get a random record number
-			offset = rand(Product.count)
-			# off set it
-			rand_record = Product.first(:offset => offset)	
-			# get the output in xml format
-			@product = rand_record
-			@results << @product
-		end
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
 
@@ -138,23 +116,43 @@ class ProductsController < ApplicationController
 				# this is now turned off at Tom's request
 				puts "NO TOKEN ERROR"
 				return format.json { render :json=> @no_token_error}
-			end
-
-			if Game.find_by_token(params[:token]).nil?
+			elsif Game.find_by_token(params[:token]).nil?
 				puts "INVALID TOKEN ERROR"
 				return format.json { render :json=> @invalid_token_error}
+			else
+				@results =[]
+				if params[:productid]
+					if params[:productid].class == Array
+						params[:productid].each do |e|
+							@product = Product.find_by_id(e)
+							if @product
+								@results << @product
+							end
+						end
+					else
+						@product = Product.find(params[:productid])	
+						@results << @product
+					end
+				else
+					# get a random record number
+					offset = rand(Product.count)
+					# off set it
+					rand_record = Product.first(:offset => offset)	
+					# get the output in xml format
+					@product = rand_record
+					@results << @product
+				end
+				# all checks passed 	
+				@game = Game.find_by_token(params[:token])
+				@game.increment!(:impressions) #increment impressions
+				@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
+				@game.save
+				@results.each do |product|
+					product.increment!(:displayed)
+				end
+				format.xml
+				format.json
 			end
-
-			# all checks passed 	
-			@game = Game.find_by_token(params[:token])
-			@game.increment!(:impressions) #increment impressions
-			@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
-			@game.save
-			@results.each do |product|
-				product.increment!(:displayed)
-			end
-			format.xml
-			format.json
 		end
 	end
 

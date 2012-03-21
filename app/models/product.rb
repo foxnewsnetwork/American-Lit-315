@@ -5,6 +5,17 @@ class Product < ActiveRecord::Base
 	
 	attr_accessible :company_id, :name, :description, :meta_data, :picture,:price,:product_type
 
+  def to_jq_upload
+    {
+      "name" => picture_file_name,
+      "size" => picture_file_size,
+      "url" => picture.url,
+      "thumbnail_url" => picture.thumb.url,
+      "delete_url" => picture_path(:id => id),
+      "delete_type" => "DELETE" 
+    }
+  end
+
 end
 
 
