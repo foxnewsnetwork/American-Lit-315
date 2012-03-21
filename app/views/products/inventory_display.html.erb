@@ -24,20 +24,29 @@ Good Game! Your exclusive rewards.
 </div>
 <table style="text-align:center" align="center">
 <tr>
-<% @products.each do |p| %>
-<td style="padding:10px">
-	<td style="width:150px; background-color: #000;border: 2px solid #C0C0C0;">
-			<img src='<%= p.picture_path %>'>
-	</td>
-</td>
-<% end %>
+	<% @products.each do |p| %>
+		<td style="padding:0px">
+			<td style="background-color: #000;border: 0px solid #C0C0C0;">
+					<%= form_for :product, :url => {:action => 'confirm_purchase'}, :html => { :multipart => true } do |f| %>
+						<%= hidden_field_tag 'product_id', p.id %>
+						<% if current_user %>
+							<%= hidden_field_tag 'user_id', current_user.id  %>
+						<% else %>
+							<%= hidden_field_tag 'user_id', -1  %>
+						<% end %>
+						<%= hidden_field_tag 'price', p.price %>
+						<%= f.submit 'Redeem It!', :class=>'btn btn-primary' %>
+					<img src='<%= p.picture.url(:original) %>' >
+					<% end %>
+			</td>
+		</td>
+	<% end %>
 </tr>
 
 <tbody>
 <% @products.each do |p| %>
 <%= form_for :product, :url => {:action => 'confirm_purchase'}, :html => { :multipart => true } do |f| %>
-<%= hidden_field_tag 'product_id', p.id %>
-
+	<%= hidden_field_tag 'product_id', p.id %>
 <% if current_user %>
 	<%= hidden_field_tag 'user_id', current_user.id  %>
 <% else %>
