@@ -1,4 +1,5 @@
 results @results do |product| 
+	if product
 	company_id product.company.id
 	company_name product.company.name
 	id product.id
@@ -11,4 +12,5 @@ results @results do |product|
 	picture_path_small root_url[0..-2] + product.picture.url(:small)
 	picture_path_thumb root_url[0..-2] + product.picture.url(:thumb)
 	picture_path root_url[0..-2] + product.picture.url(:original)
+	end
 end
