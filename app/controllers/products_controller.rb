@@ -116,15 +116,7 @@ class ProductsController < ApplicationController
 			# get the output in xml format
 			@product = rand_record
 			@results << @product
-			
 		end
-		#@path = root_url + 'system/pictures/'+@product.id.to_s+'/medium/'
-
-		#@small_path = picture_path_builder(root_url, @product, "small")
-		#@thumb_path = picture_path_builder(root_url, @product, "thumb")
-		#puts @small_path
-		#puts @thumb_path
-
 		@no_token_error = {'message'=>'no token provided'}
 		@invalid_token_error = {'message' => 'invalid token provided'}
 
@@ -132,22 +124,23 @@ class ProductsController < ApplicationController
 
 		respond_to do |format|
 			if params[:token].nil?
+				# this is now turned off at Tom's request
 				puts "NO TOKEN ERROR"
-				format.json { render :json=> @no_token_error}
-			elsif Game.find_by_token(params[:token]).nil?
-				puts "INVALID TOKEN ERROR"
-				format.json { render :json=> @invalid_token_error}
-			else
-				@game = Game.find_by_token(params[:token])
-				@game.increment!(:impressions) #increment impressions
-				@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
-				@game.save
-
-				@product.increment!(:displayed)
-				#format.html {render :xml => @product}
-				format.xml
-				format.json
+				#return format.json { render :json=> @no_token_error}
 			end
+			if Game.find_by_token(params[:token]).nil?
+				puts "INVALID TOKEN ERROR"
+				return format.json { render :json=> @invalid_token_error}
+			end
+			# all checks passed 	
+			@game = Game.find_by_token(params[:token])
+			@game.increment!(:impressions) #increment impressions
+			@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
+			@game.save
+
+			@product.increment!(:displayed)
+			format.xml
+			format.json
 		end
 	end
 
