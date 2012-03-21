@@ -106,21 +106,24 @@ class ProductsController < ApplicationController
     # Pulls a random product record from the database 
 	# TODO: add filtering
 	def random_api
-		@no_token_error = {'message'=>'no token provided'}
-		@invalid_token_error = {'message' => 'invalid token provided'}
 
 		@user = User.new
 
 		respond_to do |format|
 			if params[:token].nil?
-				# this is now turned off at Tom's request
 				puts "NO TOKEN ERROR"
-				return format.json { render :json=> @no_token_error}
+				@message='no token provided'
+				@success = false
+				return format.json
 			elsif Game.find_by_token(params[:token]).nil?
 				puts "INVALID TOKEN ERROR"
-				return format.json { render :json=> @invalid_token_error}
+				@message ='invalid token provided'
+				@success = false
+				return format.json
 			else
 				@results =[]
+				@message = 'success'
+				@success = true
 				if params[:productid]
 					if params[:productid].class == Array
 						params[:productid].each do |e|

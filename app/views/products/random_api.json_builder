@@ -1,3 +1,5 @@
+success @success
+message @message
 results @results do |product| 
 	if product
 	company_id product.company.id
