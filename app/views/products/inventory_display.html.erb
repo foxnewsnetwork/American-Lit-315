@@ -34,7 +34,6 @@ Good Game! Your exclusive rewards.
 						<% else %>
 							<%= hidden_field_tag 'user_id', -1  %>
 						<% end %>
-						<%= hidden_field_tag 'price', p.price %>
 						<!--<%= f.submit 'Redeem It!', :class=>'btn btn-primary' %>-->
 					<img src='<%= p.picture.url(:original) %>' >
 					<% end %>

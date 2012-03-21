@@ -52,7 +52,7 @@
         <%= image_tag product.picture.url(:thumb) %>
         <br>
         <td style="padding:0.5em">
-        <%= product.name %>
+				<%= link_to "#{product.name}", edit_company_product_path(current_company.id, product.id)%>
         </td>
         <td style="padding:0.5em">
         <%= product.description %>

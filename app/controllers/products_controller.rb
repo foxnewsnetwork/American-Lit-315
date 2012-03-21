@@ -3,17 +3,25 @@ class ProductsController < ApplicationController
 	# use this or add protect_from_forger :except=> :create
 	skip_before_filter :verify_authenticity_token, :except => [:create, :destroy, :update]
 
+	def edit
+		@product = Product.find(params[:id])
+		# detect if the user has no product and bump him to the correct
+		# page
+		if @product.nil?
+			@new = true
+		end
+	end
 	# PUT request, xml for the api
 	def update
 		# 2 modes of operation
-		respond_to do |format|
-			format.html do
-				# TODO: write me!
-			end
-			
-			format.xml do
-				# TODO: write me!
-			end
+		@product = Product.find(params[:id])
+
+		if @product.update_attributes(params[:product])
+			flash[:success]="Update Success!"
+			redirect_to edit_company_product_path
+		else
+			flash[:error]="Failed to updated!"
+			redirect_to edit_company_product_path
 		end
 	end
 
