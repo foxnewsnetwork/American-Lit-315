@@ -1,55 +1,30 @@
-<div class="tabbable">
-	<ul class="nav nav-tabs">
-
-			<% if publisher_signed_in? %>	
-    		<li><a href="#1" data-toggle="tab" style="font-size:3em; padding:0.5em">Brands</a></li>
-    		<li class="active"><a href="#2" data-toggle="tab" style="font-size:3em; padding:0.5em">Platforms</a></li>
-    		<!--<li><a href="#3" data-toggle="tab" style="font-size:3em; padding:0.5em">Gamers</a></li>-->
-    </ul>
-    <div class="tab-content">
-    	<div class="tab-pane" id="1">
-			<%= render "companies/home" %>
-    	</div>
-    	<div class="tab-pane active" id="2">
-			<%= render "publishers/home" %>
-			<li class=""><%= link_to "Games", publishers_path %></li>
-    	</div>
-			<!-- We don't need Gamers Part for now. Might build it into shops later on -->
-    		<!--<div class="tab-pane" id="3">
-    			<p>Coming Soon!</p>
-			<p>Check out your stats and the newest of our cool reward catalogue.</p>
-		</div>-->
-			<% else %>
-    			<li class="active"><a href="#1" data-toggle="tab" style="font-size:3em; padding:0.5em">Brands</a></li>
-    			<li><a href="#2" data-toggle="tab" style="font-size:3em; padding:0.5em">Platforms</a></li>
-    </ul>
-    <div class="tab-content">
-    	<div class="tab-pane active" id="1">
-
-			<%= render "companies/home" %>
-    	</div>
-    	<div class="tab-pane" id="2">
-			<%= render "publishers/home" %>
-    	</div>
-			<!-- We don't need Gamers Part for now. Might build it into shops later on -->
-			<% end %>	
-    	</div>
-</div>
-
 <div class="container">
-    <div class="hero-unit">
-		<div class="row">
-		
-		<div class="span6">
-		</div>
-		<div class="span6">
-		</div>
-    <h1>Heading</h1>
-    <p>Tagline</p>
-    <p>
-    <a class="btn btn-primary btn-large">
-    Learn more
+	<table style="width:100%">
+		<tr>
+			<td style="padding-top:2em; padding-bottom:2em; border-right:0px solid #C8C8C8; text-align:center">
+			<h1>
+			I am a
+			</h1>
+		<a data-toggle="modal" href="#myCompanySignUpModal" class="thumbnail">
+			<%= image_tag "brand.jpg" %>
     </a>
-    </p>
-    </div>
+			<br>
+			<a data-toggle="modal" href="#myCompanySignUpModal" class="btn btn-large btn-success">Brand</a>
+			<%= render "companies/home" %>
+			</td>
+			<td width="100em"> 
+			</td>
+			<td style="text-align:center">
+				<h1>
+				I am a
+				</h1>
+		<a data-toggle="modal" href="#myPublisherSignUpModal" class="thumbnail">
+				<%= image_tag "game.gif" %>
+		</a>
+				<br>
+				<a data-toggle="modal" href="#myPublisherSignUpModal" class="btn btn-large btn-primary">Game</a>
+				<%= render "publishers/home" %>
+			</td>
+		</tr>
+	</table>
 </div>
