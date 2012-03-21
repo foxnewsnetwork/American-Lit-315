@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="span4">
+		<h1>Edit</h1>
+	</div>
+	<div class="span4 offset4">
+		<h3>Price: <%= number_to_currency @product.price %> - Sold: <%= @product.purchased %> - Earnings: <%= number_to_currency(@product.price * @product.purchased) %></h3>
+	</div>
+</div>
+<hr>
+<%= render 'shared/error_flash' %>
+<%= form_for :product, @product, :url =>{ :action => "update"},  :html => { :multipart => true,:method=>"put" } do |form| %>
+	<%= hidden_field_tag(:company_id, current_company.id) %>
+
+<table width="695em">
+<tr>
+<td style="width:14.5em">
+	<h3>Product Name</h3>
+	<div class="input-prepend">
+	<span class="add-on" style="height:1.95em;padding-top:1em;padding-right:0.9em;padding-left:0.9em"><i class="icon-file icon-large"></i></span>
+		<%= form.text_field :name ,:style=>'width:6em;',:placeholder=>'Pretty Picture', 
+			:title=>"Your product's name",
+			:onMouseOver=>"$(this).popover('top'); "%>
+	</div>
+</td>
+
+<td>
+	<h3>Price</h3>
+	<div class="input-prepend">
+	<span class="add-on" style="height:1.95em;padding-top:1em;padding-right:0.9em;padding-left:0.9em;">
+		<font size="3em">$</font>
+	</span>
+ 	<%= form.text_field :price,:style=>'width:3em;',:placeholder=>1.00,:title=>"you pick the amount",:onMouseOver=>"$(this).popover('show');" %>
+	</div>
+</td>
+
+</tr>
+
+</table>
+
+<h3>Description</h3>
+<%= form.text_area :description,:style=>'height:100px;width:25.5em;font-size:1.75em',:placeholder=>'A description for the stuff you are selling',:title=>"A good description will help your stuff sell better.",:onMouseOver=>"$(this).popover('show');" %>
+<br>
+<br>
+
+<%= form.file_field :picture %>
+<br>
+<%= form.submit "Update",:class=>"btn btn-success btn-large" %>
+
+<% end %>
