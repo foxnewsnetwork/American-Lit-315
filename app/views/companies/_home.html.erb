@@ -34,20 +34,7 @@
 								<%= render 'companies/sign_in_form' %>
 							</td>
 							<td style="text-align:center">
-								<div id ="company_error"></div>
-								<% if flash[:notice] %>
-									<p class="notice"><%= flash[:notice] %></p>
-								<% end %>
-								<% if flash[:error] %>
-										<p class="error"><%= flash[:error] %></p>
-								<% end %>
-								<%= form_for "company", :url => company_registration_path,:remote => true do |f| %>
-									<%= f.text_field :name, :placeholder=>"company name" %><br>
-									<%= f.text_field :email, :placeholder=>"email" %><br>
-									<%= f.password_field :password, :placeholder=>'password' %><br>
-									<%= f.password_field :password_confirmation, :placeholder=>'password confirmation' %><br>
-									<%= f.submit 'Sign Up', :class=>'btn btn-large btn-success', :style=>"width:15em" %><br>
-								<% end %>
+								<%= render "companies/sign_up" %>
 							</td>
 						<% end %>
 					</tr>
