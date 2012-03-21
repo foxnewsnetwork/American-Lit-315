@@ -144,13 +144,12 @@ class ProductsController < ApplicationController
 				puts "INVALID TOKEN ERROR"
 				return format.json { render :json=> @invalid_token_error}
 			end
+
 			# all checks passed 	
-			if params[:token] and params[:token] != '12345'
-				@game = Game.find_by_token(params[:token])
-				@game.increment!(:impressions) #increment impressions
-				@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
-				@game.save
-			end
+			@game = Game.find_by_token(params[:token])
+			@game.increment!(:impressions) #increment impressions
+			@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
+			@game.save
 			@results.each do |product|
 				product.increment!(:displayed)
 			end
