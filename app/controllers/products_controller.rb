@@ -183,7 +183,7 @@ class ProductsController < ApplicationController
 		for type in Type.all do
 			rand_record = Product.find_by_product_type(type.name)
 		    if rand_record
-				rand_record['picture_path'] = picture_path_builder(root_url, rand_record) + rand_record.picture_file_name
+					rand_record['picture_path'] = root_url[0..-2] + rand_record.picture.url(:small)
 				@products << rand_record
 		    end
 	    end
