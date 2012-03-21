@@ -8,7 +8,7 @@ results @results do |product|
 	updated_at product.updated_at
 	cost product.price
 	meta_data product.meta_data
-	picture_path_small product.picture.url(:small)
-	picture_path_thumb product.picture.url(:thumb)
-	picture_path product.picture.url(:original)
+	picture_path_small root_url[0..-2] + product.picture.url(:small)
+	picture_path_thumb root_url[0..-2] + product.picture.url(:thumb)
+	picture_path root_url[0..-2] + product.picture.url(:original)
 end
