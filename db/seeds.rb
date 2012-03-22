@@ -14,10 +14,14 @@
 ###############################################
 Type.delete_all
 State.delete_all
+Game.delete_all
 
-Type.create(:name => "food")
+
+Type.create(:name => "book")
 Type.create(:name => "electronic")
+Type.create(:name => "food")
 Type.create(:name => "toy")
+Type.create(:name => "music")
 
 state_list =['AL','MT','AK','NE','AZ','NV','AR','NH','CA','NJ','CO','NM','CT','NY','DE','NC','FL','ND','GA','OH','HI','OK','ID','OR','IL','PA','IN','RI','IA','SC','KS','SD','KY','TN','LA','TX','ME','UT','MD','VT','MA','VA','MI','WA','MN','WV','MS','WI','MO','WY']
 
@@ -39,6 +43,48 @@ def inform(obj)
 		puts
 	end
 end
+###################################################
+
+###################################################
+# This generates 5 names as tags
+###################################################
+# twitter, facebook, flickr, reddit, new york times
+# wikipedia
+name_tags = ['twitter','facebook','flickr','reddit','new york times','wikipedia','cnet']
+
+def add_tag_to_type(obj, name)
+	Keyword.create(:name=>name, :type_id=>obj.id)
+	puts "Added tag #{name} to #{obj.name}"
+end
+
+t = Type.find_by_name('electronic')
+add_tag_to_type(t, 'reddit')
+add_tag_to_type(t, 'twitter')
+add_tag_to_type(t, 'cnet')
+
+t = Type.find_by_name('book')
+add_tag_to_type(t, 'wikipedia')
+add_tag_to_type(t, 'new york times')
+add_tag_to_type(t, 'cnet')
+
+t = Type.find_by_name('toy')
+add_tag_to_type(t, 'reddit')
+add_tag_to_type(t, 'flickr')
+
+t = Type.find_by_name('food')
+add_tag_to_type(t, 'flickr')
+add_tag_to_type(t, 'wikipedia')
+add_tag_to_type(t, 'new york times')
+add_tag_to_type(t, 'cnet')
+add_tag_to_type(t, 'facebook')
+add_tag_to_type(t, 'twitter')
+
+t = Type.find_by_name('music')
+add_tag_to_type(t, 'twitter')
+add_tag_to_type(t, 'facebook')
+add_tag_to_type(t, 'youtube')
+
+puts
 ###################################################
 
 ###################################################
@@ -76,7 +122,6 @@ g = Game.find_by_name('future fighter')
 g.token='12345'
 g.save
 ###################################################
-
 
 ###################################################
 # this simulates first game 's redemptions

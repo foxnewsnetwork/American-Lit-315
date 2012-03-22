@@ -124,7 +124,13 @@ class ProductsController < ApplicationController
 				@results =[]
 				@message = 'success'
 				@success = true
-				if params[:productid]
+
+				if params[:url]
+					puts "there is an url present #{params[:url]}"
+		
+					@results = parse_url(params[:url])
+					puts @results
+				elsif params[:productid]
 					if params[:productid].class == Array
 						params[:productid].each do |e|
 							@product = Product.find_by_id(e)
@@ -145,12 +151,16 @@ class ProductsController < ApplicationController
 					@product = rand_record
 					@results << @product
 				end
+
+				parse_ip(params[:ip])
+
 				# all checks passed 	
 				@game = Game.find_by_token(params[:token])
 				@game.increment!(:impressions) #increment impressions
-				@game.earnings = @game.earnings + @product.price # pay the player by the cost of product
-				@game.save
+				
 				@results.each do |product|
+					#@game.earnings = @game.earnings + product.price # pay the player by the cost of product
+					#@game.save
 					product.increment!(:displayed)
 				end
 				format.xml
@@ -313,37 +323,37 @@ class ProductsController < ApplicationController
 
   # returns the most recent purchase
   def api_invoice_token
-	# token doesn't exist
-	# token is test case
-	# token is invalid
-	# token exists
-	if params[:token].nil?
-		respond_to do |format|
-			format.json {render :json=>"{'error':'a user token is required'}"}
-		end
-	elsif params[:token] == '12345'
-		@user = User.first
-	elsif User.find_by_token(params[:token]).nil?
-		respond_to do |format|
-			format.json {render :json=>"{'error':'your user token is invalid'}"}
-		end
-	else	
-		@user = User.find_by_token(params[:token])
-		@invoice = Invoice.find_by_user(@user.id).last
-		@product = @invoice.product_id
-
-		if @invoice
+		# token doesn't exist
+		# token is test case
+		# token is invalid
+		# token exists
+		if params[:token].nil?
 			respond_to do |format|
-				format.json
+				format.json {render :json=>"{'error':'a user token is required'}"}
 			end
-		else
+		elsif params[:token] == '12345'
+			@user = User.first
+		elsif User.find_by_token(params[:token]).nil?
 			respond_to do |format|
-				format.json {render :json=>"{'error':'no invoice found'}"}
+				format.json {render :json=>"{'error':'your user token is invalid'}"}
+			end
+		else	
+			@user = User.find_by_token(params[:token])
+			@invoice = Invoice.find_by_user(@user.id).last
+			@product = @invoice.product_id
+
+			if @invoice
+				respond_to do |format|
+					format.json
+				end
+			else
+				respond_to do |format|
+					format.json {render :json=>"{'error':'no invoice found'}"}
+				end
 			end
 		end
-	end
-
   end
+
 	def purchase_success
 		render :layout=>false
 	end
@@ -351,9 +361,42 @@ class ProductsController < ApplicationController
 	def success_prompt
 		render :layout => false
 	end
+	
+	# limit the query to only products with specific tags
+	def parse_url(para)
+		if para.nil?
+			return @results
+		end
 
-	def picture_path_builder(root_url, product, type)
-		@path = root_url + 'system/pictures/'+ product.id.to_s+'/'+type+'/'
-	end	
+		@url = params[:url]
+		@tag = url_to_tag(@url)
+		# pull the id of the type where keyword = tag
+		@keywords = Keyword.where(:name=>@tag)
+		@types = []
+		@keywords.each do |x|
+			@types+=Type.where(:id=>x.type_id)
+			
+		end
+		puts @types
+
+		@products = []
+
+		@types.each do |t|
+			@products+=Product.where(:product_type=>t.name)
+		end
+		return @products
+	end
+	
+	# fill this out later when you figure out how to solve product collisions
+	def parse_ip(para)
+		if para.nil?
+		end
+	end
+
+	def url_to_tag(url)
+		url = "http://#{url}" if URI.parse(url).scheme.nil?
+		host = URI.parse(url).host.downcase
+		host.start_with?('www.') ? host[4..-5] : host[0..-5]
+	end
 
 end

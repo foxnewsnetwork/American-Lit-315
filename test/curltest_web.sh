@@ -31,8 +31,8 @@
 
 # Product Show (Get)
 #curl http://gamertiser.com/api/v1/product.json -d token=12345 -d productid=1
-#curl http://gamertiser.com/api/v1/product.json -d token=12345
-#curl http://gamertiser.com/api/v1/product.json -d token=12345 -d productid[]=1 -d productid[]=2
+curl http://gamertiser.com/api/v1/product.json -d token=12345
+curl http://gamertiser.com/api/v1/product.json -d token=12345 -d productid[]=1 -d productid[]=2
 #curl http://gamertiser.com/api/v1/product.json -d token=1 -d productid[]=1 -d productid[]=2
 #curl http://gamertiser.com/api/v1/product.json -d productid[]=1 -d productid[]=2
 curl http://gamertiser.com/api/v1/product.json

@@ -1,5 +1,8 @@
 class Type < ActiveRecord::Base
+	has_many :keyword
+
   validates :name, :presence => true, :uniqueness =>  true
+
 end
 # == Schema Information
 #
