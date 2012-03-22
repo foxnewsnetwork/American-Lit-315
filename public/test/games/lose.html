@@ -21,13 +21,23 @@ body  {
 <script src="http://gamertiser.com/javascripts/jquery.js"></script>
 
 
-<style type='text/css'>@import url('http://gamertiser.com/stylesheets/productbox_right.css');</style>
+<!--<style type='text/css'>@import url('http://gamertiser.com/stylesheets/productbox_right.css');</style>
 <script src="http://gamertiser.com/test/products/SHOP_FORM.js"></script>
 <script type="text/javascript">
 	var token = '12345'; SHOP_FORM.load(token); GAMERTISER_DISPLAY_SHOP(token);
 	initShopPosition('top', 'middle', $("#gamertiser_shop_main").width(), $("#gamertiser_shop_main").height()-20);
-</script>
+</script>-->
 
+<script>
+    function food(){
+    var idg=document.createElement("script");
+    idg.type="text/javascript"; idg.async=true;
+    idg.src="http://0.0.0.0:3000/javascripts/browser.js";
+    var s=document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(idg, s);
+    };
+food();
+</script>
 
 </body>
 </html>
