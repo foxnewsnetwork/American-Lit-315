@@ -14,6 +14,6 @@ class Keyword < ActiveRecord::Base
 	belongs_to :product
 
 	belongs_to :type
-	attr_accessible :product_id
+	attr_accessible :product_id,:name,:type_id
 end
 

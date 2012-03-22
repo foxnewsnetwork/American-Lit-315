@@ -2,10 +2,17 @@ class Product < ActiveRecord::Base
 	belongs_to :company
 
 	has_many :keyword
-
-	has_attached_file :picture, :styles => { :medium => "300x300>", :small => "100x100>", :thumb => "75x75" }
 	
 	attr_accessible :company_id, :name, :description, :meta_data, :picture,:price,:product_type
+
+	has_attached_file :picture, :styles => { :medium => "300x300>", :small => "100x100>", :thumb => "75x75" },
+			:storage => :s3,
+			:s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+			:url => "/system/:style/:hash.:extension",
+			:hash_secret => "wtfisthisbullshit11",
+			:bucket => "gamertiser"
+
+	validates_attachment_size :picture, :less_than => 2.megabytes
 
   def to_jq_upload
     {

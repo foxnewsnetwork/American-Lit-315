@@ -34,5 +34,5 @@
 #curl http://0.0.0.0:3000/api/v1/product.json -d token=12345 -d productid[]=1 -d productid[]=2
 #curl http://0.0.0.0:3000/api/v1/product.json -d token=12345 -d productid=1
 curl http://0.0.0.0:3000/api/v1/product.json -d url=www.facebook.com -d token=1
-curl http://0.0.0.0:3000/api/v1/product.json -d productid=1
+#curl http://0.0.0.0:3000/api/v1/product.json -d productid=1
 #curl http://0.0.0.0:3000/api/v1/coupon.json -d token=skladjfklajf

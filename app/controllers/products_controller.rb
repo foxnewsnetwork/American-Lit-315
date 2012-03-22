@@ -364,26 +364,30 @@ class ProductsController < ApplicationController
 	
 	# limit the query to only products with specific tags
 	def parse_url(para)
-		if para.nil?
-			return @results
-		end
-
 		@url = params[:url]
 		@tag = url_to_tag(@url)
+		puts "Tag #{@tag} founder"
+
 		# pull the id of the type where keyword = tag
 		@keywords = Keyword.where(:name=>@tag)
+		puts @keywords
+
 		@types = []
 		@keywords.each do |x|
-			@types+=Type.where(:id=>x.type_id)
-			
+			t = Type.where(:id=>x.type_id)
+			t.each do |x|
+				puts x.name
+			end
+			@types += t
 		end
-		puts @types
+		puts "line 383 #{@types}"
 
 		@products = []
-
 		@types.each do |t|
-			@products+=Product.where(:product_type=>t.name)
+			p = Product.where(:product_type=>t.name)
+			@products += p
 		end
+
 		return @products
 	end
 	

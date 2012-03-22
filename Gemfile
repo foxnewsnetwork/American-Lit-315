@@ -16,6 +16,8 @@ gem 'mysql2', '~> 0.2.17'
 gem 'tlsmail'
 gem 'stripe'
 gem 'pg'
+gem 'aws-sdk'
+gem 'aws-s3'
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
