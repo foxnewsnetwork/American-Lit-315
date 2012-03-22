@@ -23,10 +23,10 @@ Good Game! Your exclusive rewards.
 </table>
 </div>
 <table style="text-align:center" align="center">
-<tbody style="height:75px">
+<tbody>
 <tr>
 <% @products.each do |p| %>
-		<td style="height:75px;width:75px;">
+		<td>
 	<%= form_for :product, :url => {:action => 'confirm_purchase'}, :html => { :multipart => true } do |f| %>
 		<%= hidden_field_tag 'product_id', p.id %>
 		<% if current_user %>
@@ -35,7 +35,7 @@ Good Game! Your exclusive rewards.
 			<%= hidden_field_tag 'user_id', -1  %>
 		<% end %>
 			<!--<%= f.submit 'Redeem It!', :class=>'btn btn-primary' %>-->
-			<a href="#" onclick="$(this).submit()"><%= image_tag p.picture.url(:thumb) %></a>
+			<a href="#" onclick="$(this).submit()"><%= image_tag p.picture.url(:small) %></a>
 	<% end %>
 		</td>
 <% end %>
