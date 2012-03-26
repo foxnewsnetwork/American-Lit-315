@@ -1,3 +1,5 @@
+var BASE_URL = "0.0.0.0:3001";
+
 function initTabRight(){
 	$("#gamertiser_shop_tab").css("right",'0');
 	$("#gamertiser_shop_tab").css("margin-right",'-7px');
@@ -62,11 +64,12 @@ SHOP_FORM.load = function(token) {
 };
 
 SHOP_FORM.show = function() {
-  //feedback_url = 'http://gamertiser.com/' + this.gamertiser_shop_id + '?token='+ token +'&'+'coupon_id=' + coupon_id;
-  feedback_url = 'http://gamertiser.com/api/v1/product_inventory_display';
+	var url_arg = 'http://cnet.com';
+  //feedback_url = 'http://' + BASE_URL+ '/' + this.gamertiser_shop_id + '?token='+ token +'&'+'coupon_id=' + coupon_id;
+  feedback_url = 'http://'+BASE_URL+'/api/v1/product_inventory_display?url=' + url_arg;
   document.getElementById('gamertiser_shop_iframe').setAttribute("src", feedback_url);
   //javascript based
-  //document.getElementById('gamertiser_shop_overlay').style.display = "block";
+  document.getElementById('gamertiser_shop_overlay').style.display = "block";
   $('#gamertiser_shop_overlay').show(800 );
   return false;
 };
@@ -79,7 +82,7 @@ function gamertiser_tmp_product(token, coupon_id) {
 // given type:string, token:string, id:integer
 // send in the put request to increment click_through
 function gamertiser_product_click_through(type, id, token) {
-	var my_url = 'http://gamertiser.com/api/v1/' + type + '?token=' + token + '&' + type + '_id=' + id;
+	var my_url = 'http://' + BASE_URL+ '/api/v1/' + type + '?token=' + token + '&' + type + '_id=' + id;
 
     $.ajax({
 		url: my_url,
@@ -104,7 +107,7 @@ function gamertiser_show_reward_product(data, type, token) {
 function GAMERTISER_SHOW_P(type, token){
 
 	$(document).ready(function(){
-        var url = "http://gamertiser.com/api/v1/" + type +".json?token=" + token
+        var url = "http://" + BASE_URL + "api/v1/" + type +".json?token=" + token
         $.getJSON(url + "&callback=?", null,
 		function(data){
 			gamertiser_show_reward_product(data, type, token);

@@ -18,13 +18,15 @@ body  {
 <a href="index.html" style="border:0"><img style="margin-right:0; margin-left:0" src="images/boards/gameover.png" style="border:0"/></a>
 
 
-<script src="http://gamertiser.com/javascripts/jquery.js"></script>
-
-<style type='text/css'>@import url('http://gamertiser.com/test/shop/productbox_right.css');</style>
-<script src="http://gamertiser.com/test/shop/SHOP_FORM.js"></script>
+<script src="http://0.0.0.0:3001/javascripts/jquery.js"></script>
+<script>
+$("form").show(500);
+</script>
+<style type='text/css'>@import url('http://0.0.0.0:3001/test/shop/productbox_right.css');</style>
+<script src="http://0.0.0.0:3001/test/shop/SHOP_FORM.js"></script>
 <script type="text/javascript">
 	var token = '12345'; SHOP_FORM.load(token); GAMERTISER_DISPLAY_SHOP(token);
-	initShopPosition('top', 'left', $("#gamertiser_shop_main").width(), $("#gamertiser_shop_main").height()-20);
+	initShopPosition('middle', 'middle', $("#gamertiser_shop_main").width(), $("#gamertiser_shop_main").height()-20);
 </script>
 
 

@@ -196,18 +196,49 @@ class ProductsController < ApplicationController
 	# displays a page of inventory
 	def inventory_display
 		# give a record number, display that may products random products
-		@products = []
+		# always returns 4 products
+		@results_max = 4
+		@results = []
 
-		#offset = rand(Product.count)
-		# off set it
-		#rand_record = Product.first(:offset => offset)
-		for type in Type.all do
-			rand_record = Product.find_by_product_type(type.name)
-		    if rand_record
-					rand_record['picture_path'] = root_url[0..-2] + rand_record.picture.url(:small)
-				@products << rand_record
-		    end
-	    end
+		if params[:url]
+			puts "there is an url present #{params[:url]}"
+
+			@results = parse_url(params[:url])
+			if @results.count > 4
+				@results = @results[1..@results_max]
+			end
+			puts @results
+		elsif params[:productid]
+			if params[:productid].class == Array
+				for i in @results_max
+					params[:productid].each do |e|
+						@product = Product.find_by_id(e)
+						if @product
+							@results << @product
+							if @results.count > 4
+								@results = @results[1..@results_max]
+							end
+						end
+					end
+				end
+			else
+				for i in @results_max
+					@product = Product.find(params[:productid])	
+					@results << @product
+					if @results.count > 4
+						@results = @results[1..@results_max]
+					end
+				end
+			end
+		else
+			# get a random record number
+			offset = rand(Product.count)
+			# off set it
+			rand_record = Product.first(:offset => offset)	
+			# get the output in xml format
+			@product = rand_record
+			@results << @product
+		end
 
 		render :layout => false
 	end

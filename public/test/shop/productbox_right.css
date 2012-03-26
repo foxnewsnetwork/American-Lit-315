@@ -1,8 +1,8 @@
-/* =Barometer feedback tab
+/* =gamertiser feedback tab
 --------------------------------------------------------*/
 	
 a#gamertiser_shop_tab {
-	background-image:url(../images/shopbox/shop_tab.png);
+	background-image:url(../shop/images/shopbox/shop_tab.png);
 	background-color:#222222;
 	color:#FFFFFF;
 	cursor:pointer;
@@ -16,7 +16,7 @@ a#gamertiser_shop_tab {
 	z-index:100000;	
 }
 
-/* =Barometer Overlay
+/* =gamertiser Overlay background color dim or not
 --------------------------------------------------------*/
 
 #gamertiser_shop_overlay { 
@@ -39,25 +39,27 @@ a#gamertiser_shop_tab {
 	color:#333;
 	}
 
-/* =Barometer Overlay -> Main
+/* =gamertiser Overlay -> Main
 --------------------------------------------------------*/
 
 #gamertiser_shop_main { 
-	width: 560px; 
-	height: 230px; 
+	width: 530px; 
+	height: 145px; 
 	/*margin: 0 auto; 
 	margin-left: 1.5em; */
 	top:0px;
 	/*left:1em;*/
-	z-index:2; 
+	z-index:10000; 
 	position:relative; 
 	/*background-color: transparent;*/
-	background-color: #c0c0c0;
-	/*border: 1px solid #c0c0c0;*/
+	background-color: #000;
+	border: 1px solid #000;
+	-moz-border-radius: 2em 2em 2em 2em;
+	border-radius: 2em 2em 2em 2em;
 }
 
 #gamertiser_shop_main div { 
-	padding: 5px 20px 0 20px; 
+	padding: 0px 0px 0 0px; 
 	margin:0; 
 	background: #EEE; 
 	overflow:none; 
@@ -75,7 +77,7 @@ a#gamertiser_shop_tab {
 }
 
 #gamertiser_shop_overlay #gamertiser_shop_main a#gamertiser_shop_close {
-	background-image:url(../images/shopbox/gamertiser_shop_close.png);
+	background-image:url(../shop/images/shopbox/gamertiser_shop_close.png);
 	cursor:pointer;
 	height:42px;
 	outline-color:-moz-use-text-color;
@@ -91,7 +93,7 @@ a#gamertiser_shop_tab {
 }
 
 #gamertiser_shop_overlay #gamertiser_shop_main span {
-	background:url(../images/shopbox/close.png) no-repeat scroll 33px 0 transparent;
+	background:url(../shop/images/shopbox/close.png) no-repeat scroll 33px 0 transparent;
 	color:#FFFFFF;
 	cursor:pointer;
 	float:right;
@@ -102,28 +104,29 @@ a#gamertiser_shop_tab {
 }
 	
 #gamertiser_shop_iframe {
-    width: 560px;
+    width: 500px;
     height: 100%;
-    background: transparent url(../images/shopbox/gamertiser_shop_loading.png) no-repeat;
+		text-align:center;
+    background: transparent url(../shop/images/shopbox/gamertiser_shop_loading.png) no-repeat;
 }
 #gamertiser_shop_iframe.loaded {
       background: transparent;
 }
 
 
-/* =Barometer Overlay -> Main -> Overlay header
+/* =gamertiser Overlay -> Main -> Overlay header
 --------------------------------------------------------*/
 	
 #gamertiser_shop_overlay #gamertiser_shop_main #overlay_header {
- 	padding:6px 5px 1px 0; 
+ 	/*padding:6px 5px 1px 0; 
 	background-color:#333;
  	font-weight: bold; 
 	height:18px; 
-	border: solid 2px #000;
+	border: solid 2px #000;*/
 	}
 
 #gamertiser_shop_overlay #gamertiser_shop_main #overlay_header a {
-	color:#fff;
+	color:#000;
 	float:left;
 	font-size:15px;
 	margin-left:5px;
@@ -133,15 +136,15 @@ a#gamertiser_shop_tab {
 #gamertiser_shop_overlay #gamertiser_shop_main #overlay_header span {
  	float:right; 
 	height:20px; 
-	padding-right:20px; 
-	background: transparent url(../images/shopbox/close.png) no-repeat 33px 0;
+	padding-right:20px;
+	background: transparent url(../shop/images/shopbox/close.png) no-repeat 33px 0;
  	text-decoration:underline; 
 	font-size:11px; 
 	cursor:pointer; 
-	color: #fff;
+	color: #000;
 }
 	
-/* =Barometer screen id - used to close gamertiser_shop 
+/* =gamertiser screen id - used to close gamertiser_shop 
 --------------------------------------------------------*/
 	
 #gamertiser_shop_screen { 

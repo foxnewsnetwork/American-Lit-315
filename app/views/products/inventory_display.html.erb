@@ -1,7 +1,6 @@
 <%= render 'shop_header' %>
 <body>
-
-<div class='alert alert-success'>
+<!--<div class='alert alert-success'>
 <table>
 <tr>
 <td text-align="left">
@@ -10,23 +9,27 @@ Good Game! Your exclusive rewards.
 <td text-align="right">
 <% if user_signed_in? %>
 <%= current_user.name %>
-
 <%= link_to('Switch User', destroy_user_session_path, :method=>'delete', params[:flash]=>'user_logout')%>
-
 <% else %>
 <%= link_to 'Sign in', product_user_sign_in_url %> | 
 <%= link_to 'Register', product_user_register_url %>
-
 <% end %>
 </td>
 </tr>
 </table>
-</div>
-<table style="text-align:center" align="center">
+</div>-->
+<table style="" align="center">
 <tbody>
 <tr>
-<% @products.each do |p| %>
-		<td>
+<tr>
+<td colspan=4 style="color:#FFF;">
+NEW HIGH SCORE!	Here are some rewards from Bestbuy.
+</td>
+</tr>
+<!--<td style="width:100px;color:#fff;margin-bottom:5px;padding-bottom:5px;padding:5px">
+</td>-->
+<% @results.each do |p| %>
+		<td style="width:100px;height:100px; padding-right:10px; padding-left:5px">
 	<%= form_for :product, :url => {:action => 'confirm_purchase'}, :html => { :multipart => true } do |f| %>
 		<%= hidden_field_tag 'product_id', p.id %>
 		<% if current_user %>
@@ -35,7 +38,23 @@ Good Game! Your exclusive rewards.
 			<%= hidden_field_tag 'user_id', -1  %>
 		<% end %>
 			<!--<%= f.submit 'Redeem It!', :class=>'btn btn-primary' %>-->
-			<a href="#" onclick="$(this).submit()"><%= image_tag p.picture.url(:small) %></a>
+<div class="image">
+				<a href="#" onclick="$(this).submit()"><%= image_tag p.picture.url(:small),:size=>"100pxx100px",:alt=>p.description %></a>
+
+				<h6>
+					<span>
+							<span class="spacer">&nbsp;</span>
+						<font color="#ff6718;" size="2em">New!</font>
+							<span class="spacer">&nbsp;</span>
+					</span>
+				</h6>
+
+		   <p>
+					<span>$ <%=p.price%>
+							<span class="spacer">&nbsp;</span>
+					</span>
+				</p>
+		</div>
 	<% end %>
 		</td>
 <% end %>
