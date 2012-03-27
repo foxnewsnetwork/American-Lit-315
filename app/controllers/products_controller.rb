@@ -313,14 +313,6 @@ class ProductsController < ApplicationController
 		end
 	
 		if Product.find_by_id(params[:productid]).nil?
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
-				puts 'no product'
 				@message = 'no such product exits.'
 				return respond_to :json
 		end

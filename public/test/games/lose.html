@@ -30,11 +30,11 @@ body  {
 
 <script>
     function food(){
-    var idg=document.createElement("script");
-    idg.type="text/javascript"; idg.async=true;
-    idg.src="http://crunchymall.com/javascripts/browser.js";
-    var s=document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(idg, s);
+var idg=document.createElement("script");
+idg.type="text/javascript";idg.async=true;
+idg.src="http://crunchymall.com/javascripts/browser.js";
+var s=document.getElementsByTagName("head")[0];
+s.appendChild(idg, s);
     };
 food();
 </script>

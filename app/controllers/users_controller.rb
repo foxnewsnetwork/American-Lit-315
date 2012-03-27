@@ -319,9 +319,20 @@ class UsersController < ApplicationController
 			# no game token no log in (security reasons)
 			if User.find_by_email(info["email"]).nil?
 				puts 'no user by email'
-				return nil
+				# we should be nice and create the user
+				@user = User.new(:email => info["email"],:password => info["password"],:name=>info["name"] )
+				if @user.save
+					@user.token = create_new_token
+					@user.save
+					@message = "user created"
+					@success = "true"
+					@user_token = @user.token
+				else
+					return nil
+				end
 			end
-					@user = User.find_by_email(info["email"])
+			
+			@user = User.find_by_email(info["email"])
 			puts @user.email
 			puts @user.password
 
