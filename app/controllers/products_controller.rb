@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	Stripe.api_key = "9sir8teed4nvvwDoSOjBgy29k4pNy3iF"
 
 	# use this or add protect_from_forger :except=> :create
 	skip_before_filter :verify_authenticity_token, :except => [:create, :destroy, :update]
@@ -290,65 +291,116 @@ class ProductsController < ApplicationController
 		end
 	end
 
+	###########################################################3
+	# API Section
+	###########################################################3
 	def api_purchase_create
 		# user token doesn't exist
 		# token is test case
 		# token is invalid
 		# token exists
-		if params[:token].nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'a user token is required'}"}
-			end
+		# if playtoken doesn't exi
+		@message = ''
+		@success = false
+		if params[:gametoken].nil?
+				@message =  'a game token is required.'
+				return respond_to :json
 		end
-		if params[:credit_card_token].nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'a credit card token is required'}"}
-			end
+
+		if params[:productid].nil?
+				@message = 'a product id is required.'
+				return respond_to :json
 		end
-		if params[:product_id].nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'no product id'}"}
-			end
+	
+		if Product.find_by_id(params[:productid]).nil?
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				puts 'no product'
+				@message = 'no such product exits.'
+				return respond_to :json
 		end
-		@user = User.find_by_token(params[:token])
-		@product = Product.find_by_id(params[:product_id])
-		if @user.nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'your user token is invalid'}"}
-			end
+
+		if params[:usertoken].nil?
+				@message = 'a user token is required. user is not logged in?'
+				return respond_to :json
 		end
-		if @product.nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'product doesn't exist'}"}
-			end
+		
+		if User.find_by_token(params[:usertoken]).nil?
+				@message = 'no such user exists.'
+				return respond_to :json
 		end
-		if @user.credit_card_token != params[:credit_card_token]
-			respond_to do |format|
-				format.json {render :json=>"{'error':'wrong credit card'}"}
+		#check_nil_and_respond(params[:gametoken], 'a game token is required.')
+		#check_nil_and_respond(params[:productid], 'a product id is required.')
+		#@product = Product.find_by_id(params[:productid])
+		#check_nil_and_respond(@product, 'no such product exits.')
+		#check_nil_and_respond(params[:usertoken], 'a user token is required. user is not logged in?')
+		#@user = User.find_by_token(params[:usertoken])
+		#check_nil_and_respond(@user, 'no such user exists.')
+	
+		# at this point, we have User, the product the user want to buy,
+		# and where the user is buying the stuff from
+		# let's buy it
+
+		# user buy it via the Stripe API
+		# we will need to have
+		# a Stripe customer id to buy the product
+		# if not, then we need the user's credit card to credit a customer id
+		# so we can charge him or her without them submitting the credit card
+		# info again
+		@product = Product.find_by_id(params[:productid])
+		@user = User.find_by_token(params[:usertoken])
+		if @user.stripe_id.nil?
+			if params[:card].nil?
+				@message = "no credit card on file"
+				return respond_to :json	
 			end
+			#check_nil_and_respond(params[:card], "no credit card on file.")
+			# passed the check, recreate credit card	
+			create_credit_card_for_user(params[:card], @user)
 		end
-		@s = @user.shipping_addresses.find_by_default(true)
-		if @s.nil?
-			respond_to do |format|
-				format.json {render :json=>"{'error':'user doesn't have a shipping address'}"}
+
+		# check if the item needs a shipping address
+		# if not, go directly to charging and invoice
+		if params[:shipping_address_required] == 'true'
+			@s = @user.shipping_addresses.find_by_default(true)
+			if @s.nil?
+				@message = "no shipping address"
+				return respond_to :json	
 			end
+			#check_nil_and_respond(@s, "no shipping address.")
+			@shipping_address_id = @s.id
 		end
+
 		@invoice = Invoice.new(
 				:user_id =>@user.id,
 				:product_id => @product.id,
-				:shipping_address_id=> @s.id,
-				:credit_card_token =>@user.credit_card_token,
+				:shipping_address_id=> @shipping_address_id,
+				:stripe_id =>@user.stripe_id,
 				:price => @product.price
 		)
+
 		if @invoice.save
 			# TODO: send receipt email
-			respond_to do |format|
-				format.json
-			end
+			charge_customer(@user, @product)
+			@message = "purchase success"
+			@success = true
+			return respond_to :json
+			#respond_to do |format|
+			#	format.json
+			#	return
+			#end
 		else
-			respond_to do |format|
-				format.json {render :json=>"{'error':'failed to save invoice, please try again'}"}
-			end
+			@message = "failed to create invoice, please try again"
+			return respond_to :json
+			#respond_to do |format|
+			#	format.json
+			#	return
+			#end
 		end
 	end
 
@@ -393,45 +445,91 @@ class ProductsController < ApplicationController
 		render :layout => false
 	end
 	
-	# limit the query to only products with specific tags
-	def parse_url(para)
-		@url = params[:url]
-		@tag = url_to_tag(@url)
-		puts "Tag #{@tag} founder"
+	private
+		# limit the query to only products with specific tags
+		def parse_url(para)
+			@url = params[:url]
+			@tag = url_to_tag(@url)
+			puts "Tag #{@tag} founder"
 
-		# pull the id of the type where keyword = tag
-		@keywords = Keyword.where(:name=>@tag)
-		puts @keywords
+			# pull the id of the type where keyword = tag
+			@keywords = Keyword.where(:name=>@tag)
+			puts @keywords
 
-		@types = []
-		@keywords.each do |x|
-			t = Type.where(:id=>x.type_id)
-			t.each do |x|
-				puts x.name
+			@types = []
+			@keywords.each do |x|
+				t = Type.where(:id=>x.type_id)
+				t.each do |x|
+					puts x.name
+				end
+				@types += t
 			end
-			@types += t
-		end
-		puts "line 383 #{@types}"
+			puts "line 383 #{@types}"
 
-		@products = []
-		@types.each do |t|
-			p = Product.where(:product_type=>t.name)
-			@products += p
+			@products = []
+			@types.each do |t|
+				p = Product.where(:product_type=>t.name)
+				@products += p
+			end
+
+			return @products
+		end
+		
+		# fill this out later when you figure out how to solve product collisions
+		def parse_ip(para)
+			if para.nil?
+			end
 		end
 
-		return @products
-	end
+		def url_to_tag(url)
+			url = "http://#{url}" if URI.parse(url).scheme.nil?
+			host = URI.parse(url).host.downcase
+			host.start_with?('www.') ? host[4..-5] : host[0..-5]
+		end
+
+		def create_credit_card_for_user(cardhash, user)
+			# create a customer with the given credit card number
+
+			token = Stripe::Token.create( 
+				:card => { 
+					:number => cardhash[:number], 
+					:exp_month => cardhash[:expmon], 
+					:exp_year => cardhash[:expyear], 
+					:cvc => cardhash[:cvc]
+					}, 
+						:currency => "usd" 
+			)
+
+			# create a Customer
+			customer = Stripe::Customer.create(
+				:card => token.id,
+				:description => "Create new customer that we can charge."
+			)
+
+			# save the customer id
+			@user.stripe_id = customer.id
+			@user.save
+
+		end
 	
-	# fill this out later when you figure out how to solve product collisions
-	def parse_ip(para)
-		if para.nil?
+		def charge_customer(user, product)
+			# charge the Customer instead of the card
+			# convert price to integer
+			price = @product.price * 100
+			price = price.to_i
+
+			Stripe::Charge.create(
+					:amount => price, # in cents
+					:currency => "usd",
+					:customer => user.stripe_id
+			)
 		end
-	end
 
-	def url_to_tag(url)
-		url = "http://#{url}" if URI.parse(url).scheme.nil?
-		host = URI.parse(url).host.downcase
-		host.start_with?('www.') ? host[4..-5] : host[0..-5]
-	end
-
+		def check_nil_and_respond(obj, message)
+			if obj.nil?
+				@message = message
+				respond_to :json
+				return
+			end
+		end
 end

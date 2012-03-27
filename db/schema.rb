@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321224951) do
+ActiveRecord::Schema.define(:version => 20120327064749) do
 
   create_table "ad_stats", :force => true do |t|
     t.integer  "ad_id"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120321224951) do
     t.decimal  "price",               :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "stripe_id"
   end
 
   create_table "keywords", :force => true do |t|
@@ -292,7 +293,7 @@ ActiveRecord::Schema.define(:version => 20120321224951) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "token"
-    t.string   "credit_card_token"
+    t.string   "stripe_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

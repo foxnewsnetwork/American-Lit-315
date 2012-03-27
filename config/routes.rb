@@ -105,6 +105,7 @@ Adserver::Application.routes.draw do
 
   match "/api/v1/shop/last_buy" => 'products#api_invoice_token'
   match "/api/v1/shop/buy" => 'products#api_purchase_create', :via=>:post
+  match "/api/v1/product/buy" => 'products#api_purchase_create', :via=>:post
 
 
   #################################
