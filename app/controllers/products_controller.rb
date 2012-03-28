@@ -441,7 +441,7 @@ class ProductsController < ApplicationController
 		# limit the query to only products with specific tags
 		def parse_url(para)
 			@url = params[:url]
-			if @url.nil?
+			if @url.nil? 
 				@url = 'http://facebook.com'
 			end
 			@tag = url_to_tag(@url)
@@ -479,6 +479,7 @@ class ProductsController < ApplicationController
 		def url_to_tag(url)
 			url = "http://#{url}" if URI.parse(url).scheme.nil?
 			host = URI.parse(url).host.downcase
+			puts host
 			host.start_with?('www.') ? host[4..-5] : host[0..-5]
 		end
 
