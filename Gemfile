@@ -18,6 +18,7 @@ gem 'stripe'
 gem 'pg'
 gem 'aws-sdk'
 gem 'aws-s3'
+gem 'thin'
 # gem "activerecord-import", "~> 0.2.8"
 
 group :development do
