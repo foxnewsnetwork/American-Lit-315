@@ -440,11 +440,16 @@ class ProductsController < ApplicationController
 	private
 		# limit the query to only products with specific tags
 		def parse_url(para)
+			puts 'parsing url'
 			@url = params[:url]
 			if @url.nil? 
 				@url = 'http://facebook.com'
 			end
-			@tag = url_to_tag(@url)
+			begin
+				@tag = url_to_tag(@url)
+			rescue
+				@tag = 'facebook'
+			end
 			puts "Tag #{@tag} founder"
 
 			# pull the id of the type where keyword = tag
@@ -479,7 +484,7 @@ class ProductsController < ApplicationController
 		def url_to_tag(url)
 			url = "http://#{url}" if URI.parse(url).scheme.nil?
 			host = URI.parse(url).host.downcase
-			puts host
+			puts "this is host #{host}"
 			host.start_with?('www.') ? host[4..-5] : host[0..-5]
 		end
 
