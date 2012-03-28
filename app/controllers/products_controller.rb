@@ -441,6 +441,9 @@ class ProductsController < ApplicationController
 		# limit the query to only products with specific tags
 		def parse_url(para)
 			@url = params[:url]
+			if @url.nil?
+				@url = 'http://facebook.com'
+			end
 			@tag = url_to_tag(@url)
 			puts "Tag #{@tag} founder"
 
