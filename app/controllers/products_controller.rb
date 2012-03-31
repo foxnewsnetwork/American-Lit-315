@@ -28,7 +28,6 @@ class ProductsController < ApplicationController
 
 	# GET 
 	def show
-		
 		if params[:random] == 'true'
 		  # get a random product through count and offset
 		  @product = Product.first(:offset => rand(Product.count))
@@ -326,14 +325,9 @@ class ProductsController < ApplicationController
 				@message = 'no such user exists.'
 				return respond_to :json
 		end
-		#check_nil_and_respond(params[:gametoken], 'a game token is required.')
-		#check_nil_and_respond(params[:productid], 'a product id is required.')
-		#@product = Product.find_by_id(params[:productid])
-		#check_nil_and_respond(@product, 'no such product exits.')
-		#check_nil_and_respond(params[:usertoken], 'a user token is required. user is not logged in?')
-		#@user = User.find_by_token(params[:usertoken])
-		#check_nil_and_respond(@user, 'no such user exists.')
 	
+		@product = Product.find_by_id(params[:productid])
+		@user = User.find_by_token(params[:usertoken])
 		# at this point, we have User, the product the user want to buy,
 		# and where the user is buying the stuff from
 		# let's buy it
@@ -344,8 +338,6 @@ class ProductsController < ApplicationController
 		# if not, then we need the user's credit card to credit a customer id
 		# so we can charge him or her without them submitting the credit card
 		# info again
-		@product = Product.find_by_id(params[:productid])
-		@user = User.find_by_token(params[:usertoken])
 		if @user.stripe_id.nil?
 			if params[:card].nil?
 				@message = "no credit card on file"
@@ -382,17 +374,9 @@ class ProductsController < ApplicationController
 			@message = "purchase success"
 			@success = true
 			return respond_to :json
-			#respond_to do |format|
-			#	format.json
-			#	return
-			#end
 		else
 			@message = "failed to create invoice, please try again"
 			return respond_to :json
-			#respond_to do |format|
-			#	format.json
-			#	return
-			#end
 		end
 	end
 

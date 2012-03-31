@@ -204,7 +204,8 @@ class UsersController < ApplicationController
     info = Hash["email" => params[:email], "password" => params[:password],"name" => params[:username] ,"game_token" => params[:game_token]]
 
     #check if the user is legit
-	@user = user_check(info)
+		@user = user_check(info)
+	
 	# TODO: increment the appropriate info such as sign_in_counts and stuff
 	if info["game_token"].nil? or Game.find_by_token(info["game_token"]).nil?
 		@message = 'no or invalid game token'
@@ -264,7 +265,7 @@ class UsersController < ApplicationController
 	# password
 	# returns a token
 	####################################################
-  def api_user_create
+  def api_create
 	if params["game_token"].nil? or Game.find_by_token(params["game_token"]).nil?
 		@message = 'no or invalid game token'
 		@success = "false"
@@ -274,7 +275,7 @@ class UsersController < ApplicationController
 		end
 	else
 		if User.find_by_email(params["email"])
-			@message = "user already exists"
+			@message = "wrong password"
 			@success = "false"
 			@user_token = ""
 			respond_to do |format|
@@ -308,6 +309,14 @@ class UsersController < ApplicationController
     #root_path
 #  end
 
+	# if user logged in, update according to the hash
+	def api_update
+		@message = @user.errors
+		@success = "false"
+		respond_to do |format|
+			format.json 
+		end
+	end
 
   private
 

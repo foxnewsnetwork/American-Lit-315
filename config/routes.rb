@@ -5,7 +5,7 @@ Adserver::Application.routes.draw do
   match "/misc", :to => "pages#misc"
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
-  match "/documentation", :to => "pages#documentation"
+  match "/docs", :to => "pages#documentation"
 
   devise_for :publishers, :controllers => {:registrations => "registrations"} do
     get 'publishers', :to => "publishers#show",:as => :publisher_root
@@ -51,11 +51,11 @@ Adserver::Application.routes.draw do
     post 'api_login', :on => :collection
   end
 
-  ######## region API use #########
-  # Separated environment used for Pacman's TESTING
-  # fixed the style problem that was causing cancer
-  # go to home.com/api/coupon.xml to see result
+  ######## RESTful API Routes ##############
 
+	##########################################
+	# Coupon/Reward API
+	##########################################
   match "/api/v1/coupon_form", :to => "tmp_users#show" #display submit form 
   match "/api/v1/coupon_form/create", :to => "tmp_users#create" 
   match "/api/v1/coupon_form/success", :to => "tmp_users#success" 
@@ -65,9 +65,16 @@ Adserver::Application.routes.draw do
   # RESTful API for coupons
   match "/api/v1/coupon", :to => "coupons#random_api"
   match "/api/v1/coupon", :to => "coupons#update_coupon_api", :via=>:put #only put method
+
   # given a game token and an email, redeem the coupon
   match "/api/v1/coupon/redeem", :to => "tmp_users#create" 
 
+  match "/api/coupon/show", :to => "coupons#show"
+  resources :coupons
+
+	##########################################
+	# Product API
+	##########################################
   match "/api/v1/product", :to => "products#update_product_api", :via=>:put #only put method
   match "/api/v1/product", :to => "products#random_api"
 
@@ -86,16 +93,27 @@ Adserver::Application.routes.draw do
   match "/api/v1/product/user_credit_card" => 'users#credit_card_new', :as => :new_credit_card
   match "/api/v1/product/user_credit_card/create" => 'users#credit_card_create', :as => :create_credit_card
 
-  match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
+	############# Buy Product  #############
+  match "/api/v1/product/buy" => 'products#api_purchase_create', :via=>:post
 
+	############# Native Modal  #############
   match "/api/v1/product_inventory_display", :to => "products#inventory_display" #display submit form 
 
-  match "/api/coupon/show", :to => "coupons#show"
-  resources :coupons
-
-  # REST API Product Stuff
+	##########################################
+	# User API
+	# Handles:
+	# 1) Account creation
+	# 2) Account update
+	# 2.1) password
+	# 2.2) name
+	# 2.3) credit card
+	# 2.4) shipping address
+	##########################################
+  #match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
   match "/api/v1/users", :to => "users#api_login"
-  match "/api/v1/users/create", :to => "users#api_user_create"
+
+	match "/api/v1/user", :to => "users#api_create"
+	match "/api/v1/user/update", :to => "users#api_update"
 
   match "/api/v1/shipping_address" => 'shipping_addresses#api_shipping_address_token'
   match "/api/v1/shipping_address/create" => 'shipping_addresses#api_shipping_address_create', :via=>:post
@@ -104,9 +122,6 @@ Adserver::Application.routes.draw do
   match "/api/v1/user/credit_card/create" => 'users#api_credit_card_create', :via=>:post
 
   match "/api/v1/shop/last_buy" => 'products#api_invoice_token'
-  match "/api/v1/shop/buy" => 'products#api_purchase_create', :via=>:post
-  match "/api/v1/product/buy" => 'products#api_purchase_create', :via=>:post
-
 
   #################################
 
