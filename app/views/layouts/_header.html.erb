@@ -39,7 +39,7 @@
 				<ul class="dropdown-menu">
 					<li class=''><%= link_to "My Platform's Dashboard", current_publisher %><li>
 					<li class=""><%= link_to "Games", publisher_games_path(current_publisher) %><li>
-					<li class=''><%= link_to "Documentation", documentation_path %><li>
+					<li class=''><%= link_to "Documentation", docs_path %><li>
 					<li class="divider"></li>
 					<li class=""><%= link_to "Logout", destroy_publisher_session_path, :method => :delete, :class => 'links' %></li>
 					<li class=""><%= link_to "Brands", companies_path %></li>
@@ -55,7 +55,7 @@
 		<% elsif publisher_signed_in? %>
 			<li class=""><%= link_to "My Platform's Dashboard", current_publisher %><li>
 			<li class=""><%= link_to "Games", publisher_games_path(current_publisher) %><li>
-			<li class=''><%= link_to "Documentation", documentation_path %><li>
+			<li class=''><%= link_to "Documentation", docs_path %><li>
 			<li class=""><%= link_to "Logout", destroy_publisher_session_path, :method => :delete, :class => 'links' %></li>
 			<li class=""><%= link_to "Games", publishers_path %></li>
 		<% else %>
