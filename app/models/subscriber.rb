@@ -6,3 +6,14 @@ class Subscriber < ActiveRecord::Base
 
 	validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 end
+
+# == Schema Information
+#
+# Table name: subscribers
+#
+#  id         :integer(4)      not null, primary key
+#  email      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

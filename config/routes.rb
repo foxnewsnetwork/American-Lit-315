@@ -9,6 +9,8 @@ Adserver::Application.routes.draw do
   match "/contact", :to => "pages#contact"
   match "/docs", :to => "pages#documentation"
 
+	match "/front", :to=>"pages#front"
+
   #match "/subscriber/create", :to => "subscriber#create"
 	resources :subscribers, :only =>[:create] do
 	end

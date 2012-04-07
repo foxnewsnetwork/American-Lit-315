@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -48,6 +49,6 @@ end
 #  updated_at             :datetime
 #  name                   :string(255)
 #  token                  :string(255)
-#  credit_card_token      :string(255)
+#  stripe_id              :string(255)
 #
 

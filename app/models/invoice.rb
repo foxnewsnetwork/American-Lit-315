@@ -1,6 +1,7 @@
 class Invoice < ActiveRecord::Base
 end
 
+
 # == Schema Information
 #
 # Table name: invoices
@@ -13,5 +14,6 @@ end
 #  price               :decimal(8, 2)   default(0.0)
 #  created_at          :datetime
 #  updated_at          :datetime
+#  stripe_id           :string(255)
 #
 
