@@ -5,6 +5,7 @@ class CreateSubscribers < ActiveRecord::Migration
 
       t.timestamps
     end
+		add_index(:subscribers, :email, :unique=>true)
   end
 
   def self.down

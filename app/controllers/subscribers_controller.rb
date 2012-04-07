@@ -5,7 +5,7 @@ class SubscribersController < ApplicationController
 
 		if @subscriber.save
 			@success = true
-			@msg = 'Success!'
+			@msg = 'Thank you for signing up! You will be the first to know when we launch.'
 			
 			flash['msg'] = @msg
 			respond_to do |format|

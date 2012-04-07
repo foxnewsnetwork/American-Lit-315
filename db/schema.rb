@@ -269,6 +269,8 @@ ActiveRecord::Schema.define(:version => 20120406220953) do
     t.datetime "updated_at"
   end
 
+  add_index "subscribers", ["email"], :name => "index_subscribers_on_email", :unique => true
+
   create_table "tmp_users", :force => true do |t|
     t.string   "email"
     t.integer  "coupon_id"

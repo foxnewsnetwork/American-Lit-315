@@ -16,10 +16,10 @@
 	<p>
 		Sign up to see how easy it is!
 	</p>
-	<div id='response' style="display:none">
-	</div>
   <p>
 		<%= form_for "subscriber", :url => subscribers_path, :method=>'post',:remote=>true,:id=>'sub_form' do |f| %>
+			<div id='response' style="display:none;width:40.5em">
+			</div>
 			<%= f.text_field :email, :style=>'font-size:2em;height:1.5em;width:15em' %>
 			<%= f.submit "Sign Up",:class=>"btn btn-primary btn-large",:style=>'height:1.9em;font-size:2em;' %>
 		<% end %>
