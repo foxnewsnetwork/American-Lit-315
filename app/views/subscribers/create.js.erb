@@ -1,0 +1,3 @@
+$('#sub_form').hide();
+$('#response').append("<% if @success %><div class='alert alert-success'><%= @msg %></div><% else %><div class='alert alert-error'><%= @msg %></div><% end %>");
+$('#response').show(500);

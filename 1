@@ -8,10 +8,9 @@ Adserver::Application.routes.draw do
   match "/about", :to => "pages#about"
   match "/contact", :to => "pages#contact"
   match "/docs", :to => "pages#documentation"
+  match "/front", :to => "pages#front", :as => :create_subscriber
 
-  #match "/subscriber/create", :to => "subscriber#create"
-	resources :subscribers, :only =>[:create] do
-	end
+  match "/subscriber/create", :to => "subscriber#create"
 
   devise_for :publishers, :controllers => {:registrations => "registrations"} do
     get 'publishers', :to => "publishers#show",:as => :publisher_root

@@ -1,6 +1,11 @@
 class PagesController < ApplicationController
   def home
-    @company = Company.new
+		@subscriber = Subscriber.new
+		@company = Company.new
+  end
+
+  def front
+		@company = Company.new
   end
 
   def index
