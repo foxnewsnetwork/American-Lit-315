@@ -420,6 +420,15 @@ class ProductsController < ApplicationController
 	def success_prompt
 		render :layout => false
 	end
+
+	# this handles stats from crunchymall
+	def stats
+		@success = false
+		@message = 'this is not supported yet'
+		respond_to do |format|
+			format.json  
+		end
+	end
 	
 	private
 		# limit the query to only products with specific tags

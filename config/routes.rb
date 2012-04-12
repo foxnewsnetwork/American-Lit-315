@@ -133,6 +133,13 @@ Adserver::Application.routes.draw do
 
   #################################
 
+	##########################################
+	# Stats API
+	##########################################
+  match "/api/v1/stats" => 'products#stats'
+  match "/api/v1/stats" => 'products#stats', :via=>:post
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
