@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="hero-unit" style="background-image:url('images/mall.gif'); background-size:49%;background-repeat:no-repeat;background-position:right bottom;filter:alpha(opacity=100);">
+	<h1>Sell Real Products Directly in Games</h1>
+	<br>
+  <p>
+		We can easily bring your products in front of millions of gamers
+	</p>
+	<p>
+		and allow them to directly 
+		purchase them without ever
+	</p>
+	<p>
+		having to leave the game.
+	</p>
+	<br>
+	<p>
+		Sign up to see how easy it is!
+	</p>
+  <p>
+		<%= form_for "subscriber", :url => subscribers_path, :method=>'post',:remote=>true,:id=>'sub_form' do |f| %>
+			<div id='response' style="display:none;width:40.5em">
+			</div>
+			<%= f.text_field :email, :style=>'font-size:2em;height:1.5em;width:15em' %>
+			<%= f.submit "Sign Up",:class=>"btn btn-primary btn-large",:style=>'height:1.9em;font-size:2em;' %>
+		<% end %>
+  </p>
+	</div>
+</div>

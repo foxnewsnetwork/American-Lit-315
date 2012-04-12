@@ -1,0 +1,36 @@
+          <h2>Url Mode</h2>
+					<p>Or you can simply use urls. Copy and paste the below into your console. </p>
+<div class="btn-group" data-toggle="buttons-radio">
+	<button class="btn active" onclick="$('#purchase').fadeIn(500);$('#user').hide();">Buy an Item</button>
+	<button class="btn" onclick="$('#user').fadeIn(500);$('#purchase').hide();">Create User</button>
+</div>
+    <div class="tab-pane active" id="purchase">
+<pre class="prettyprint linenums lang-clj">
+curl http://gamertiser.com/api/v1/product/buy.json  \
+  -d gametoken=12345  \
+  -d usertoken=12345  \
+  -d productid=1 \
+		-d user[email]=hanqijing@gmail.com \
+		-d card[number]=4242424242424242 \
+		-d card[ccv]=123 \
+		-d card[expmon]=02 \
+		-d card[expyear]=2015 \
+  -d ip=1234567890 \
+  -d url=http://google.com
+</pre>
+		</div>
+    <div class="tab-pane" id="user" style="display:none">
+<pre class="prettyprint linenums lang-clj">
+curl http://gamertiser.com/api/v1/users.json \
+	-d email=test@gmail.com \
+	-d password=test12 \
+	-d name=hansolo \
+	-d game_token=12345 \
+</pre>
+    </div>
+     
+    <script>
+    $(function () {
+    $('.tabs a:last').tab('show')
+    })
+    </script>

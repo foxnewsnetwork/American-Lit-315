@@ -1,0 +1,16 @@
+          <h2>Easy Mode</h2>
+<p>
+Add the following code at any point in your html5 game's game flow.
+</p>
+<div class="btn-group" data-toggle="buttons-radio">
+	<button class="btn">JavaScript</button>
+</div>
+<pre class="prettyprint linenums lang-js">
+javascript:(function(){
+	var idg=document.createElement("script");
+	idg.type="text/javascript";idg.async=true;
+	idg.src="http://crunchymall.com/javascripts/browser.js";
+	var s=document.getElementsByTagName("head")[0];
+	s.appendChild(idg, s);
+})();
+</pre>

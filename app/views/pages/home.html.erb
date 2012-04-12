@@ -1,28 +1,56 @@
-<div class="container">
-	<div class="hero-unit" style="background-image:url('images/mall.gif'); background-size:49%;background-repeat:no-repeat;background-position:right bottom;filter:alpha(opacity=100);">
-	<h1>Sell Real Products Directly in Games</h1>
-	<br>
+    <div class="container" onload="prettyPrint()">
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" style="background-image:url('images/mall.gif'); background-size:49%;background-repeat:no-repeat;background-position:right bottom;filter:alpha(opacity=100);">
+        <font color="#0065d0"><h1>In-Environment Purchasing</h1></font>
+				<p></p>
+        <p>
+				Gamertiser enables easy in-environment purchasing of 
+				</p>
+				<p>
+				real products with a couple lines of code
+				</p>
+        <p>
+			 	Just copy and paste 
+					<!--<a href="#" id="display_js_control" onclick="display_code('js_exp');">some code</a>,-->
+					some code,
+				or use <a href="#" id="display_curl_control" onclick="display_code('curl_exp');">urls</a>
+				</p>
+				<div id="js_exp" class="" style="display:none">
+					<%= render "js_exp" %>
+				</div>
+				<div id="curl_exp" class="" style="display:none">
+					<%= render "curl_exp" %>
+				</div>
+				<script>
+					function display_code(id_tag) {
+						if (id_tag == "js_exp") {
+							$("#js_exp").show();
+							$("#curl_exp").hide();
+							$("#display_js_control").attr("onclick","$('#js_exp').hide();$(this).attr(\"onclick\",\"display_code('js_exp');\");");
+						} else {
+							$("#js_exp").hide();
+							$("#curl_exp").show();
+							$("#display_curl_control").attr("onclick","$('#curl_exp').hide();$(this).attr(\"onclick\",\"display_code('curl_exp');\")");
+						}
+					}					
+				</script>
+				<p>
+				and we will take of the rest for you.
+				</p>
+				<br>
+				<p>
+				Yes, it's that simple. Be the first to try it!
+				</p>
+
   <p>
-		We can easily bring your products in front of millions of gamers
-	</p>
-	<p>
-		and allow them to directly 
-		purchase them without ever
-	</p>
-	<p>
-		having to leave the game.
-	</p>
-	<br>
-	<p>
-		Sign up to see how easy it is!
-	</p>
-  <p>
-		<%= form_for "subscriber", :url => subscribers_path, :method=>'post',:remote=>true,:id=>'sub_form' do |f| %>
-			<div id='response' style="display:none;width:40.5em">
-			</div>
-			<%= f.text_field :email, :style=>'font-size:2em;height:1.5em;width:15em' %>
-			<%= f.submit "Sign Up",:class=>"btn btn-primary btn-large",:style=>'height:1.9em;font-size:2em;' %>
-		<% end %>
+    <%= form_for "subscriber", :url => subscribers_path, :method=>'post',:remote=>true,:id=>'sub_form' do |f| %>                                      
+      <div id='response' style="display:none;width:40.5em">
+      </div>
+      <%= f.text_field :email, :placeholder=>'test@example.com', :style=>'font-size:2em;height:2em;width:15em' %> 
+      <%= f.submit "Join Beta",:class=>"btn btn-primary btn-large",:style=>'height:2em;font-size:2em;' %>                                             
+    <% end %>
   </p>
-	</div>
-</div>
+	We will never ever spam you or sell your info. Ever.
+      </div>
+    </div> <!-- /container -->
+
