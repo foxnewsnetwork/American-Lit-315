@@ -21,15 +21,14 @@
   <script src="/javascripts/bootstrap/bootstrap-carousel.js"></script>
   <script src="/javascripts/bootstrap/bootstrap-typeahead.js"></script>
 
-    <link href="javascripts/src/prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="javascripts/src/prettify.js"></script>
-
+	<link href="javascripts/prettify/prettify.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="javascripts/prettify/prettify.js"></script>
 
 	<%= javascript_include_tag "application", :cache => true %>
 
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body onload="prettyPrint()">
 <%= render "layouts/header" %>
 <div class="container">
 
@@ -39,4 +38,3 @@
 <%= debug(params) if Rails.env.development? %>
 </body>
 </html>
-
