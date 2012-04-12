@@ -118,7 +118,7 @@ Adserver::Application.routes.draw do
 	# 2.4) shipping address
 	##########################################
   #match "/api/v1/user", :to => "tmp_users#create", :via=>:post #post email, coupon_id, token
-  match "/api/v1/users", :to => "users#api_login"
+	match "/api/v1/users", :to => "users#api_login"
 
 	match "/api/v1/user", :to => "users#api_create"
 	match "/api/v1/user/update", :to => "users#api_update"
