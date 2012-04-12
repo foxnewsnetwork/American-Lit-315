@@ -1,31 +1,50 @@
           <h2>Url Mode</h2>
-					<p>Or you can simply use urls. Copy and paste the below into your console. </p>
+					<p>Copy and paste the below into your console. </p>
 <div class="btn-group" data-toggle="buttons-radio">
-	<button class="btn active" onclick="$('#purchase').fadeIn(500);$('#user').hide();">Buy an Item</button>
-	<button class="btn" onclick="$('#user').fadeIn(500);$('#purchase').hide();">Create User</button>
+	<button class="btn active" onclick="$('#purchase').fadeIn(500);$('#user').hide();$('#update_payment_info').hide();$('#show_product').hide();">Buy an Item</button>
+	<button class="btn" onclick="$('#user').fadeIn(500);$('#purchase').hide();$('#update_payment_info').hide();$('#show_product').hide();">Create User</button>
+	<button class="btn" onclick="$('#update_payment_info').fadeIn(500);$('#user').hide();$('#purchase').hide();$('#show_product').hide();">Update Payment</button>
+	<button class="btn" onclick="$('#show_product').fadeIn(500);$('#user').hide();$('#purchase').hide();$('#update_payment_info').hide();">Show a Product</button>
 </div>
     <div class="tab-pane active" id="purchase">
 <pre class="prettyprint linenums lang-clj">
-curl http://gamertiser.com/api/v1/product/buy.json  \
+curl http://gamertiser.com/api/v1/product/buy \
 	-d gametoken=12345  \
 	-d usertoken=12345  \
-	-d productid=1 \
-	-d card[number]=4242424242424242 \
-	-d card[ccv]=123 \
-	-d card[expmon]=02 \
-	-d card[expyear]=2015 \
+	-d productid=1
 </pre>
 		</div>
+
     <div class="tab-pane" id="user" style="display:none">
 <pre class="prettyprint linenums lang-clj">
-curl http://gamertiser.com/api/v1/users.json \
+curl http://gamertiser.com/api/v1/users \
+	-d gametoken=12345 \
 	-d email=test@gmail.com \
 	-d password=test12 \
-	-d name=hansolo \
-	-d gametoken=12345 \
+	-d name=hansolo
 </pre>
     </div>
      
+    <div class="tab-pane" id="update_payment_info" style="display:none">
+<pre class="prettyprint linenums lang-clj">
+curl http://gamertiser.com/api/v1/users \
+	-d gametoken=12345 \
+	-d email=test@gmail.com \
+	-d password=test12 \
+	-d card[number]=4242424242424242 \
+	-d card[ccv]=123 \
+	-d card[expmon]=02 \
+	-d card[expyear]=2015
+</pre>
+    </div>
+
+    <div class="tab-pane" id="show_product" style="display:none">
+<pre class="prettyprint linenums lang-clj">
+curl http://gamertiser.com/api/v1/products \
+	-d gametoken=12345 
+</pre>
+    </div>
+
     <script>
     $(function () {
     $('.tabs a:last').tab('show')
